@@ -6,7 +6,7 @@ typedef struct packed{
 } cache_entry_t;
 
 module top #(
-    parameter CACHE_SIZE = 128,
+    parameter CACHE_SIZE = 128
 )(
     // clock and reset
     input clk,
