@@ -45,12 +45,25 @@ module top #(
     assign data_out = data_out_reg;
 
     reg [31:0] cache_data;
+    reg [31:0] mem_data;
     always_comb begin
     case (offset)
-        2'd0: cache_data = cache_entries[index].cache_line[31:0];
-        2'd1: cache_data = cache_entries[index].cache_line[63:32];
-        2'd2: cache_data = cache_entries[index].cache_line[95:64];
-        2'd3: cache_data = cache_entries[index].cache_line[127:96]; 
+        2'd0: begin
+            cache_data = cache_entries[index].cache_line[31:0];
+            mem_data = mem_data_in[31:0];
+        end
+        2'd1: begin
+            cache_data = cache_entries[index].cache_line[63:32];
+            mem_data = mem_data_in[63:32];
+        end
+        2'd2: begin
+            cache_data = cache_entries[index].cache_line[95:64];
+            mem_data = mem_data_in[95:64];
+        end
+        2'd3: begin
+            cache_data = cache_entries[index].cache_line[127:96];
+            mem_data = mem_data_in[127:96];
+        end 
     endcase
     end
 
@@ -64,7 +77,7 @@ module top #(
     end
 
     always_comb begin
-        if(mem_req) mem_data_out_reg = mem_data_in[offset * 32 + 31 : offset * 32];
+        if(mem_req) mem_data_out_reg = mem_data;
     end
 
     reg hit_reg;
