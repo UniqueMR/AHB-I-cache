@@ -1,5 +1,4 @@
 module top #(
-    parameter CACHE_LINE = 128,
     parameter CACHE_SIZE = 8192
 )(
     // clock and reset
@@ -18,6 +17,8 @@ module top #(
     input mem_ready,
     output mem_req
 );
+    parameter CACHE_LINE = 128;
+
     // parse the requested address from 
     wire [31 - $clog2(CACHE_SIZE * 8/CACHE_LINE) - $clog2(CACHE_LINE/32):0] tag;
     wire [$clog2(CACHE_SIZE * 8/CACHE_LINE)-1:0] index;
@@ -43,12 +44,22 @@ module top #(
 
     assign data_out = data_out_reg;
 
+    reg [31:0] cache_data;
+    always_comb begin
+    case (offset)
+        2'd0: cache_data = cache_entries[index].cache_line[31:0];
+        2'd1: cache_data = cache_entries[index].cache_line[63:32];
+        2'd2: cache_data = cache_entries[index].cache_line[95:64];
+        2'd3: cache_data = cache_entries[index].cache_line[127:96]; 
+    endcase
+    end
+
     always_ff @(posedge clk or negedge rst) begin
     if(~rst)    begin
         data_out_reg <= 0;
     end
     else    begin
-        if(read_en) data_out_reg <= hit ? cache_entries[index].cache_line[offset * 32 + 31 : offset * 32] : mem_data_out_reg;  
+        if(read_en) data_out_reg <= hit ? cache_data : mem_data_out_reg;  
     end
     end
 
