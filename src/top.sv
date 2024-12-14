@@ -21,7 +21,7 @@ module top #(
     // main mem interface
     output [31:0] mem_addr,
     input [127:0] mem_data_in,
-    Tinput mem_ready,
+    input mem_ready,
     output mem_req
 );
     parameter HIT=1;
@@ -41,7 +41,7 @@ module top #(
         data_out_reg <= 0;
     end
     else    begin
-        if(read_en) data_out_reg <= hit ? cache_entries[addr].data : mem_data_out_reg;  
+        if(read_en) data_out_reg <= hit ? cache_entries[addr].cache_data : mem_data_out_reg;  
     end
     end
 
@@ -57,7 +57,7 @@ module top #(
     // handle hit or miss
     always_comb begin
     hit_reg=MISS;
-    mem_req_reg=FLASE;
+    mem_req_reg=FALSE;
     if(read_en) begin
         if(cache_entries[addr].valid == HIT)  hit_reg = HIT;
         else    hit_reg = MISS;           
