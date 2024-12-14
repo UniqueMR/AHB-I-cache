@@ -28,7 +28,7 @@ module top #(
     typedef struct packed{
         reg [CACHE_LINE-1:0] cache_line;
         reg valid;
-        reg [31 - clog2(CACHE_SIZE * 8/CACHE_LINE) - $clog2(CACHE_LINE/32):0] tag;
+        reg [31 - $clog2(CACHE_SIZE * 8/CACHE_LINE) - $clog2(CACHE_LINE/32):0] tag;
     } cache_entry_t;
 
     parameter HIT=1;
