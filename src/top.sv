@@ -6,7 +6,8 @@ typedef struct packed{
 } cache_entry_t;
 
 module top #(
-    parameter CACHE_SIZE = 128
+    parameter CACHE_LINE = 128,
+    parameter CACHE_SIZE = 8192
 )(
     // clock and reset
     input clk,
@@ -24,6 +25,12 @@ module top #(
     input mem_ready,
     output mem_req
 );
+    wire [31 - clog2(CACHE_SIZE * 8/CACHE_LINE) - $clog2(CACHE_LINE/32):0] tag;
+    wire [$clog2(CACHE_SIZE * 8/CACHE_LINE)-1:0] index;
+    wire [$clog2(CACHE_LINE/32)-1:0] offset;
+
+    addr_parser #(.CACHE_LINE(CACHE_LINE), .CACHE_SIZE(CACHE_SIZE)) addr_parser_inst(.tag(tag), .index(index), .offset(offset));
+
     parameter HIT=1;
     parameter MISS=0;
     parameter TRUE=1;
