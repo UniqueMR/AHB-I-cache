@@ -1,10 +1,3 @@
-
-typedef struct packed{
-    reg [127:0] cache_data;
-    reg valid;
-    reg tag;
-} cache_entry_t;
-
 module top #(
     parameter CACHE_LINE = 128,
     parameter CACHE_SIZE = 8192
@@ -25,11 +18,18 @@ module top #(
     input mem_ready,
     output mem_req
 );
+    // parse the requested address from 
     wire [31 - clog2(CACHE_SIZE * 8/CACHE_LINE) - $clog2(CACHE_LINE/32):0] tag;
     wire [$clog2(CACHE_SIZE * 8/CACHE_LINE)-1:0] index;
     wire [$clog2(CACHE_LINE/32)-1:0] offset;
 
     addr_parser #(.CACHE_LINE(CACHE_LINE), .CACHE_SIZE(CACHE_SIZE)) addr_parser_inst(.tag(tag), .index(index), .offset(offset));
+
+    typedef struct packed{
+        reg [CACHE_LINE-1:0] cache_line;
+        reg valid;
+        reg [31 - clog2(CACHE_SIZE * 8/CACHE_LINE) - $clog2(CACHE_LINE/32):0] tag;
+    } cache_entry_t;
 
     parameter HIT=1;
     parameter MISS=0;
@@ -48,12 +48,12 @@ module top #(
         data_out_reg <= 0;
     end
     else    begin
-        if(read_en) data_out_reg <= hit ? cache_entries[addr].cache_data : mem_data_out_reg;  
+        if(read_en) data_out_reg <= hit ? cache_entries[index].cache_line[offset * 32 + 31 : offset * 32] : mem_data_out_reg;  
     end
     end
 
     always_comb begin
-        if(mem_req) mem_data_out_reg = mem_data_in[31:0];
+        if(mem_req) mem_data_out_reg = mem_data_in[offset * 32 + 31 : offset * 32];
     end
 
     reg hit_reg;
