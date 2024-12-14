@@ -1,6 +1,6 @@
 # vsim top_tb -c -do "run -all; quit;" 
-# Start time: 10:06:20 on Dec 14,2024
-# ** Note: (vsim-3812) Design is being optimized...
+# Start time: 13:09:38 on Dec 14,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # //  Questa Sim-64
 # //  Version 10.7c linux_x86_64 Aug 17 2018
 # //
@@ -16,10 +16,9 @@
 # //  18 U.S.C. Section 1905.
 # //
 # Loading sv_std.std
-# Loading work.top_sv_unit(fast)
 # Loading work.top_tb(fast)
 # run -all
 # ** Note: $finish    : ./src/tb/top_tb.sv(36)
 #    Time: 210 ns  Iteration: 0  Instance: /top_tb
-# End time: 10:06:23 on Dec 14,2024, Elapsed time: 0:00:03
+# End time: 13:09:41 on Dec 14,2024, Elapsed time: 0:00:03
 # Errors: 0, Warnings: 0

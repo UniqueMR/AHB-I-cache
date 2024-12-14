@@ -24,7 +24,7 @@ module top #(
     wire [$clog2(CACHE_SIZE * 8/CACHE_LINE)-1:0] index;
     wire [$clog2(CACHE_LINE/32)-1:0] offset;
 
-    addr_parser #(.CACHE_LINE(CACHE_LINE), .CACHE_SIZE(CACHE_SIZE)) addr_parser_inst(.tag(tag), .index(index), .offset(offset));
+    addr_parser #(.CACHE_LINE(CACHE_LINE), .CACHE_SIZE(CACHE_SIZE)) addr_parser_inst(.addr(addr), .tag(tag), .index(index), .offset(offset));
 
     typedef struct packed{
         reg [CACHE_LINE-1:0] cache_line;

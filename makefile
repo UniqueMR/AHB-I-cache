@@ -4,7 +4,7 @@ VSIM=vsim
 MODEL_SIM_WS=./model_sim/top
 MODEL_SIM_FLAGS=-c -do "run -all; quit;"
 TOP_TB_EXEC=top_tb
-TOP_TB_SRC=./src/top.sv ./src/tb/top_tb.sv
+TOP_TB_SRC=./src/top.sv ./src/addr_parser.sv ./src/tb/top_tb.sv
 
 compile_top:
 	mkdir -p $(MODEL_SIM_WS)
