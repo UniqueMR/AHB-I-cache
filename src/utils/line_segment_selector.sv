@@ -1,7 +1,7 @@
 module line_segment_selector(
     input [127:0] data_line,
     input [1:0] offset,
-    output lopgic [31:0] selected_data
+    output logic [31:0] selected_data
 );
 
 always_comb begin
