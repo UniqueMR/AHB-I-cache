@@ -46,26 +46,9 @@ module top #(
 
     reg [31:0] cache_data;
     reg [31:0] mem_data;
-    always_comb begin
-    case (offset)
-        2'd0: begin
-            cache_data = cache_entries[index].cache_line[31:0];
-            mem_data = mem_data_in[31:0];
-        end
-        2'd1: begin
-            cache_data = cache_entries[index].cache_line[63:32];
-            mem_data = mem_data_in[63:32];
-        end
-        2'd2: begin
-            cache_data = cache_entries[index].cache_line[95:64];
-            mem_data = mem_data_in[95:64];
-        end
-        2'd3: begin
-            cache_data = cache_entries[index].cache_line[127:96];
-            mem_data = mem_data_in[127:96];
-        end 
-    endcase
-    end
+
+    line_segment_selector line_segment_selector_cache_inst(cache_entries[index].cache_line, offset, cache_data);
+    line_segment_selector line_segment_selector_mem_inst(mem_data_in, offset, mem_data);
 
     always_ff @(posedge clk or negedge rst) begin
     if(~rst)    begin

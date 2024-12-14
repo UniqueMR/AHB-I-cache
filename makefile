@@ -4,7 +4,7 @@ VSIM=vsim
 MODEL_SIM_WS=./model_sim/top
 MODEL_SIM_FLAGS=-c -do "run -all; quit;"
 TOP_TB_EXEC=top_tb
-TOP_TB_SRC=./src/top.sv ./src/addr_parser.sv ./src/tb/top_tb.sv
+TOP_TB_SRC=./src/top.sv ./src/utils/addr_parser.sv ./src/utils/line_segment_selector.sv ./src/tb/top_tb.sv
 CLEAN_FILES=./src/*.swp ./src/tb/*.swp
 
 compile_top:
