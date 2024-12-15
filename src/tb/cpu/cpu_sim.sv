@@ -48,7 +48,7 @@ module cpu_sim #(
             begin request_addr = driver_obj.addr;
                 #1 read_en = driver_obj.read_en;
             end
-        join
+        join_none
     end
 
     always begin
