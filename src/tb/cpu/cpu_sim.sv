@@ -43,12 +43,13 @@ module cpu_sim #(
     end
 
     always begin
-        fork
             #REQ_FREQ driver_obj.drive_request();
-            begin request_addr = driver_obj.addr;
-                #1 read_en = driver_obj.read_en;
-            end
-        join_none
+    end
+
+    always begin
+        request_addr = driver_obj.addr;
+        read_en = driver_obj.read_en;
+        #1;
     end
 
     always begin
