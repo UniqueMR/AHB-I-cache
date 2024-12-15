@@ -11,11 +11,13 @@ class cpuDriver #(
     function void drive_request_start();
         this.addr = $urandom_range(0, 32'hFFFF_FFFF);
         this.read_en = 1;
+        $display("cpu drive request start");
     endfunction
 
     function void drive_request_end();
         this.addr = 32'd0;
         this.read_en = 0;
+        $display("cpu drive request end");
     endfunction
 
     task automatic drive_request();
