@@ -2,7 +2,7 @@ VLIB=vlib
 VLOG=vlog
 VSIM=vsim
 
-MODEL_SIM_WS=./model_sim/
+MODEL_SIM_WS=./modelsim/
 TOP_WS=$(MODEL_SIM_WS)top
 CPU_WS=$(MODEL_SIM_WS)cpu
 
