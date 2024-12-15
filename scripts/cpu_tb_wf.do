@@ -1,4 +1,4 @@
 restart -force
-vsim work.cpu_tb
+vsim ./model_sim/cpu/work.cpu_tb
 add wave /cpu_tb/requested_data
 run 1000ns

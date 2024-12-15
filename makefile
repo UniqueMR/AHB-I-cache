@@ -6,7 +6,7 @@ MODEL_SIM_WS=./model_sim/
 TOP_WS=$(MODEL_SIM_WS)top
 CPU_WS=$(MODEL_SIM_WS)cpu
 
-MODEL_SIM_FLAGS=-c -do "run -all; quit;" -wlf cpu_tb_wf.wlf work.cpu_tb
+MODEL_SIM_FLAGS=-c -do "run -all; quit;" -wlf cpu_tb_wf.wlf $(CPU_WS)/work.cpu_tb
 
 TOP_TB_EXEC=top_tb
 CPU_TB_EXEC=cpu_tb
