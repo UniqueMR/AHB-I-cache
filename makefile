@@ -6,7 +6,7 @@ MODEL_SIM_WS=./model_sim/
 TOP_WS=$(MODEL_SIM_WS)top
 CPU_WS=$(MODEL_SIM_WS)cpu
 
-MODEL_SIM_FLAGS=-c -do "run -all; quit;"
+MODEL_SIM_FLAGS=-c -do "run -all; quit;" -wlf cpu_tb_wf.wlf work.cpu_tb
 
 TOP_TB_EXEC=top_tb
 CPU_TB_EXEC=cpu_tb
@@ -35,6 +35,9 @@ compile_cpu:
 
 sim_cpu: compile_cpu
 	$(VSIM) -work $(CPU_WS) $(CPU_TB_EXEC) $(MODEL_SIM_FLAGS)
+
+wf_cpu: sim_cpu
+	$(VSIM) -do ./scripts/cpu_tb_wf.do	
 
 clean:
 	rm -rf $(CLEAN_FILES)

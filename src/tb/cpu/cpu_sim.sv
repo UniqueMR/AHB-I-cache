@@ -43,7 +43,7 @@ module cpu_sim #(
     end
 
     always begin
-            #REQ_FREQ driver_obj.drive_request();
+        #REQ_FREQ driver_obj.drive_request();
     end
 
     always begin
