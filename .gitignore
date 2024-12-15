@@ -1,5 +1,6 @@
 /documents/
 /software/
 /vm/
-/model_sim/
+/modelsim/
 .DS_Store
+model_sim.ini
