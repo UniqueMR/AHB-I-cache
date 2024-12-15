@@ -31,13 +31,12 @@ sim_top: compile_top
 	$(VSIM) -work $(TOP_WS) $(TOP_TB_EXEC) $(MODEL_SIM_FLAGS)
 
 compile_cpu:
-	mkdir -p $(CPU_WS)/work
 	$(VLIB) $(CPU_WS)/work
-	$(VMAP) work $(TOP_WS)/work
+	$(VMAP) work $(CPU_WS)/work
 	$(VLOG) -work work $(CPU_TB_SRC) 
 
 sim_cpu: compile_cpu
-	$(VSIM) -work $(CPU_WS) $(CPU_TB_EXEC) $(MODEL_SIM_FLAGS)
+	$(VSIM) $(MODEL_SIM_FLAGS)
 
 wf_cpu: sim_cpu
 	$(VSIM) -do ./scripts/cpu_tb_wf.do	
