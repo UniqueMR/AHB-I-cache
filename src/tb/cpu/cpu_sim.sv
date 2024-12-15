@@ -3,7 +3,7 @@ class cpuDriver;
     bit read_en;
 
     function new();
-        this.read_en = 1;
+        this.read_en = 0;
     endfunction
 
     function void drive_request();
@@ -30,6 +30,8 @@ module cpu_sim #(
 
     always begin
         #CLK_PERIOD driver_obj.drive_request();
+        requested_addr = driver_obj.addr;
+        read_en = driver_obj.read_en;
     end
 
 endmodule
