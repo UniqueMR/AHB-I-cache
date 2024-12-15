@@ -1,6 +1,11 @@
 class cpuDriver;
-    rand var uint addr;
-    rand var bit read_en;
+    bit [31:0] addr;
+    bit read_en;
+
+    function new ()
+        super.new();
+        this.read_en = 1;
+    endfunction
 
     function void drive_request();
         this.addr = $urandom_range(0, 32'hFFFF_FFFF);
