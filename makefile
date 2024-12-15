@@ -18,6 +18,8 @@ MEM_SIM_SRC=./src/tb/mem/mem_sim.sv
 TOP_TB_SRC=$(TOP_SRC) $(MEM_SIM_SRC) $(CPU_SIM_SRC) ./src/tb/top_tb.sv
 CPU_TB_SRC=$(CPU_SIM_SRC) ./src/tb/cpu/cpu_tb.sv
 
+CPU_WF=$(CPU_WS)/waveform/cpu_tb_wf.wlf
+
 CLEAN_FILES=./src/*.swp ./src/tb/*.swp
 
 compile_top:
@@ -35,7 +37,8 @@ compile_cpu:
 	$(VLOG) -work $(CPU_WS) $(CPU_TB_SRC) 
 
 sim_cpu: compile_cpu
-	$(VSIM) -do ./scripts/cpu_tb_wf.do
-
+	$(VSIM) -do ./scripts/cpu_tb_wf.do -c
+	$(VSIM) -view $(CPU_WF)
+	
 clean:
 	rm -rf $(CLEAN_FILES)
