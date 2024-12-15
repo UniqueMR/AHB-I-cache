@@ -16,7 +16,7 @@ module cpu_tb;
         clk = 1'b0;
         rst = 1'b0;
         #10 rst = 1'b1;
-        #200 $finish;
+        #1000 $finish;
     end
 
     always begin

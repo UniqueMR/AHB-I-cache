@@ -33,7 +33,7 @@ module top_tb;
 
         #10 rst = 1'b1;
         
-        #1000 $finish;
+        #200 $finish;
     end
 
     always begin
