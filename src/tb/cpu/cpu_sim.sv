@@ -12,7 +12,7 @@ endclass
 
 module cpu_sim(
     input clk,
-    input rst
+    input rst,
 
     input [31:0] requested_data,
     input hit,
