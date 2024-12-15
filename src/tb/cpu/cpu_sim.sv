@@ -30,7 +30,7 @@ module cpu_sim #(
 
     always begin
         #CLK_PERIOD driver_obj.drive_request();
-        requested_addr = driver_obj.addr;
+        request_addr = driver_obj.addr;
         read_en = driver_obj.read_en;
     end
 
