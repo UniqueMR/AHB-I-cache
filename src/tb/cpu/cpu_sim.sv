@@ -2,7 +2,7 @@ class cpuDriver;
     bit [31:0] addr;
     bit read_en;
 
-    function new ()
+    function new();
         super.new();
         this.read_en = 1;
     endfunction
