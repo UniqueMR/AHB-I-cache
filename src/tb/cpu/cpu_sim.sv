@@ -27,7 +27,7 @@ endclass
 
 module cpu_sim #(
     parameter REQ_FREQ=100,
-    parameter HOLD=15,
+    parameter HOLD=15
 ) (
     input [31:0] requested_data,
     input hit,
