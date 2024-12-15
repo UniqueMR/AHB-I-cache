@@ -9,7 +9,7 @@ class cpuDriver;
     function void drive_request();
         this.addr = $urandom_range(0, 32'hFFFF_FFFF);
         this.read_en = 1;
-        $$display("CPU Driver: Driving request at addr=0x%08x", addr);
+        $display("CPU Driver: Driving request at addr=0x%08x", addr);
     endfunction
 endclass
 
