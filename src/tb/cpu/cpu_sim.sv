@@ -1,10 +1,10 @@
 class cpuDriver;
-    rand uint addr;
-    rand bit read_en;
+    rand var uint addr;
+    rand var bit read_en;
 
     function void drive_request();
-        addr = $urandom_range(0, 32'hFFFF_FFFF);
-        read_en = 1;
+        this.addr = $urandom_range(0, 32'hFFFF_FFFF);
+        this.read_en = 1;
         $$display("CPU Driver: Driving request at addr=0x%08x", addr);
     endfunction
 endclass
