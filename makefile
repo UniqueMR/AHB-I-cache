@@ -7,7 +7,7 @@ MODEL_SIM_WS=./model_sim/
 TOP_WS=$(MODEL_SIM_WS)top
 CPU_WS=$(MODEL_SIM_WS)cpu
 
-MODEL_SIM_FLAGS=-c -do "run -all; quit;" -wlf cpu_tb_wf.wlf $(CPU_WS).cpu_tb
+MODEL_SIM_FLAGS=-c -do "run -all; quit;" -wlf $(CPU_WS)/cpu_tb_wf.wlf work.cpu_tb
 
 TOP_TB_EXEC=top_tb
 CPU_TB_EXEC=cpu_tb
@@ -23,8 +23,9 @@ CLEAN_FILES=./src/*.swp ./src/tb/*.swp
 
 compile_top:
 	mkdir -p $(TOP_WS)
-	$(VLIB) $(TOP_WS)
-	$(VLOG) -work $(TOP_WS) $(TOP_TB_SRC) 
+	$(VLIB) $(TOP_WS)/work
+	$(VMAP) work $(TOP_WS)/work
+	$(VLOG) -work work $(TOP_TB_SRC) 
 
 sim_top: compile_top
 	$(VSIM) -work $(TOP_WS) $(TOP_TB_EXEC) $(MODEL_SIM_FLAGS)
