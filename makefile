@@ -22,7 +22,7 @@ CPU_TB_SRC=$(CPU_SIM_SRC) ./src/tb/cpu/cpu_tb.sv
 CLEAN_FILES=./src/*.swp ./src/tb/*.swp
 
 compile_top:
-	mkdir -p $(TOP_WS)
+	mkdir -p $(TOP_WS)/work
 	$(VLIB) $(TOP_WS)/work
 	$(VMAP) work $(TOP_WS)/work
 	$(VLOG) -work work $(TOP_TB_SRC) 
