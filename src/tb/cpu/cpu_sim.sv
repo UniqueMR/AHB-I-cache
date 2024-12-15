@@ -1,4 +1,4 @@
-class cpuDriver
+class cpuDriver;
     rand uint addr;
     rand bit read_en;
 

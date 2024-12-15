@@ -1,5 +1,8 @@
 module cpu_tb;
-    logic clk, rst, hit, read_en;
+    logic clk;
+    logic rst;
+    logic hit;
+    logic read_en;
     logic [31:0] requested_data, request_addr;
     
     cpu_sim cpu_sim_inst(
