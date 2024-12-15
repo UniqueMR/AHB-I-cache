@@ -12,8 +12,8 @@ TOP_TB_EXEC=top_tb
 CPU_TB_EXEC=cpu_tb
 
 TOP_SRC=./src/top.sv ./src/utils/addr_parser.sv ./src/utils/line_segment_selector.sv
-MEM_SIM_SRC=./src/tb/cpu/cpu_sim.sv
-CPU_SIM_SRC=./src/tb/mem/mem_sim.sv
+CPU_SIM_SRC=./src/tb/cpu/cpu_sim.sv
+MEM_SIM_SRC=./src/tb/mem/mem_sim.sv
 
 TOP_TB_SRC=$(TOP_SRC) $(MEM_SIM_SRC) $(CPU_SIM_SRC) ./src/tb/top_tb.sv
 CPU_TB_SRC=$(CPU_SIM_SRC) ./src/tb/cpu/cpu_tb.sv
