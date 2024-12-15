@@ -19,8 +19,8 @@ module cpu_sim #(
 ) (
     input [31:0] requested_data,
     input hit,
-    output [31:0] request_addr,
-    output read_en
+    output logic [31:0] request_addr,
+    output logic read_en
 );
     cpuDriver driver_obj;
 
@@ -30,10 +30,9 @@ module cpu_sim #(
 
     always begin
         #CLK_PERIOD driver_obj.drive_request();
+        request_addr = driver_obj.addr;
+        read_en = driver_obj.read_en;
     end
-
-    assign request_addr = driver_obj.addr;
-    assign read_en = driver_obj.read_en;
 
 endmodule
 
