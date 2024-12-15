@@ -9,9 +9,9 @@ class cpuDriver #(
     endfunction
 
     function void drive_request_start();
+        $display("cpu drive request start");
         this.addr = $urandom_range(0, 32'hFFFF_FFFF);
         this.read_en = 1;
-        $display("cpu drive request start");
     endfunction
 
     function void drive_request_end();
