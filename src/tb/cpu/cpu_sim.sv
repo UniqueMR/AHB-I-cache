@@ -9,7 +9,6 @@ class cpuDriver;
     function void drive_request();
         this.addr = $urandom_range(0, 32'hFFFF_FFFF);
         this.read_en = 1;
-        $display("CPU Driver: Driving request at addr=0x%08x", addr);
     endfunction
 endclass
 
@@ -32,6 +31,7 @@ module cpu_sim #(
         #CLK_PERIOD driver_obj.drive_request();
         request_addr = driver_obj.addr;
         read_en = driver_obj.read_en;
+        $display("CPU Driver: Driving request at addr=0x%08x", request_addr);
     end
 
 endmodule
