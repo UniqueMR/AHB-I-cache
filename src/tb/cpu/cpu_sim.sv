@@ -1,5 +1,5 @@
 class cpuDriver #(
-    parameter HOLD
+    parameter HOLD=15
 );
     bit [31:0] addr;
     bit read_en;
@@ -34,7 +34,7 @@ module cpu_sim #(
     output logic [31:0] request_addr,
     output logic read_en
 );
-    cpuDriver driver_obj;
+    cpuDriver #(.HOLD(15)) driver_obj;
 
     initial begin
         driver_obj = new();
