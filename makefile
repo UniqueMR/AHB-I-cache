@@ -30,6 +30,7 @@ sim_top: compile_top
 
 compile_cpu:
 	mkdir -p $(CPU_WS)
+	mkdir -p $(CPU_WS)/waveform
 	$(VLIB) $(CPU_WS)
 	$(VLOG) -work $(CPU_WS) $(CPU_TB_SRC) 
 
