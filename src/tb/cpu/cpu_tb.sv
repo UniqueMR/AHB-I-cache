@@ -13,8 +13,6 @@ module cpu_tb;
     );
 
     initial begin
-        $dumpfile("modelsim/cpu/waveform/cpu_tb_wf.vcd");
-        $dumpvars(0);
         clk = 1'b0;
         rst = 1'b0;
         #10 rst = 1'b1;

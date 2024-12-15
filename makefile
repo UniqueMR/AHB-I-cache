@@ -35,7 +35,7 @@ compile_cpu:
 	$(VLOG) -work $(CPU_WS) $(CPU_TB_SRC) 
 
 sim_cpu: compile_cpu
-	$(VSIM) -work $(CPU_WS) $(CPU_TB_EXEC) $(MODEL_SIM_FLAGS)
+	$(VSIM) -do ./scripts/cpu_tb_wf.do
 
 clean:
 	rm -rf $(CLEAN_FILES)
