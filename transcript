@@ -1,6 +1,6 @@
-# vsim top_tb -c -do "run -all; quit;" 
-# Start time: 13:09:38 on Dec 14,2024
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# vsim cpu_tb -c -do "run -all; quit;" 
+# Start time: 03:40:13 on Dec 16,2024
+# ** Note: (vsim-3812) Design is being optimized...
 # //  Questa Sim-64
 # //  Version 10.7c linux_x86_64 Aug 17 2018
 # //
@@ -16,9 +16,126 @@
 # //  18 U.S.C. Section 1905.
 # //
 # Loading sv_std.std
-# Loading work.top_tb(fast)
+# Loading work.cpu_sim_sv_unit(fast)
+# Loading work.cpu_tb(fast)
 # run -all
-# ** Note: $finish    : ./src/tb/top_tb.sv(36)
-#    Time: 210 ns  Iteration: 0  Instance: /top_tb
-# End time: 13:09:41 on Dec 14,2024, Elapsed time: 0:00:03
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# cpu drive request start
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0xfbb52986
+# cpu drive request end
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# cpu drive request start
+# CPU Driver: Driving request at addr=0x0fb40028
+# cpu drive request end
+# CPU Driver: Driving request at addr=0x0fb40028
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# cpu drive request start
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x8e79e4aa
+# cpu drive request end
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# cpu drive request start
+# CPU Driver: Driving request at addr=0x4fc6a18c
+# cpu drive request end
+# CPU Driver: Driving request at addr=0x4fc6a18c
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# cpu drive request start
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x5becb7c4
+# cpu drive request end
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# cpu drive request start
+# CPU Driver: Driving request at addr=0xfbb380b7
+# cpu drive request end
+# CPU Driver: Driving request at addr=0xfbb380b7
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# cpu drive request start
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0xad591273
+# cpu drive request end
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# cpu drive request start
+# CPU Driver: Driving request at addr=0x6255a75d
+# cpu drive request end
+# CPU Driver: Driving request at addr=0x6255a75d
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# CPU Driver: Driving request at addr=0x00000000
+# ** Note: $finish    : ./src/tb/cpu/cpu_tb.sv(19)
+#    Time: 1010 ns  Iteration: 0  Instance: /cpu_tb
+# End time: 03:40:16 on Dec 16,2024, Elapsed time: 0:00:03
 # Errors: 0, Warnings: 0
