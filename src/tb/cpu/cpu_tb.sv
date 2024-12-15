@@ -5,9 +5,7 @@ module cpu_tb;
     logic read_en;
     logic [31:0] requested_data, request_addr;
     
-    cpu_sim #(
-        .CLK_PERIOD(5)
-    ) cpu_sim_inst(
+    cpu_sim cpu_sim_inst(
         .requested_data(requested_data),
         .hit(hit),
         .request_addr(request_addr),

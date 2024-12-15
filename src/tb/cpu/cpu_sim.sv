@@ -26,9 +26,8 @@ endclass
 
 
 module cpu_sim #(
-    parameter CLK_PERIOD=5
-    parameter REQ_FREQ=100
-    parameter HOLD=15
+    parameter REQ_FREQ=100,
+    parameter HOLD=15,
 ) (
     input [31:0] requested_data,
     input hit,
@@ -48,7 +47,7 @@ module cpu_sim #(
     end
 
     always begin
-        #CLK_PERIOD $display("CPU Driver: Driving request at addr=0x%08x", request_addr);
+        #10 $display("CPU Driver: Driving request at addr=0x%08x", request_addr);
     end
 
 endmodule
