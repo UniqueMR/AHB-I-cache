@@ -1,13 +1,12 @@
 VLIB=vlib
 VLOG=vlog
 VSIM=vsim
-VMAP=vmap
 
 MODEL_SIM_WS=./model_sim/
 TOP_WS=$(MODEL_SIM_WS)top
 CPU_WS=$(MODEL_SIM_WS)cpu
 
-MODEL_SIM_FLAGS=-c -do "run -all; quit;" -wlf $(CPU_WS)/cpu_tb_wf.wlf work.cpu_tb
+MODEL_SIM_FLAGS=-c -do "run -all; quit;"
 
 TOP_TB_EXEC=top_tb
 CPU_TB_EXEC=cpu_tb
@@ -22,25 +21,20 @@ CPU_TB_SRC=$(CPU_SIM_SRC) ./src/tb/cpu/cpu_tb.sv
 CLEAN_FILES=./src/*.swp ./src/tb/*.swp
 
 compile_top:
-	mkdir -p $(TOP_WS)/work
-	$(VLIB) $(TOP_WS)/work
-	$(VMAP) work $(TOP_WS)/work
-	$(VLOG) -work work $(TOP_TB_SRC) 
+	mkdir -p $(TOP_WS)
+	$(VLIB) $(TOP_WS)
+	$(VLOG) -work $(TOP_WS) $(TOP_TB_SRC) 
 
 sim_top: compile_top
 	$(VSIM) -work $(TOP_WS) $(TOP_TB_EXEC) $(MODEL_SIM_FLAGS)
 
 compile_cpu:
-	mkdir -p $(CPU_WS)/work 
-	$(VLIB) $(CPU_WS)/work
-	$(VMAP) work $(CPU_WS)/work
-	$(VLOG) -work work $(CPU_TB_SRC) 
+	mkdir -p $(CPU_WS)
+	$(VLIB) $(CPU_WS)
+	$(VLOG) -work $(CPU_WS) $(CPU_TB_SRC) 
 
 sim_cpu: compile_cpu
-	$(VSIM) $(MODEL_SIM_FLAGS)
-
-wf_cpu: sim_cpu
-	$(VSIM) -do ./scripts/cpu_tb_wf.do	
+	$(VSIM) -work $(CPU_WS) $(CPU_TB_EXEC) $(MODEL_SIM_FLAGS)
 
 clean:
 	rm -rf $(CLEAN_FILES)
