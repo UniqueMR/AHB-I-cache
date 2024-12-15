@@ -1,4 +1,6 @@
-class cpuDriver;
+class cpuDriver #(
+    parameter HOLD
+);
     bit [31:0] addr;
     bit read_en;
 
@@ -6,15 +8,27 @@ class cpuDriver;
         this.read_en = 0;
     endfunction
 
-    function void drive_request();
+    function void drive_request_start();
         this.addr = $urandom_range(0, 32'hFFFF_FFFF);
         this.read_en = 1;
     endfunction
+
+    function void drive_request_end();
+        this.addr = 32'd0;
+        this.read_en = 0;
+    endfunction
+
+    task automatic drive_request();
+        drive_request_start();
+        #(HOLD) drive_request_end(); 
+    endtask 
 endclass
 
 
 module cpu_sim #(
     parameter CLK_PERIOD=5
+    parameter REQ_FREQ=100
+    parameter HOLD=15
 ) (
     input [31:0] requested_data,
     input hit,
@@ -28,11 +42,13 @@ module cpu_sim #(
     end
 
     always begin
-        #CLK_PERIOD driver_obj.drive_request();
+        #REQ_FREQ driver_obj.drive_request();
         request_addr = driver_obj.addr;
         read_en = driver_obj.read_en;
-        $display("CPU Driver: Driving request at addr=0x%08x", request_addr);
+    end
+
+    always begin
+        #CLK_PERIOD $display("CPU Driver: Driving request at addr=0x%08x", request_addr);
     end
 
 endmodule
-
