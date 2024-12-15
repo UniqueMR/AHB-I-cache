@@ -31,6 +31,7 @@ sim_top: compile_top
 	$(VSIM) -work $(TOP_WS) $(TOP_TB_EXEC) $(MODEL_SIM_FLAGS)
 
 compile_cpu:
+	mkdir -p $(CPU_WS)/work 
 	$(VLIB) $(CPU_WS)/work
 	$(VMAP) work $(CPU_WS)/work
 	$(VLOG) -work work $(CPU_TB_SRC) 
