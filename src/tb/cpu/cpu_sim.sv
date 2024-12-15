@@ -3,7 +3,6 @@ class cpuDriver;
     bit read_en;
 
     function new();
-        super.new();
         this.read_en = 1;
     endfunction
 

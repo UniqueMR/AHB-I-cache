@@ -22,7 +22,7 @@ module cpu_tb;
     end
 
     always begin
-        clk = ~clk;
+        #5 clk = ~clk;
     end
 
 endmodule
