@@ -28,7 +28,7 @@ module mem_tb #(
                 mem_addr = 0;
                 #(MEM_REQ_FREQ - MEM_REQ_HOLD);
             end
-        join_none
+        join_any
         #SIM_TIME $finish;
     end
 endmodule
