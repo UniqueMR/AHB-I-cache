@@ -15,10 +15,12 @@ module mem_tb #(
     mem_sim mem_sim_inst(.mem_addr(mem_addr), .mem_data_in(mem_data), .mem_ready(mem_ready), .mem_req(mem_req));
 
     initial begin
+        $display("simulation start");
         clk = 0;
         mem_req = 0;
         mem_addr = 0;
-        #SIM_TIME $finish;
+        #SIM_TIME $display("simulation finished");
+        $finish;
     end
 
     always begin
