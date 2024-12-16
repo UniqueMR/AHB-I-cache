@@ -1,7 +1,7 @@
 module mem_tb #(
     parameter CLK_FREQ_HALF=5,
     parameter MEM_REQ_FREQ=100,
-    parameter MEM_REQ_HOLD=15
+    parameter MEM_REQ_HOLD=15,
     parameter SIM_TIME=1000
 );
     logic clk;
