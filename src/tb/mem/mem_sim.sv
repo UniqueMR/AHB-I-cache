@@ -21,9 +21,7 @@ endfunction
 task automatic mem_read(logic [31:0] mem_addr);
     #MEM_READ_DELAY;
     integer idx = 0;
-    for(this.mem_ptr = {this.mem_addr[$clog2(MAIN_MEM_SIZE * 8 / 32)-1:2], 2'b00}; 
-        this.mem_ptr <= {this.mem_addr[$clog2(MAIN_MEM_SIZE * 8 / 32)-1:2], 2'b11}; 
-        this.mem_ptr = this.mem_ptr + 1) begin
+    for(this.mem_ptr = {this.mem_addr[$clog2(MAIN_MEM_SIZE * 8 / 32)-1:2], 2'b00}; this.mem_ptr <= {this.mem_addr[$clog2(MAIN_MEM_SIZE * 8 / 32)-1:2], 2'b11}; this.mem_ptr = this.mem_ptr + 1) begin
         this.mem_read_val[idx * 32 + 31 : idx * 32] = this.mem_entries[this.mem_ptr];
         idx = idx + 1;
     end
