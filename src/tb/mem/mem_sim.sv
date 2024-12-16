@@ -23,7 +23,7 @@ task automatic mem_read(logic [31:0] mem_addr);
     logic [$clog2(MAIN_MEM_SIZE * 8 / 32) - 1 : 0] base_addr;
     #MEM_READ_DELAY;
     base_addr = {mem_addr[$clog2(MAIN_MEM_SIZE * 8 / 32)-1:2], 2'b00};
-    for(i = 0; i < 4; i = i + 1)
+    for(idx = 0; idx < 4; idx = idx + 1)
        this.mem_read_val[idx * 32 + 31 : idx * 32] = this.mem_entries[base_addr + idx]; 
     this.mem_ready = 1;
     #MEM_READY_HOLD this.mem_ready = 0;
