@@ -51,7 +51,7 @@ compile_mem:
 	$(VLIB) $(MEM_WS)
 	$(VLOG) -work $(MEM_WS) $(MEM_TB_SRC)
 
-sim_mem:
+sim_mem: compile_mem
 	$(VSIM) -do $(DO_MEM) -c
 	$(VSIM) -view $(MEM_WF)
 	
