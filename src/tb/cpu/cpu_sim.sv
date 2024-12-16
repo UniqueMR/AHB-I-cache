@@ -4,9 +4,10 @@ class cpuDriver #(
     bit [31:0] addr;
     bit read_en;
 
-    // function new();
-    //     this.read_en = 0;
-    // endfunction
+    function new();
+        super.new();
+        this.read_en = 0;
+    endfunction
 
     function void drive_request_start();
         $display("cpu drive request start");
