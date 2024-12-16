@@ -15,9 +15,6 @@ module mem_tb #(
         clk = 0;
         mem_req = 0;
         mem_addr = 0;
-    end
-
-    always begin
         fork
             forever begin
                 #CLK_FREQ_HALF clk = ~clk; 
