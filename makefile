@@ -5,11 +5,11 @@ VSIM=vsim
 MODEL_SIM_WS=./modelsim/
 TOP_WS=$(MODEL_SIM_WS)top
 CPU_WS=$(MODEL_SIM_WS)cpu
+MEM_WS=$(MODEL_SIM_WS)mem
 
 MODEL_SIM_FLAGS=-c -do "run -all; quit;"
 
 TOP_TB_EXEC=top_tb
-CPU_TB_EXEC=cpu_tb
 
 TOP_SRC=./src/top.sv ./src/utils/addr_parser.sv ./src/utils/line_segment_selector.sv
 CPU_SIM_SRC=./src/tb/cpu/cpu_sim.sv
@@ -17,8 +17,13 @@ MEM_SIM_SRC=./src/tb/mem/mem_sim.sv
 
 TOP_TB_SRC=$(TOP_SRC) $(MEM_SIM_SRC) $(CPU_SIM_SRC) ./src/tb/top_tb.sv
 CPU_TB_SRC=$(CPU_SIM_SRC) ./src/tb/cpu/cpu_tb.sv
+MEM_TB_SRC=$(MEM_SIM_SRC) ./src/tb/mem/mem_tb.sv
+
+DO_CPU=./scripts/cpu_tb_wf.do
+DO_MEM=./scripts/mem_tb_wf.do
 
 CPU_WF=$(CPU_WS)/waveform/cpu_tb_wf.wlf
+MEM_WF=$(MEM_WS)/waveform/mem_tb_wf.wlf
 
 CLEAN_FILES=./src/*.swp ./src/tb/*.swp
 
@@ -37,8 +42,18 @@ compile_cpu:
 	$(VLOG) -work $(CPU_WS) $(CPU_TB_SRC) 
 
 sim_cpu: compile_cpu
-	$(VSIM) -do ./scripts/cpu_tb_wf.do -c
+	$(VSIM) -do $(DO_CPU) -c
 	$(VSIM) -view $(CPU_WF)
+
+compile_mem:
+	mkdir -p $(MEM_WS)
+	mkdir -p $(MEM_WS)/waveform
+	$(VLIB) $(MEM_WS)
+	$(VLOG) -work $(MEM_WS) $(MEM_TB_SRC)
+
+sim_mem:
+	$(VSIM) -do $(DO_MEM) -c
+	$(VSIM) -view $(MEM_WF)
 	
 clean:
 	rm -rf $(CLEAN_FILES)
