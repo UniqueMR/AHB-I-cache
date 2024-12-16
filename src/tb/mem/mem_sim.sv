@@ -65,7 +65,7 @@ always begin
 
     else begin
         if(mem_req) driver_obj.mem_read(mem_addr);
-        #1;
+        #100;
     end
 end
 
