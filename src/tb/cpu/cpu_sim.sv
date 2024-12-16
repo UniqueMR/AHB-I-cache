@@ -29,7 +29,8 @@ endclass
 
 module cpu_sim #(
     parameter REQ_FREQ=100,
-    parameter HOLD=15
+    parameter HOLD=15,
+    parameter INIT_DELAY=10
 ) (
     input [31:0] requested_data,
     input hit,
@@ -40,12 +41,14 @@ module cpu_sim #(
 
     initial begin
         driver_obj = new();
-        #10;
     end
 
     always begin
-        driver_obj.drive_request();
-        #(REQ_FREQ - HOLD);
+        #INIT_DELAY;
+        forever begin
+            driver_obj.drive_request();
+            #(REQ_FREQ - HOLD);
+        end
     end
 
     always begin
