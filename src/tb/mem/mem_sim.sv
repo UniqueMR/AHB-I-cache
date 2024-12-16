@@ -53,14 +53,17 @@ module mem_sim #(
 );
 
 memDrive driver_obj;
+bit init_done;
 
 initial begin
     driver_obj = new();
+    init_done = 0;
 end
 
 always begin
-    #INIT_DELAY;
-    forever begin
+    if(~init_done)  #INIT_DELAY init_done = 1;
+
+    else begin
         if(mem_req) driver_obj.mem_read(mem_addr);
         #1;
     end
