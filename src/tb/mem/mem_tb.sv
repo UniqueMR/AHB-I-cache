@@ -16,19 +16,20 @@ module mem_tb #(
         clk = 0;
         mem_req = 0;
         mem_addr = 0;
-        fork
-            forever begin
-                #CLK_FREQ_HALF clk = ~clk; 
-            end
-            forever begin
-                mem_req = 1;
-                mem_addr = $urandom_range(0, 32'hFFFF_FFFF);
-                #MEM_REQ_HOLD;
-                mem_req = 0;
-                mem_addr = 0;
-                #(MEM_REQ_FREQ - MEM_REQ_HOLD);
-            end
-        join_any
         #SIM_TIME $finish;
     end
+
+    always begin
+        #CLK_FREQ_HALF clk = ~clk;
+    end
+
+    always begin
+        mem_req = 1;
+        mem_addr = $urandom_range(0, 32'hFFFF_FFFF);
+        #MEM_REQ_HOLD;
+        mem_req = 0;
+        mem_addr = 0;
+        #(MEM_REQ_FREQ - MEM_REQ_HOLD); 
+    end
+    
 endmodule
