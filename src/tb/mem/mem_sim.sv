@@ -20,11 +20,12 @@ endfunction
 
 task automatic mem_read(logic [31:0] mem_addr);
     #MEM_READ_DELAY;
-    genvar idx = 0;
+    integer idx = 0;
     for(this.mem_ptr = {this.mem_addr[$clog2(MAIN_MEM_SIZE * 8 / 32)-1:2], 2'b00}; 
         this.mem_ptr <= {this.mem_addr[$clog2(MAIN_MEM_SIZE * 8 / 32)-1:2], 2'b11}; 
         this.mem_ptr = this.mem_ptr + 1) begin
         this.mem_read_val[idx * 32 + 31 : idx * 32] = this.mem_entries[this.mem_ptr];
+        idx = idx + 1;
     end
     this.mem_ready = 1;
     #MEM_READY_HOLD this.mem_ready = 0;
@@ -33,8 +34,8 @@ endtask
 
 task automatic mem_write(logic [31:0] mem_addr, logic [31:0] mem_data);
     #MEM_WRITE_DELAY;
-    mem_ptr = mem_addr[$clog2(MAIN_MEM_SIZE * 8 / 32)-1:0];
-    mem_entries[mem_ptr] = mem_data;
+    this.mem_ptr = this.mem_addr[$clog2(MAIN_MEM_SIZE * 8 / 32)-1:0];
+    this.mem_entries[this.mem_ptr] = this.mem_data;
 endtask
 
 endclass
