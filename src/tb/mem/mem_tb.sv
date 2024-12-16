@@ -2,6 +2,7 @@ module mem_tb #(
     parameter CLK_FREQ_HALF=5,
     parameter MEM_REQ_FREQ=100,
     parameter MEM_REQ_HOLD=15
+    parameter SIM_TIME=1000
 );
     logic clk;
     logic [31:0] mem_addr;
@@ -27,6 +28,7 @@ module mem_tb #(
                 mem_addr = 0;
                 #(MEM_REQ_FREQ - MEM_REQ_HOLD);
             end
-        join
+        join_none
+        #SIM_TIME $finish;
     end
 endmodule
