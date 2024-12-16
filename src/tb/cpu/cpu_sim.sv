@@ -5,7 +5,6 @@ class cpuDriver #(
     bit read_en;
 
     function new();
-        super.new();
         this.read_en = 0;
     endfunction
 
