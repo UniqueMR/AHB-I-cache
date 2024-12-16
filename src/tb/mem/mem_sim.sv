@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 class memDrive #(
     parameter MAIN_MEM_SIZE=32768,
     parameter MEM_READ_DELAY=40,
