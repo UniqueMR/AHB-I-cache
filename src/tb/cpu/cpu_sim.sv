@@ -40,10 +40,12 @@ module cpu_sim #(
 
     initial begin
         driver_obj = new();
+        #10;
     end
 
     always begin
-        #REQ_FREQ driver_obj.drive_request();
+        driver_obj.drive_request();
+        #(REQ_FREQ - HOLD);
     end
 
     always begin
