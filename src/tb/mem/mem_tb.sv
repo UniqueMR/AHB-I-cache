@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module mem_tb #(
     parameter CLK_FREQ_HALF=5,
     parameter MEM_REQ_FREQ=100,

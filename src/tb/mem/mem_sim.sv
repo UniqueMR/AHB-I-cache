@@ -22,7 +22,9 @@ task automatic mem_read(logic [31:0] mem_addr);
     integer idx = 0;
     logic [$clog2(MAIN_MEM_SIZE * 8 / 32) - 1 : 0] base_addr;
     logic [31:0] mem_read_val_tmp[4];
+    $display("start processing read request");
     #MEM_READ_DELAY;
+    $display("start generating read data");
     base_addr = {mem_addr[$clog2(MAIN_MEM_SIZE * 8 / 32)-1:2], 2'b00};
     for(idx = 0; idx < 4; idx = idx + 1)
        mem_read_val_tmp[idx] = this.mem_entries[base_addr + idx];
@@ -30,6 +32,7 @@ task automatic mem_read(logic [31:0] mem_addr);
     this.mem_ready = 1;
     #MEM_READY_HOLD this.mem_ready = 0;
     this.mem_read_val = 0;
+    $display("finished generating read data");
 endtask
 
 task automatic mem_write(logic [31:0] mem_addr, logic [31:0] mem_data);
