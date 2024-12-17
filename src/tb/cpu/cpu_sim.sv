@@ -29,7 +29,7 @@ endclass
 
 
 module cpu_sim #(
-    parameter REQ_FREQ=100,
+    parameter REQ_FREQ_CYCLES=10,
     parameter HOLD=15,
 ) (
     input clk,
@@ -40,21 +40,21 @@ module cpu_sim #(
     output logic read_en
 );
     cpuDriver #(.HOLD(15)) driver_obj;
+    logic [$clog2(REQ_FREQ_CYCLES)-1:0] req_delay_cnt;
 
     initial begin
         driver_obj = new();
     end
 
-    // always begin
-    //     #INIT_DELAY;
-    //     forever begin
-    //         driver_obj.drive_request();
-    //     end
-    // end
+    always @(posedge clk or negedge rst) begin
+        if(~rst) req_delay_cnt <= 0;
+        else if(req_delay_cnt == 9) req_delay_cnt <= 0;
+        else req_delay_cnt <= req_delay_cnt + 1;
+    end
 
     always @(posedge clk or negedge rst)    begin
         if(~rst);
-        else driver_obj.drive_request();
+        else if(req_delay_cnt == 9) driver_obj.drive_request();
     end
 
     always begin
