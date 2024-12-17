@@ -4,8 +4,8 @@ module mem_tb #(
     parameter CLK_FREQ_HALF=5,
     parameter RST_DELAY=10,
     parameter MEM_REQ_FREQ=100,
+    parameter MEM_REQ_OFFSET=7,
     parameter MEM_REQ_HOLD=15,
-    paraemter MEM_REQ_OFFSET=7,
     parameter SIM_TIME=1000
 );
     logic clk;
@@ -33,7 +33,7 @@ module mem_tb #(
     end
 
     always begin
-        #(MEM_REQ_OFFSET);
+        #MEM_REQ_OFFSET;
         forever begin
             mem_req = 1;
             mem_addr = $urandom_range(0, 32'hFFFF_FFFF);
