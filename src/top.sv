@@ -47,11 +47,10 @@ module top #(
     line_segment_selector line_segment_selector_cache_inst(cache_entries[index].cache_line, offset, cache_data);
     line_segment_selector line_segment_selector_mem_inst(mem_data_in, offset, mem_data);
 
-    genvar idx;
-
     always_ff @(posedge clk or negedge rst) begin
     if(~rst)    begin
         data_out <= 0;
+        genvar idx;
         for(idx = 0; idx < CACHE_SIZE * 8/CACHE_LINE; idx = idx + 1)    
             cache_entries[idx].valid = 1'b0;
     end
