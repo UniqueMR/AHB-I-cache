@@ -12,7 +12,7 @@ class cpuDriver #(
 
     function void drive_request_start();
         $display("cpu drive request start");
-        this.addr = $urandom_range(32'h00FF_7a00, 32'h00FF_7aFF);;
+        this.addr = $urandom_range(32'h00FF_7a00, 32'h00FF_7aFF);
         this.read_en = 1;
     endfunction
 
