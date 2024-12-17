@@ -1,6 +1,10 @@
 `timescale 1ns/1ps
 
-module top_tb;
+module top_tb #(
+    parameter CLK_FREQ_HALF=5,
+    parameter RST_DELAY=30,
+    parameter SIM_TIME=1000
+);
 
     logic clk, rst, read_en, hit, mem_ready, mem_req;
     logic [31:0] addr;
@@ -21,23 +25,35 @@ module top_tb;
         .mem_req(mem_req)
     );
 
+    cpu_sim cpu_sim_inst(
+        .clk(clk),
+        .rst(rst),
+        .requested_data(data_out),
+        .hit(hit),
+        .request_addr(addr),
+        .read_en(read_en)
+    );
+
+    mem_sim mem_sim_inst(
+        .clk(clk),
+        .rst(rst),
+        .mem_addr(mem_addr),
+        .mem_req(mem_req),
+        .mem_data_in(mem_data_in),
+        .mem_ready(mem_ready)
+    );
+
     initial begin
         clk = 1'b0;
         rst = 1'b0;
 
-        addr = 32'd0;
-        read_en = 1'b0;
-
-        mem_data_in = 128'd0;
-        mem_ready = 1'b0;
-
-        #10 rst = 1'b1;
+        #RST_DELAY rst = 1'b1;
         
-        #200 $finish;
+        #SIM_TIME $finish;
     end
 
     always begin
-        #5 clk = ~clk;
+        #CLK_FREQ_HALF clk = ~clk;
     end
 
 endmodule
