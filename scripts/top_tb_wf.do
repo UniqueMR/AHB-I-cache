@@ -14,5 +14,10 @@ add wave -position end sim:/top_tb/addr
 add wave -position end sim:/top_tb/data_out
 add wave -position end sim:/top_tb/mem_addr
 add wave -position end sim:/top_tb/mem_data_in
+
+add wave -position end sim:/top_tb/top_inst/addr
+add wave -position end sim:/top_tb/top_inst/tag
+add wave -position end sim:/top_tb/top_inst/index
+add wave -position end sim:/top_tb/top_inst/offset
 run -all
 quit
