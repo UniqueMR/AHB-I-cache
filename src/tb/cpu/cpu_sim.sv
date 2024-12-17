@@ -23,6 +23,7 @@ class cpuDriver #(
     task automatic drive_request();
         drive_request_start();
         #(HOLD) drive_request_end(); 
+        #(REQ_FREQ - HOLD);
     endtask 
 endclass
 
@@ -30,8 +31,9 @@ endclass
 module cpu_sim #(
     parameter REQ_FREQ=100,
     parameter HOLD=15,
-    parameter INIT_DELAY=10
 ) (
+    input clk,
+    input rst,
     input [31:0] requested_data,
     input hit,
     output logic [31:0] request_addr,
@@ -43,12 +45,16 @@ module cpu_sim #(
         driver_obj = new();
     end
 
-    always begin
-        #INIT_DELAY;
-        forever begin
-            driver_obj.drive_request();
-            #(REQ_FREQ - HOLD);
-        end
+    // always begin
+    //     #INIT_DELAY;
+    //     forever begin
+    //         driver_obj.drive_request();
+    //     end
+    // end
+
+    always @(posedge clk or negedge rst)    begin
+        if(~rst);
+        else driver_obj.drive_request();
     end
 
     always begin
