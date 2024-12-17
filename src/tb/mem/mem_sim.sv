@@ -48,7 +48,7 @@ endtask
 endclass
 
 module mem_sim #(
-    parameter MAIN_MEM_SIZE=37268,
+    parameter MAIN_MEM_SIZE=37268
 )(  
     input clk,
     input rst,
