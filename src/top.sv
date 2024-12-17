@@ -7,9 +7,9 @@ module top #(
     
     // processor interface
     input [31:0] addr,
-    output [31:0] data_out,
-    input wire read_en,
-    output hit,
+    output reg [31:0] data_out,
+    input read_en,
+    output reg hit,
     
     // main mem interface
     output [31:0] mem_addr,
@@ -39,10 +39,7 @@ module top #(
     
     cache_entry_t cache_entries [0:CACHE_SIZE * 8 / 128 -1];
 
-    reg [31:0] data_out_reg;
     reg [31:0] mem_data_out_reg;
-
-    assign data_out = data_out_reg;
 
     reg [31:0] cache_data;
     reg [31:0] mem_data;
@@ -50,12 +47,16 @@ module top #(
     line_segment_selector line_segment_selector_cache_inst(cache_entries[index].cache_line, offset, cache_data);
     line_segment_selector line_segment_selector_mem_inst(mem_data_in, offset, mem_data);
 
+    genvar idx;
+
     always_ff @(posedge clk or negedge rst) begin
     if(~rst)    begin
-        data_out_reg <= 0;
+        data_out <= 0;
+        for(idx = 0; idx < CACHE_SIZE * 8/CACHE_LINE; idx = idx + 1)    
+            cache_entries[idx].valid = 1'b0;
     end
     else    begin
-        if(read_en) data_out_reg <= hit ? cache_data : mem_data_out_reg;  
+        if(read_en) data_out <= hit ? cache_data : mem_data_out_reg;  
     end
     end
 
@@ -63,18 +64,16 @@ module top #(
         if(mem_req) mem_data_out_reg = mem_data;
     end
 
-    reg hit_reg;
     reg mem_req_reg;
-    assign hit = hit_reg;
     assign mem_req = mem_req_reg;
     
     // handle hit or miss
     always_comb begin
-    hit_reg=MISS;
+    hit=MISS;
     mem_req_reg=FALSE;
     if(read_en) begin
-        if(cache_entries[addr].valid == HIT)  hit_reg = HIT;
-        else    hit_reg = MISS;           
+        if(cache_entries[addr].valid == HIT)  hit = HIT;
+        else    hit = MISS;           
     end
     if(read_en && ~hit) mem_req_reg = TRUE;    
     end
