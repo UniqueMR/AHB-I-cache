@@ -25,7 +25,6 @@ class cpuDriver #(
     task automatic drive_request();
         drive_request_start();
         #(HOLD) drive_request_end(); 
-        #(REQ_FREQ - HOLD);
     endtask 
 endclass
 
