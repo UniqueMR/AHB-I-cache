@@ -2,8 +2,8 @@
 
 class memDrive #(
     parameter MAIN_MEM_SIZE=32768,
-    parameter MEM_READ_DELAY=40,
-    parameter MEM_WRITE_DELAY=40,
+    parameter MEM_READ_DELAY=42,
+    parameter MEM_WRITE_DELAY=42,
     parameter MEM_READY_HOLD=15
 );
 
