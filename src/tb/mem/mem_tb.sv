@@ -58,7 +58,7 @@ module mem_tb #(
                     #(MEM_REQ_FREQ - MEM_REQ_HOLD);
                 end
             end
-        join
+        join_none
     end
     
 endmodule
