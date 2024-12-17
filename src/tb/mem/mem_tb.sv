@@ -2,6 +2,7 @@
 
 module mem_tb #(
     parameter CLK_FREQ_HALF=5,
+    parameter CLK_OFFSET=2,
     parameter RST_DELAY=10,
     parameter MEM_REQ_FREQ=100,
     parameter MEM_REQ_HOLD=15,
@@ -18,7 +19,7 @@ module mem_tb #(
 
     initial begin
         $display("simulation start");
-        clk = 0;
+        clk = 1;
         rst = 0;
         mem_req = 0;
         mem_addr = 0;
@@ -28,7 +29,8 @@ module mem_tb #(
     end
 
     always begin
-        #CLK_FREQ_HALF clk = ~clk;
+        #CLK_OFFSET;
+        forever #CLK_FREQ_HALF clk = ~clk;
     end
 
     always begin
