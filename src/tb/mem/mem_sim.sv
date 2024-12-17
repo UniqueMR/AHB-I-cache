@@ -48,10 +48,11 @@ endtask
 endclass
 
 module mem_sim #(
-    parameter CLK_FREQ=10,
     parameter MAIN_MEM_SIZE=37268,
-    parameter INIT_DELAY=10
-)(
+)(  
+    input clk,
+    input rst,
+
     input [31:0] mem_addr,
     input mem_req,
     output logic [127:0] mem_data_in,
@@ -59,20 +60,14 @@ module mem_sim #(
 );
 
 memDrive driver_obj;
-bit init_done;
 
 initial begin
     driver_obj = new();
-    init_done = 0;
 end
 
-always begin
-    if(~init_done)  #INIT_DELAY init_done = 1;
-
-    else begin
-        if(mem_req) driver_obj.mem_read(mem_addr);
-        #100;
-    end
+always @(posedge clk or negedge rst) begin
+    if (~rst)    
+    else if(mem_req) driver_obj.mem_read(mem_addr);
 end
 
 always begin
