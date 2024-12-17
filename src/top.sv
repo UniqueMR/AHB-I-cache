@@ -50,11 +50,9 @@ module top #(
     always_ff @(posedge clk or negedge rst) begin
     if(~rst)    begin
         data_out <= 0;
-        genvar idx;
-        generate
-            for(idx = 0; idx < CACHE_SIZE * 8/CACHE_LINE; idx = idx + 1)    
+        integer idx;
+        for(idx = 0; idx < CACHE_SIZE * 8/CACHE_LINE; idx = idx + 1)    
             cache_entries[idx].valid = 1'b0;
-        endgenerate
     end
     else    begin
         if(read_en) data_out <= hit ? cache_data : mem_data_out_reg;  
