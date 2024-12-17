@@ -28,37 +28,20 @@ module mem_tb #(
         $finish;
     end
 
-    // always begin
-    //     #CLK_FREQ_HALF clk = ~clk;
-    // end
-
-    // always begin
-    //     #MEM_REQ_OFFSET;
-    //     forever begin
-    //         mem_req = 1;
-    //         mem_addr = $urandom_range(32'h00FF_7a00, 32'h00FF_7aFF);
-    //         #MEM_REQ_HOLD;
-    //         mem_req = 0;
-    //         mem_addr = 0;
-    //         #(MEM_REQ_FREQ - MEM_REQ_HOLD);
-    //     end 
-    // end
+    always begin
+        #CLK_FREQ_HALF clk = ~clk;
+    end
 
     always begin
-        fork
-            #CLK_FREQ_HALF clk = ~clk;
-            begin
-                #MEM_REQ_OFFSET;
-                forever begin
-                    mem_req = 1;
-                    mem_addr = $urandom_range(32'h00FF_7a00, 32'h00FF_7aFF);
-                    #MEM_REQ_HOLD;
-                    mem_req = 0;
-                    mem_addr = 0;
-                    #(MEM_REQ_FREQ - MEM_REQ_HOLD);
-                end
-            end
-        join_none
+        #MEM_REQ_OFFSET;
+        forever begin
+            mem_req = 1;
+            mem_addr = $urandom_range(32'h00FF_7a00, 32'h00FF_7aFF);
+            #MEM_REQ_HOLD;
+            mem_req = 0;
+            mem_addr = 0;
+            #(MEM_REQ_FREQ - MEM_REQ_HOLD);
+        end 
     end
     
 endmodule
