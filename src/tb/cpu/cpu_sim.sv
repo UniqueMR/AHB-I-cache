@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 class cpuDriver #(
     parameter HOLD=15
 );
@@ -30,7 +32,7 @@ endclass
 
 module cpu_sim #(
     parameter REQ_FREQ_CYCLES=10,
-    parameter HOLD=15,
+    parameter HOLD=15
 ) (
     input clk,
     input rst,
@@ -48,13 +50,13 @@ module cpu_sim #(
 
     always @(posedge clk or negedge rst) begin
         if(~rst) req_delay_cnt <= 0;
-        else if(req_delay_cnt == 9) req_delay_cnt <= 0;
+        else if(req_delay_cnt == REQ_FREQ_CYCLES-1) req_delay_cnt <= 0;
         else req_delay_cnt <= req_delay_cnt + 1;
     end
 
     always @(posedge clk or negedge rst)    begin
         if(~rst);
-        else if(req_delay_cnt == 9) driver_obj.drive_request();
+        else if(req_delay_cnt == REQ_FREQ_CYCLES-1) driver_obj.drive_request();
     end
 
     always begin
