@@ -14,8 +14,8 @@ bit mem_ready;
 function new();
     logic [$clog2(MAIN_MEM_SIZE * 8 / 32) - 1 : 0] init_addr;
     bit [31:0] idx;
-    
-    init_addr = 32'h00FF_7a00
+
+    init_addr = 32'h00FF_7a00;
 
     for(idx = 0; idx < 32'hFF; idx = idx + 1)
         this.mem_entries[init_addr + idx] = idx;
