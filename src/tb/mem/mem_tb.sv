@@ -2,7 +2,7 @@
 
 module mem_tb #(
     parameter CLK_FREQ_HALF=5,
-    parameter RST_DELAY=10,
+    parameter RST_DELAY=30,
     parameter MEM_REQ_FREQ=100,
     parameter MEM_REQ_OFFSET=7,
     parameter MEM_REQ_HOLD=15,
