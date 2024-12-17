@@ -21,24 +21,26 @@ MEM_TB_SRC=$(MEM_SIM_SRC) ./src/tb/mem/mem_tb.sv
 
 DO_CPU=./scripts/cpu_tb_wf.do
 DO_MEM=./scripts/mem_tb_wf.do
+DO_TOP=./scripts/top_tb_wf.do
 
 CPU_WF=$(CPU_WS)/waveform/cpu_tb_wf.wlf
 MEM_WF=$(MEM_WS)/waveform/mem_tb_wf.wlf
+TOP_WF=$(TOP_WS)/waveform/top_tb_wf.wlf
 
 CLEAN_FILES=./src/*.swp ./src/tb/*.swp
 
 compile_top:
 	mkdir -p $(TOP_WS)
-	$(VLIB) $(TOP_WS)
+	mkdir -p $(TOP_WS)/waveform
 	$(VLOG) -work $(TOP_WS) $(TOP_TB_SRC) 
 
 sim_top: compile_top
-	$(VSIM) -work $(TOP_WS) $(TOP_TB_EXEC) $(MODEL_SIM_FLAGS)
+	$(VSIM) -do $(DO_TOP) -c
+	$(VSIM) -view $(TOP_WF)
 
 compile_cpu:
 	mkdir -p $(CPU_WS)
 	mkdir -p $(CPU_WS)/waveform
-	$(VLIB) $(CPU_WS)
 	$(VLOG) -work $(CPU_WS) $(CPU_TB_SRC) 
 
 sim_cpu: compile_cpu
@@ -48,7 +50,6 @@ sim_cpu: compile_cpu
 compile_mem:
 	mkdir -p $(MEM_WS)
 	mkdir -p $(MEM_WS)/waveform
-	$(VLIB) $(MEM_WS)
 	$(VLOG) -work $(MEM_WS) $(MEM_TB_SRC)
 
 sim_mem: compile_mem
