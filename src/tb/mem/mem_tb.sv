@@ -33,7 +33,7 @@ module mem_tb #(
     end
 
     always begin
-        #MEM_REQ_OFFSET;
+        #(MEM_REQ_OFFSET);
         forever begin
             mem_req = 1;
             mem_addr = $urandom_range(0, 32'hFFFF_FFFF);
