@@ -66,7 +66,7 @@ initial begin
 end
 
 always @(posedge clk or negedge rst) begin
-    if (~rst)    
+    if (~rst);    
     else if(mem_req) driver_obj.mem_read(mem_addr);
 end
 
