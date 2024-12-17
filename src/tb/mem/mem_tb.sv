@@ -5,7 +5,7 @@ module mem_tb #(
     parameter RST_DELAY=10,
     parameter MEM_REQ_FREQ=100,
     parameter MEM_REQ_HOLD=15,
-    paraemter MEM_REQ_OFFSET=7
+    paraemter MEM_REQ_OFFSET=7,
     parameter SIM_TIME=1000
 );
     logic clk;
