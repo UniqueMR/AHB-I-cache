@@ -13,10 +13,13 @@ bit mem_ready;
 
 function new();
     logic [$clog2(MAIN_MEM_SIZE * 8 / 32) - 1 : 0] init_addr;
+    bit [31:0] idx;
+    
+    init_addr = 32'h00FF_7a00
 
-    // for(init_addr = 0; init_addr < MAIN_MEM_SIZE * 8 / 32; init_addr = init_addr + 1) 
-    for(init_addr = 0; init_addr < 10; init_addr = init_addr + 1) 
-        this.mem_entries[init_addr] = $urandom_range(0, 32'hFFFF_FFFF);
+    for(idx = 0; idx < 32'hFF; idx = idx + 1)
+        this.mem_entries[init_addr + idx] = idx;
+
     this.mem_read_val = 0;
     this.mem_ready = 0;
 endfunction
