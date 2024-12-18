@@ -10,7 +10,7 @@ module top_tb #(
     logic [31:0] addr;
     logic [31:0] data_out;
     logic [31:0] mem_addr;
-    logic [127:0] mem_data_in;
+    logic [127:0] mem_data;
 
     top top_inst(
         .clk(clk),
@@ -20,7 +20,7 @@ module top_tb #(
         .read_en(read_en),
         .hit(hit),
         .mem_addr(mem_addr),
-        .mem_data_in(mem_data_in),
+        .mem_data_in(mem_data),
         .mem_ready(mem_ready),
         .mem_req(mem_req)
     );
@@ -39,7 +39,7 @@ module top_tb #(
         .rst(rst),
         .mem_addr(mem_addr),
         .mem_req(mem_req),
-        .mem_data_in(mem_data_in),
+        .mem_data_out(mem_data),
         .mem_ready(mem_ready)
     );
 

@@ -58,7 +58,7 @@ module mem_sim #(
 
     input [31:0] mem_addr,
     input mem_req,
-    output logic [127:0] mem_data_in,
+    output logic [127:0] memdata_out,
     output logic mem_ready
 );
 
@@ -74,7 +74,7 @@ always @(posedge clk or negedge rst) begin
 end
 
 always begin
-    mem_data_in = driver_obj.mem_read_val;
+    mem_data_out = driver_obj.mem_read_val;
     mem_ready = driver_obj.mem_ready;
     #1;
 end

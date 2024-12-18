@@ -15,7 +15,7 @@ module mem_tb #(
     logic mem_ready;
     logic mem_req;
 
-    mem_sim mem_sim_inst(.clk(clk), .rst(rst), .mem_addr(mem_addr), .mem_data_in(mem_data), .mem_ready(mem_ready), .mem_req(mem_req));
+    mem_sim mem_sim_inst(.clk(clk), .rst(rst), .mem_addr(mem_addr), .mem_data_out(mem_data), .mem_ready(mem_ready), .mem_req(mem_req));
 
     initial begin
         $display("simulation start");
