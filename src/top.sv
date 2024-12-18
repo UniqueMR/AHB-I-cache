@@ -71,7 +71,6 @@ module top #(
     // initialization
     always_ff @(posedge clk or negedge rst) begin
     if(~rst)    begin
-        data_out <= 0;
         for(idx = 0; idx < CACHE_SIZE * 8/CACHE_LINE; idx = idx + 1)    
             cache_entries[idx].valid = 1'b0;
     end
