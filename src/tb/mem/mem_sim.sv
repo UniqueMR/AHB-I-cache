@@ -58,7 +58,7 @@ module mem_sim #(
 
     input [31:0] mem_addr,
     input mem_req,
-    output logic [127:0] memdata_out,
+    output logic [127:0] mem_data_out,
     output logic mem_ready
 );
 
