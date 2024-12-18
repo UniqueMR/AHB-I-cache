@@ -48,7 +48,7 @@ module top #(
     parameter MEM_REQ_HANDLE = 2
 
 
-    logic [1:0] cache_state;
+    reg [1:0] cache_state;
 
     cache_state_handler #(
         .IDLE(IDLE),
