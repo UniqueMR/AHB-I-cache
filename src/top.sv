@@ -80,7 +80,7 @@ module top #(
     always_comb begin
         data_out = 0;
         mem_addr = 0;        
-        case(state)
+        case(cache_state)
             IDLE:
             CACHE_REQ_HANDLE:   begin
                 data_out = cache_data;
