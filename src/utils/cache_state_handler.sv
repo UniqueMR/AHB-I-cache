@@ -8,7 +8,7 @@ module cache_state_handler #(
 
     input read_en,
     input hit,
-    input mem_ready
+    input mem_ready,
 
     output reg [1:0] state,
     output reg mem_req;
