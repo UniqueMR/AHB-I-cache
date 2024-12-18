@@ -45,7 +45,7 @@ module top #(
 
     parameter IDLE = 0;
     parameter CACHE_REQ_HANDLE = 1;
-    parameter MEM_REQ_HANDLE = 2
+    parameter MEM_REQ_HANDLE = 2;
 
 
     reg [1:0] cache_state;
