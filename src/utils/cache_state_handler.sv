@@ -39,7 +39,7 @@ end
 
 always_ff @(posedge clk or negedge rst) begin
     if(~rst)    mem_req <= 0;
-    else if(next_state == MEM_REQ_HANDLE)   mem_req = mem_req == 1'b0 ? 1'b1 : 1'b0;
+    else mem_req <= (state == IDLE && next_state == MEM_REQ_HANDLE) ? 1'b1 : 1'b0;   
 end
 
 endmodule
