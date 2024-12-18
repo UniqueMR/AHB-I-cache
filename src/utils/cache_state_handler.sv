@@ -11,7 +11,7 @@ module cache_state_handler #(
     input mem_ready,
 
     output reg [1:0] state,
-    output reg mem_req;
+    output reg mem_req
 );
 
 reg [1:0] next_state;
