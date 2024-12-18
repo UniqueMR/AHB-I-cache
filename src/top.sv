@@ -94,6 +94,6 @@ module top #(
         endcase
     end
 
-    assign hit = read_en && cache_entries[index].valid == 1;
+    assign hit = read_en && (cache_entries[index].valid == 1 & tag == cache_entries[index].tag);
 
 endmodule
