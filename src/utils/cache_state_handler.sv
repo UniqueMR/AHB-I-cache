@@ -26,17 +26,20 @@ always_comb begin
         IDLE: begin
             if(read_en) begin
                 next_state = hit ? CACHE_REQ_HANDLE : MEM_REQ_HANDLE;
-                mem_req = hit ? 1'b1 : 1'b0;
             end
             else next_state = IDLE;
         end
         CACHE_REQ_HANDLE: next_state = IDLE;
         MEM_REQ_HANDLE: begin
             next_state = mem_ready ? IDLE : MEM_REQ_HANDLE;
-            mem_req = 1'b0;
         end
         default: next_state = IDLE;
     endcase
+end
+
+always_ff @(posedge clk or negedge rst) begin
+    if(~rst)    mem_req <= 0;
+    else if(next_state == MEM_REQ_HANDLE)   mem_req = mem_req == 1'b0 ? 1'b1 : 1'b0;
 end
 
 endmodule
