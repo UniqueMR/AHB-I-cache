@@ -10,7 +10,8 @@ module cache_state_handler #(
     input hit,
     input mem_ready
 
-    output reg [1:0] state
+    output reg [1:0] state,
+    output reg mem_req;
 );
 
 reg [1:0] next_state;
@@ -23,11 +24,17 @@ end
 always_comb begin
     case(state)
         IDLE: begin
-            if(read_en) next_state = hit ? CACHE_REQ_HANDLE : MEM_REQ_HANDLE;
+            if(read_en) begin
+                next_state = hit ? CACHE_REQ_HANDLE : MEM_REQ_HANDLE;
+                mem_req = hit ? 1'b1 : 1'b0;
+            end
             else next_state = IDLE;
         end
         CACHE_REQ_HANDLE: next_state = IDLE;
-        MEM_REQ_HANDLE: next_state = mem_ready ? IDLE : MEM_REQ_HANDLE;
+        MEM_REQ_HANDLE: begin
+            next_state = mem_ready ? IDLE : MEM_REQ_HANDLE;
+            mem_req = 1'b0;
+        end
         default: next_state = IDLE;
     endcase
 end

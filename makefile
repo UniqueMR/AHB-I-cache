@@ -11,7 +11,9 @@ MODEL_SIM_FLAGS=-c -do "run -all; quit;"
 
 TOP_TB_EXEC=top_tb
 
-TOP_SRC=./src/top.sv ./src/utils/addr_parser.sv ./src/utils/line_segment_selector.sv
+UTILS_SRC = ./src/utils/addr_parser.sv ./src/utils/line_segment_selector.sv ./src/utils/cache_state_handler.sv
+
+TOP_SRC=./src/top.sv $(UTILS_SRC)
 CPU_SIM_SRC=./src/tb/cpu/cpu_sim.sv
 MEM_SIM_SRC=./src/tb/mem/mem_sim.sv
 
@@ -39,7 +41,8 @@ sim_top: compile_top
 	$(VSIM) -view $(TOP_WF)
 
 compile_cpu:
-	$(VLIB) $(CPU_WS)/waveform
+	mkdir -p $(CPU_WS)
+	mkdir -p $(CPU_WS)/waveform
 	$(VLOG) -work $(CPU_WS) $(CPU_TB_SRC) 
 
 sim_cpu: compile_cpu
@@ -47,7 +50,8 @@ sim_cpu: compile_cpu
 	$(VSIM) -view $(CPU_WF)
 
 compile_mem:
-	$(VLIB) $(MEM_WS)/waveform
+	mkdir -p $(MEM_WS)
+	mkdir -p $(MEM_WS)/waveform
 	$(VLOG) -work $(MEM_WS) $(MEM_TB_SRC)
 
 sim_mem: compile_mem
