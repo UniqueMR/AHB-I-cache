@@ -39,8 +39,7 @@ sim_top: compile_top
 	$(VSIM) -view $(TOP_WF)
 
 compile_cpu:
-	mkdir -p $(CPU_WS)
-	mkdir -p $(CPU_WS)/waveform
+	$(VLIB) $(CPU_WS)/waveform
 	$(VLOG) -work $(CPU_WS) $(CPU_TB_SRC) 
 
 sim_cpu: compile_cpu
@@ -48,8 +47,7 @@ sim_cpu: compile_cpu
 	$(VSIM) -view $(CPU_WF)
 
 compile_mem:
-	mkdir -p $(MEM_WS)
-	mkdir -p $(MEM_WS)/waveform
+	$(VLIB) $(MEM_WS)/waveform
 	$(VLOG) -work $(MEM_WS) $(MEM_TB_SRC)
 
 sim_mem: compile_mem
