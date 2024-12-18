@@ -81,7 +81,10 @@ module top #(
         data_out = 0;
         mem_addr = 0;        
         case(cache_state)
-            IDLE:
+            IDLE:   begin
+                data_out = 0;
+                mem_addr = 0;
+            end
             CACHE_REQ_HANDLE:   begin
                 data_out = cache_data;
             end
