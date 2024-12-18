@@ -12,7 +12,7 @@ module top #(
     output hit,
     
     // main mem interface
-    output [31:0] mem_addr,
+    output reg [31:0] mem_addr,
     input [127:0] mem_data_in,
     input mem_ready,
     output reg mem_req
