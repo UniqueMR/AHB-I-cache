@@ -8,10 +8,6 @@ CPU_WS=$(MODEL_SIM_WS)cpu
 MEM_WS=$(MODEL_SIM_WS)mem
 INTERFACE_WS=$(MODEL_SIM_WS)interface
 
-MODEL_SIM_FLAGS=-c -do "run -all; quit;"
-
-TOP_TB_EXEC=top_tb
-
 UTILS_SRC = ./src/utils/addr_parser.sv ./src/utils/line_segment_selector.sv ./src/utils/cache_state_handler.sv
 
 TOP_SRC=./src/top.sv $(UTILS_SRC)
