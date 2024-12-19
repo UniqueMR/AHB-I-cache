@@ -34,28 +34,28 @@ CLEAN_FILES=./src/*.swp ./src/tb/*.swp
 
 compile: 
 
-ifeq ($(MAKECMDGOALS), top)
-	WS = $(TOP_WS)
-	TB_SRC = $(TOP_TB_SRC)
+	ifeq ($(MAKECMDGOALS), top)
+		WS = $(TOP_WS)
+		TB_SRC = $(TOP_TB_SRC)
 
-else ifeq ($(MAKECMDGOALS), cpu)
-	WS = $(CPU_WS)
-	TB_SRC = $(CPU_TB_SRC)
+	else ifeq ($(MAKECMDGOALS), cpu)
+		WS = $(CPU_WS)
+		TB_SRC = $(CPU_TB_SRC)
 
-else ifeq ($(MAKECMDGOALS), mem)
-	WS = $(MEM_WS)
-	TB_SRC = $(MEM_TB_SRC)
+	else ifeq ($(MAKECMDGOALS), mem)
+		WS = $(MEM_WS)
+		TB_SRC = $(MEM_TB_SRC)
 
-else ifeq ($(MAKECMDGOALS), interface)
-	WS = $(INTERFACE_WS)
-	TB_SRC = $(INTERFACE_TB_SRC)
+	else ifeq ($(MAKECMDGOALS), interface)
+		WS = $(INTERFACE_WS)
+		TB_SRC = $(INTERFACE_TB_SRC)
 
-else
-.DEFAULT:
-	@echo "Error: Unknown target"
-	exit 1
+	else
+	.DEFAULT:
+		@echo "Error: Unknown target"
+		exit 1
 
-endif
+	endif
 
 	mkdir -p $(WS) $(WS)/waveform 
 	$(VLOG) -work $(WS) $(TB_SRC)
