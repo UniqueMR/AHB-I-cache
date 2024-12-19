@@ -69,7 +69,8 @@ else
 endif
 
 compile: 
-	mkdir -p $(WS) $(WS)/waveform
+	mkdir -p $(WS) 
+	mkdir -p $(WS)/waveform
 	$(VLOG) -work $(WS) $(TB_SRC)
 
 sim: compile
