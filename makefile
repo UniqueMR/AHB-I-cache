@@ -32,59 +32,35 @@ INTERFACE_WF=$(INTERFACE_WS)/waveform/interface_tb_wf.wlf
 
 CLEAN_FILES=./src/*.swp ./src/tb/*.swp
 
-compile: 
-
+compile:
 ifeq ($(MAKECMDGOALS), top)
 	WS = $(TOP_WS)
 	TB_SRC = $(TOP_TB_SRC)
-
+	DO = $(DO_TOP)
+	WF = $(TOP_WF)
 else ifeq ($(MAKECMDGOALS), cpu)
 	WS = $(CPU_WS)
 	TB_SRC = $(CPU_TB_SRC)
-
+	DO = $(DO_CPU)
+	WF = $(CPU_WF)
 else ifeq ($(MAKECMDGOALS), mem)
 	WS = $(MEM_WS)
 	TB_SRC = $(MEM_TB_SRC)
-
+	DO = $(DO_MEM)
+	WF = $(MEM_WF)
 else ifeq ($(MAKECMDGOALS), interface)
 	WS = $(INTERFACE_WS)
 	TB_SRC = $(INTERFACE_TB_SRC)
-
+	DO = $(DO_INTERFACE)
+	WF = $(INTERFACE_WF)
 else
-.DEFAULT:
-	@echo "Error: Unknown target"
+	@echo "Error: Unknown target. Please use 'make compile top', 'make compile cpu', 'make compile mem', or 'make compile interface'."
 	exit 1
-
 endif
-
-	mkdir -p $(WS) $(WS)/waveform 
+	mkdir -p $(WS) $(WS)/waveform
 	$(VLOG) -work $(WS) $(TB_SRC)
 
 sim: compile
-
-ifeq ($(MAKECMDGOALS), top)
-	DO = $(DO_TOP)
-	WF = $(TOP_WF) 
-
-else ifeq ($(MAKECMDGOALS), cpu)
-	DO = $(DO_CPU)
-	WF = $(CPU_WF)
-
-else ifeq ($(MAKECMDGOALS), mem)
-	DO = $(DO_MEM)
-	WF = $(MEM_WF)
-
-else ifeq ($(MAKECMDGOALS), interface)
-	DO = $(DO_INTERFACE)
-	WF = $(INTERFACE_WF)
-
-else
-.DEFAULT:
-	@echo "Error: Unknown target"
-	exit 1
-
-endif
-
 	$(VSIM) -do $(DO) -c
 	$(VSIM) -view $(WF)
 
