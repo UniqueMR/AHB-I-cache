@@ -32,10 +32,7 @@ INTERFACE_WF=$(INTERFACE_WS)/waveform/interface_tb_wf.wlf
 
 CLEAN_FILES=./src/*.swp ./src/tb/*.swp
 
-WS=
-TB_SRC=
-DO=
-WF=
+compile: 
 
 ifeq ($(MAKECMDGOALS), top)
 	WS = $(TOP_WS)
@@ -68,9 +65,7 @@ else
 
 endif
 
-compile: 
-	mkdir -p $(WS) 
-	mkdir -p $(WS)/waveform
+	mkdir -p $(WS) $(WS)/waveform 
 	$(VLOG) -work $(WS) $(TB_SRC)
 
 sim: compile
