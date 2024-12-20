@@ -52,12 +52,12 @@ else ifeq ($(MAKECMDGOALS), interface)
 else
 	@echo "Error: Unknown target. Please use 'make compile top', 'make compile cpu', 'make compile mem', or 'make compile interface'."
 	exit 1
-	
+
 endif
 	mkdir -p $(WS) $(WS)/waveform
 	$(VLOG) -work $(WS) $(TB_SRC)
 
-sim: compile
+sim: compile $(MAKECMDGOALS)
 ifeq ($(MAKECMDGOALS), top)
 	DO = $(DO_TOP)
 	WF = $(TOP_WF)
