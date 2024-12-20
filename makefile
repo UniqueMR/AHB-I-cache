@@ -34,7 +34,6 @@ CLEAN_FILES=./src/*.swp ./src/tb/*.swp
 
 TGT = $(word 2, $(MAKECMDGOALS))
 
-define SET_TGT_VARS
 ifeq ($(TGT), top)
 	WS = $(TOP_WS)
 	TB_SRC = $(TOP_TB_SRC)
@@ -59,15 +58,13 @@ else
 	@echo "Error: Unknown target. Please use 'make compile top', 'make compile cpu', 'make compile mem', or 'make compile interface'."
 	exit 1
 endif
-endef
+
 
 compile:
-	$(SET_TGT_VARS)
 	mkdir -p $(WS) $(WS)/waveform
 	$(VLOG) -work $(WS) $(TB_SRC)
 
 sim: compile
-	$(SET_TGT_VARS)
 	$(VSIM) -do $(DO) -c
 	$(VSIM) -view $(WF)
 
