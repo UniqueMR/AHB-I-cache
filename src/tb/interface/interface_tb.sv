@@ -11,9 +11,9 @@ module interface_tb;
         #15 ahb_lite_inst.hrstn = 1; 
     end
 
-    interface_tb_master u_master ( .ahb_lite(ahb_lite_inst.master) );
+    interface_tb_master u_master ( .ahb_lite_m(ahb_lite_inst.master) );
 
-    interface_tb_slave u_slave ( .ahb_lite(ahb_lite_inst.slave) );
+    interface_tb_slave u_slave ( .ahb_lite_s(ahb_lite_inst.slave) );
 
     initial begin
         $monitor($time, " hclk=%b hrstn=%b haddr=%h hwrite=%b hready=%b hwdata=%h hrdata=%h",
