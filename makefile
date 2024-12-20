@@ -32,23 +32,25 @@ INTERFACE_WF=$(INTERFACE_WS)/waveform/interface_tb_wf.wlf
 
 CLEAN_FILES=./src/*.swp ./src/tb/*.swp
 
+TGT = $(word 2, $(MAKECMDGOALS))
+
 define SET_TGT_VARS
-ifeq ($(MAKECMDGOALS), top)
+ifeq ($(TGT), top)
 	WS = $(TOP_WS)
 	TB_SRC = $(TOP_TB_SRC)
 	DO = $(DO_TOP)
 	WF = $(TOP_WF)
-else ifeq ($(MAKECMDGOALS), cpu)
+else ifeq ($(TGT), cpu)
 	WS = $(CPU_WS)
 	TB_SRC = $(CPU_TB_SRC)
 	DO = $(DO_CPU)
 	WF = $(CPU_WF)
-else ifeq ($(MAKECMDGOALS), mem)
+else ifeq ($(TGT), mem)
 	WS = $(MEM_WS)
 	TB_SRC = $(MEM_TB_SRC)
 	DO = $(DO_MEM)
 	WF = $(MEM_WF)
-else ifeq ($(MAKECMDGOALS), interface)
+else ifeq ($(TGT), interface)
 	WS = $(INTERFACE_WS)
 	TB_SRC = $(INTERFACE_TB_SRC)
 	DO = $(DO_INTERFACE)
