@@ -36,23 +36,6 @@ module cpu_sim #(
     ahb_lite.master cpu_intf
 );
 
-logic [31:0] cpu_local_addr;
-logic [31:0] cpu_local_data;
-
-transfer_handler cpu_cache_transfer_handler_inst(
-    .clk(cpu_intf.hclk),
-    .rstn(cpu_intf.hrstn),
-
-    .addr(cpu_intf.haddr),
-    .hwrite(cpu_intf.hwrite),
-    .hrdata(cpu_intf.hrdata),
-    .hready(cpu_intf.hready),
-    .hwdata(cpu_intf.hwdata),
-
-    .read_addr(cpu_local_addr),
-    .read_data(cpu_local_data)
-);
-
 cpuDriver driver_obj;
 
 reg [3:0] request_delay_counter; 

@@ -56,5 +56,22 @@ module mem_sim #(
     ahb_lite.slave mem_intf
 );
 
+// downstream transfer handler 
+logic [31:0] mem_local_addr;
+logic [31:0] mem_local_data;
+
+transfer_handler cpu_cache_transfer_handler_inst(
+    .clk(mem_intf.hclk),
+    .rstn(mem_intf.hrstn),
+
+    .addr(mem_intf.haddr),
+    .hwrite(mem_intf.hwrite),
+    .hrdata(mem_intf.hrdata),
+    .hready(mem_intf.hready),
+    .hwdata(mem_intf.hwdata),
+
+    .read_addr(cache_local_addr),
+    .read_data(cache_local_data)
+);
 
 endmodule
