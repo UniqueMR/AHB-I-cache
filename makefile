@@ -11,11 +11,11 @@ INTERFACE_WS=$(MODEL_SIM_WS)interface
 UTILS_SRC = ./src/utils/addr_parser.sv ./src/utils/line_segment_selector.sv ./src/utils/cache_state_handler.sv
 INTERFACE_SRC=./src/interface/ahb_lite.sv ./src/interface/transfer_handler.sv 
 
-TOP_SRC=./src/top.sv $(UTILS_SRC) $(INTERFACE_SRC)
-CPU_SIM_SRC=./src/tb/cpu/cpu_sim.sv $(INTERFACE_SRC)
+TOP_SRC=./src/top.sv $(UTILS_SRC) 
+CPU_SIM_SRC=./src/tb/cpu/cpu_sim.sv 
 MEM_SIM_SRC=./src/tb/mem/mem_sim.sv
 
-TOP_TB_SRC=$(TOP_SRC) $(MEM_SIM_SRC) $(CPU_SIM_SRC) ./src/tb/top_tb.sv
+TOP_TB_SRC=$(TOP_SRC) $(INTERFACE_SRC) $(MEM_SIM_SRC) $(CPU_SIM_SRC) ./src/tb/top_tb.sv
 CPU_TB_SRC=$(CPU_SIM_SRC) ./src/tb/cpu/cpu_tb.sv
 MEM_TB_SRC=$(MEM_SIM_SRC) ./src/tb/mem/mem_tb.sv
 INTERFACE_TB_SRC=$(INTERFACE_SRC) ./src/tb/interface/interface_tb_master.sv ./src/tb/interface/interface_tb_slave.sv ./src/tb/interface/interface_tb.sv

@@ -70,8 +70,8 @@ transfer_handler cpu_cache_transfer_handler_inst(
     .hready(mem_intf.hready),
     .hwdata(mem_intf.hwdata),
 
-    .read_addr(cache_local_addr),
-    .read_data(cache_local_data)
+    .read_addr(mem_local_addr),
+    .read_data(mem_local_data)
 );
 
 endmodule
