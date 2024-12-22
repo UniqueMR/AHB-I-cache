@@ -71,10 +71,7 @@ always_ff @( posedge cpu_intf.hclk or negedge cpu_intf.hrstn) begin : read_reque
     end
 end
 
-always  begin
-    cpu_intf.haddr = driver_obj.addr;
-    cpu_intf.hwrite = ~driver_obj.read_en;
-    #1;
-end
+assign cpu_intf.haddr = driver_obj.addr;
+assign cpu_intf.hwrite = ~driver_obj.read_en;
 
 endmodule
