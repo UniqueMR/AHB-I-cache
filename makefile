@@ -64,7 +64,7 @@ compile:
 	rm -rf $(WS)
 	$(VLIB) $(WS)
 	$(VLOG) -work $(WS) $(TB_SRC)
-	mkdir $(WS)/waveform
+	mkdir -p $(WS)/waveform
 
 sim: compile
 	$(VSIM) -do $(DO) -c

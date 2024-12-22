@@ -28,7 +28,7 @@ module top_tb #(
     );
 
     cpu_sim cpu_sim_inst(
-        .cpu_intf(upstream_intf_inst.master),
+        .cpu_intf(upstream_intf_inst.master)
     );
 
     mem_sim mem_sim_inst(
