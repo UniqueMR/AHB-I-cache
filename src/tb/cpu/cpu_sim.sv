@@ -57,9 +57,12 @@ cpuDriver driver_obj;
 
 reg [3:0] request_delay_counter; 
 
+    initial begin
+        driver_obj = new();
+    end
+
 always_ff @( posedge cpu_intf.hclk or negedge cpu_intf.hrstn) begin : read_request
     if(~cpu_intf.hrstn) begin
-        driver_obj = new();
         request_delay_counter <= 0;
     end
     else begin
