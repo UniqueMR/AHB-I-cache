@@ -4,7 +4,7 @@ module cpu_tb #(
     parameter CLK_FREQ_HALF=5,
     parameter RST_DELAY=30
 );
-    ahb_lite.master cpu_intf_inst;
+    ahb_lite.master cpu_intf_inst();
     
     cpu_sim cpu_sim_inst(
         .cpu_intf(cpu_intf_inst)
