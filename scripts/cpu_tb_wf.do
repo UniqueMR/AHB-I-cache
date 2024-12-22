@@ -9,5 +9,7 @@ add wave -position end sim:/cpu_tb/cpu_intf_inst.hrstn
 add wave -position end sim:/cpu_tb/cpu_intf_inst.haddr
 add wave -position end sim:/cpu_tb/cpu_intf_inst.hwrite
 add wave -position end sim:/cpu_tb/cpu_sim_inst/driver_obj.addr
+add wave -position end sim:/cpu_tb/cpu_sim_inst/cpu_local_addr
+add wave -position end sim:/cpu_tb/cpu_sim_inst/cpu_local_data
 run -all
 quit
