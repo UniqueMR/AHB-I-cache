@@ -18,9 +18,9 @@ module top_tb #(
 
     // global clk and rst
     assign upstream_intf_inst.hclk = clk;
-    assign upstream_intf_inst.hrst = rst;
+    assign upstream_intf_inst.hrstn = rst;
     assign downstream_intf_inst.hclk = clk;
-    assign downstream_intf_inst.hrst = rst;
+    assign downstream_intf_inst.hrstn = rst;
 
     top top_inst(
         .upstream_intf(upstream_intf_inst.slave),
