@@ -36,7 +36,7 @@ module cpu_sim #(
     ahb_lite.master cpu_intf
 );
 
-cpuDriver driver_obj;
+cpuDriver #(HOLD) driver_obj;
 
 reg [3:0] request_delay_counter; 
 
