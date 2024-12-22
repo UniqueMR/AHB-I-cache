@@ -59,7 +59,7 @@ reg [3:0] request_delay_counter;
 
 always_ff @( posedge cpu_intf.hclk or negedge cpu_intf.hrstn) begin : read_request
     if(~cpu_intf.hrstn) begin
-        driver_obj.new();
+        driver_obj = new();
         request_delay_counter <= 0;
     end
     else begin
