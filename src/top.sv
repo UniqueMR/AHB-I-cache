@@ -58,7 +58,7 @@ wire hit;
 reg hit_r;
 assign hit = cache_entries[index].valid == 1'b0 ? 0 : (cache_entries[index].tag == tag ? 1'b1 : 1'b0);
 
-always_ff @(posedge hclk or negedge hrstn) begin
+always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin
     if(~hrstn) hit_r <= 0;
     else hit_r <= upstream_intf.hready ? hit : hit_r;
 end
