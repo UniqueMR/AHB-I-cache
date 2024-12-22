@@ -66,12 +66,14 @@ transfer_handler cpu_cache_transfer_handler_inst(
 
     .addr(mem_intf.haddr),
     .hwrite(mem_intf.hwrite),
-    .hrdata(mem_intf.hrdata),
+    .hrdata(mem_local_data),
     .hready(mem_intf.hready),
     .hwdata(mem_intf.hwdata),
 
     .read_addr(mem_local_addr),
-    .read_data(mem_local_data)
+    .read_data(mem_intf.hrdata)
 );
+
+
 
 endmodule
