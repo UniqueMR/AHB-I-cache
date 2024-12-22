@@ -20,16 +20,15 @@ logic [31:0] idx;
 
 always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin    
     if(~upstream_intf.hrstn) begin
-       for(idx = 0; idx < 32'h1FF; idx = idx + 1) begin
-        cache_entries[idx].cache_line = {idx, idx, idx, idx};
-        cache_entries[idx].valid = 1'b1;
+       for(idx = 0; idx < CACHE_SIZE * 8/CACHE_LINE; idx = idx + 1) begin
+        cache_entries[idx].valid = 1'b0;
        end
     end
 end
 
 // upstream transfer handler
-logic [31:0] cache_local_addr;
-logic [31:0] cache_local_data;
+logic [31:0] local_addr;
+logic [31:0] local_data;
 
 transfer_handler cpu_cache_transfer_handler_inst(
     .clk(upstream_intf.hclk),
@@ -37,11 +36,11 @@ transfer_handler cpu_cache_transfer_handler_inst(
 
     .addr(upstream_intf.haddr),
     .hwrite(upstream_intf.hwrite),
-    .hrdata(cache_local_data),
+    .hrdata(local_data),
     .hready(upstream_intf.hready),
     .hwdata(upstream_intf.hwdata),
 
-    .read_addr(cache_local_addr),
+    .read_addr(local_addr),
     .read_data(upstream_intf.hrdata)
 );
 
@@ -52,13 +51,23 @@ wire [31 - $clog2(CACHE_SIZE * 8/CACHE_LINE) - $clog2(CACHE_LINE/32):0] tag;
 wire [$clog2(CACHE_SIZE * 8/CACHE_LINE)-1:0] index;
 wire [$clog2(CACHE_LINE/32)-1:0] offset;
 
-addr_parser #(.CACHE_LINE(CACHE_LINE), .CACHE_SIZE(CACHE_SIZE)) addr_parser_inst(.addr(cache_local_addr), .tag(tag), .index(index), .offset(offset));
+addr_parser #(.CACHE_LINE(CACHE_LINE), .CACHE_SIZE(CACHE_SIZE)) addr_parser_inst(.addr(local_addr), .tag(tag), .index(index), .offset(offset));
+
+// hit or miss
+wire hit;
+reg hit_r;
+assign hit = cache_entries[index].valid == 1'b0 ? 0 : (cache_entries[index].tag == tag ? 1'b1 : 1'b0);
+
+always_ff @(posedge hclk or negedge hrstn) begin
+    if(~hrstn) hit_r <= 0;
+    else hit_r <= upstream_intf.hready ? hit : hit_r;
+end
 
 // cache entries access
+logic [31:0] cache_local_data;
 line_segment_selector line_segment_selector_cache_inst(cache_entries[index].cache_line, offset, cache_local_data);
 
-always_comb begin
-    upstream_intf.hready = 1'b1;
-end
+assign upstream_intf.hready = hit_r ? 1'b1 : downstream_intf.hready;
+assign local_data = hit_r ? cache_local_data : downstream_intf.hrdata; 
 
 endmodule
