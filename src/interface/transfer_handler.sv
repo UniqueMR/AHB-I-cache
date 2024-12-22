@@ -31,7 +31,7 @@ end
 always_comb begin
     if(hwrite);
     else begin
-        next_addr = hready ? local_addr : addr;
+        next_addr = hready ? addr : local_addr;
         next_data = hready ? hrdata : local_data;
     end
 end
