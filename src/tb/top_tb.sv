@@ -17,10 +17,10 @@ module top_tb #(
     ahb_lite downstream_intf_inst();
 
     // global clk and rst
-    assign upstream_intf_inst.clk = clk;
-    assign upstream_intf_inst.rst = rst;
-    assign downstream_intf_inst.clk = clk;
-    assign downstream_intf_inst.rst = rst;
+    assign upstream_intf_inst.hclk = clk;
+    assign upstream_intf_inst.hrst = rst;
+    assign downstream_intf_inst.hclk = clk;
+    assign downstream_intf_inst.hrst = rst;
 
     top top_inst(
         .upstream_intf(upstream_intf_inst.slave),
