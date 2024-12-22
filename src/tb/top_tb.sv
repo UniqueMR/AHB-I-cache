@@ -6,41 +6,33 @@ module top_tb #(
     parameter SIM_TIME=1000
 );
 
-    logic clk, rst, read_en, hit, mem_ready, mem_req;
-    logic [31:0] addr;
-    logic [31:0] data_out;
-    logic [31:0] mem_addr;
-    logic [127:0] mem_data;
+    logic clk, rst;
+    // logic clk, rst, read_en, hit, mem_ready, mem_req;
+    // logic [31:0] addr;
+    // logic [31:0] data_out;
+    // logic [31:0] mem_addr;
+    // logic [127:0] mem_data;
+
+    ahb_lite upstream_intf_inst();
+    ahb_lite downstream_intf_inst();
+
+    // global clk and rst
+    assign upstream_intf_inst.clk = clk;
+    assign upstream_intf_inst.rst = rst;
+    assign downstream_intf_inst.clk = clk;
+    assign downstream_intf_inst.rst = rst;
 
     top top_inst(
-        .clk(clk),
-        .rst(rst),
-        .addr(addr),
-        .data_out(data_out),
-        .read_en(read_en),
-        .hit(hit),
-        .mem_addr(mem_addr),
-        .mem_data_in(mem_data),
-        .mem_ready(mem_ready),
-        .mem_req(mem_req)
+        .upstream_intf(upstream_intf_inst.slave),
+        .downstream_intf(downstream_intf_inst.master)
     );
 
     cpu_sim cpu_sim_inst(
-        .clk(clk),
-        .rst(rst),
-        .requested_data(data_out),
-        .hit(hit),
-        .request_addr(addr),
-        .read_en(read_en)
+        .cpu_intf(upstream_intf_inst.master),
     );
 
     mem_sim mem_sim_inst(
-        .clk(clk),
-        .rst(rst),
-        .mem_addr(mem_addr),
-        .mem_req(mem_req),
-        .mem_data_out(mem_data),
-        .mem_ready(mem_ready)
+        .mem_intf(downstream_intf_inst.slave)
     );
 
     initial begin

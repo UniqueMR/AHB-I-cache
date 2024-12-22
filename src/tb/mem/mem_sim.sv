@@ -53,30 +53,24 @@ endclass
 module mem_sim #(
     parameter MAIN_MEM_SIZE=37268
 )(  
-    input clk,
-    input rst,
-
-    input [31:0] mem_addr,
-    input mem_req,
-    output logic [127:0] mem_data_out,
-    output logic mem_ready
+    ahb_lite.slave mem_intf
 );
 
-memDrive driver_obj;
+// memDrive driver_obj;
 
-initial begin
-    driver_obj = new();
-end
+// initial begin
+//     driver_obj = new();
+// end
 
-always @(posedge clk or negedge rst) begin
-    if (~rst);    
-    else if(mem_req) driver_obj.mem_read(mem_addr);
-end
+// always @(posedge clk or negedge rst) begin
+//     if (~rst);    
+//     else if(mem_req) driver_obj.mem_read(mem_addr);
+// end
 
-always begin
-    mem_data_out = driver_obj.mem_read_val;
-    mem_ready = driver_obj.mem_ready;
-    #1;
-end
+// always begin
+//     mem_data_out = driver_obj.mem_read_val;
+//     mem_ready = driver_obj.mem_ready;
+//     #1;
+// end
 
 endmodule
