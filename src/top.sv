@@ -24,8 +24,8 @@ assign init_addr = 32'h0000_0a00;
 always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin    
     if(~upstream_intf.hrstn) begin
        for(idx = 0; idx < 16'hFF; idx = idx + 1) begin
-        cache_entries[base_addr + idx].cache_line = {idx, idx, idx, idx};
-        cache_entries[base_addr + idx].valid = 1'b1;
+        cache_entries[init_addr + idx].cache_line = {idx, idx, idx, idx};
+        cache_entries[init_addr + idx].valid = 1'b1;
        end
     end
 end
