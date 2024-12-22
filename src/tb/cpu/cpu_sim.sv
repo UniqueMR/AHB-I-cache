@@ -35,32 +35,22 @@ module cpu_sim #(
 ) (
     ahb_lite.master cpu_intf
 );
-    // cpuDriver #(.HOLD(15)) driver_obj;
-    // logic [$clog2(REQ_FREQ_CYCLES)-1:0] req_delay_cnt;
 
-    // initial begin
-    //     driver_obj = new();
-    // end
+logic [31:0] cpu_local_addr;
+logic [31:0] cpu_local_data;
 
-    // always @(posedge clk or negedge rst) begin
-    //     if(~rst) req_delay_cnt <= 0;
-    //     else if(req_delay_cnt == REQ_FREQ_CYCLES-1) req_delay_cnt <= 0;
-    //     else req_delay_cnt <= req_delay_cnt + 1;
-    // end
+transfer_handler cpu_cache_transfer_handler_inst(
+    .clk(cpu_intf.hclk),
+    .rstn(cpu_intf.hrstn),
 
-    // always @(posedge clk or negedge rst)    begin
-    //     if(~rst);
-    //     else if(req_delay_cnt == REQ_FREQ_CYCLES-1) driver_obj.drive_request();
-    // end
+    .addr(cpu_intf.haddr),
+    .hwrite(cpu_intf.hwrite),
+    .hrdata(cpu_intf.hrdata),
+    .hready(cpu_intf.hready),
+    .hwdata(cpu_intf.hwdata),
 
-    // always begin
-    //     request_addr = driver_obj.addr;
-    //     read_en = driver_obj.read_en;
-    //     #1;
-    // end
-
-    // always begin
-    //     #10 $display("CPU Driver: Driving request at addr=0x%08x", request_addr);
-    // end
+    .read_addr(cpu_local_addr),
+    .read_data(cpu_local_data)
+);
 
 endmodule

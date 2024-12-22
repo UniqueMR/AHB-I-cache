@@ -56,21 +56,5 @@ module mem_sim #(
     ahb_lite.slave mem_intf
 );
 
-// memDrive driver_obj;
-
-// initial begin
-//     driver_obj = new();
-// end
-
-// always @(posedge clk or negedge rst) begin
-//     if (~rst);    
-//     else if(mem_req) driver_obj.mem_read(mem_addr);
-// end
-
-// always begin
-//     mem_data_out = driver_obj.mem_read_val;
-//     mem_ready = driver_obj.mem_ready;
-//     #1;
-// end
 
 endmodule
