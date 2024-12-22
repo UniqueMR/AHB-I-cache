@@ -61,10 +61,9 @@ endif
 
 
 compile:
-	# mkdir -p $(WS) 
-	# mkdir -p $(WS)/waveform
 	$(VLOG) -work $(WS) $(TB_SRC)
-
+	mkdir -p $(WS)/waveform
+	
 sim: compile
 	$(VSIM) -do $(DO) -c
 	$(VSIM) -view $(WF)
