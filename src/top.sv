@@ -17,15 +17,12 @@ typedef struct packed{
 cache_entry_t cache_entries [0:CACHE_SIZE * 8 / 128 -1];
 
 logic [31:0] idx;
-logic [31:0] init_addr;
-
-assign init_addr = 32'h0000_0a00;
 
 always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin    
     if(~upstream_intf.hrstn) begin
-       for(idx = 0; idx < 16'hFF; idx = idx + 1) begin
-        cache_entries[init_addr + idx].cache_line = {idx, idx, idx, idx};
-        cache_entries[init_addr + idx].valid = 1'b1;
+       for(idx = 0; idx < 32'h1FF; idx = idx + 1) begin
+        cache_entries[idx].cache_line = {idx, idx, idx, idx};
+        cache_entries[idx].valid = 1'b1;
        end
     end
 end
