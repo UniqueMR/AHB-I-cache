@@ -8,7 +8,7 @@ module transfer_handler(
     input [31:0] hwdata,
 
     output [31:0] read_addr,
-    output [31:0] read_data,
+    output [31:0] read_data
 );
 
 reg [31:0] local_addr;
