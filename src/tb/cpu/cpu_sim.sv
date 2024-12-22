@@ -53,4 +53,22 @@ transfer_handler cpu_cache_transfer_handler_inst(
     .read_data(cpu_local_data)
 );
 
+cpuDriver driver_obj;
+
+reg [3:0] request_delay_counter; 
+
+always_ff @( posedge cpu_intf.hclk or negedge cpu_intf.hrstn) begin : read_request
+    if(~cpu_intf.hrstn) begin
+        driver_obj.new();
+        request_delay_counter <= 0;
+    end
+    else begin
+        if(request_delay_counter == REQ_FREQ_CYCLES - 1) driver_obj.drive_request();
+        request_delay_counter <= request_delay_counter == (REQ_FREQ_CYCLES - 1) ? 0 : request_delay_counter + 1;
+    end
+end
+
+assign cpu_intf.haddr = driver_obj.addr;
+assign cpu_intf.hwrite = ~driver_obj.read_en;
+
 endmodule

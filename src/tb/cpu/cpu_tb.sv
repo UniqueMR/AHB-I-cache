@@ -4,30 +4,21 @@ module cpu_tb #(
     parameter CLK_FREQ_HALF=5,
     parameter RST_DELAY=30
 );
-    logic clk;
-    logic rst;
-    logic hit;
-    logic read_en;
-    logic [31:0] requested_data, request_addr;
+    ahb_lite.master cpu_intf_inst;
     
     cpu_sim cpu_sim_inst(
-        .clk(clk),
-        .rst(rst),
-        .requested_data(requested_data),
-        .hit(hit),
-        .request_addr(request_addr),
-        .read_en(read_en)
+        .cpu_intf(cpu_intf_inst)
     );
 
     initial begin
-        clk = 1'b0;
-        rst = 1'b0;
-        #RST_DELAY rst = 1'b1;
+        cpu_intf_inst.hclk = 1'b0;
+        cpu_intf_inst.hrstn = 1'b0;
+        #RST_DELAY cpu_intf_inst.hrstn = 1'b1;
         #1000 $finish;
     end
 
     always begin
-        #CLK_FREQ_HALF clk = ~clk;
+        #CLK_FREQ_HALF cpu_intf_inst.hclk = ~cpu_intf_inst.hclk;
     end
 
 endmodule
