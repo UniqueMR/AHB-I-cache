@@ -7,11 +7,6 @@ module top_tb #(
 );
 
     logic clk, rst;
-    // logic clk, rst, read_en, hit, mem_ready, mem_req;
-    // logic [31:0] addr;
-    // logic [31:0] data_out;
-    // logic [31:0] mem_addr;
-    // logic [127:0] mem_data;
 
     ahb_lite upstream_intf_inst();
     ahb_lite downstream_intf_inst();
