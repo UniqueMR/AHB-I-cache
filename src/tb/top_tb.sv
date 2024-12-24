@@ -22,10 +22,7 @@ module top_tb #(
         .downstream_intf(downstream_intf_inst.master)
     );
 
-    cpu_sim #(
-        .REQ_FREQ_CYCLES(1),
-        .HOLD(10)
-    ) cpu_sim_inst(
+    cpu_sim cpu_sim_inst(
         .cpu_intf(upstream_intf_inst.master)
     );
 
