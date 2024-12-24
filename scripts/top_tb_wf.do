@@ -17,5 +17,11 @@ add wave -position end sim:/top_tb/top_inst/local_data
 
 add wave -position end sim:/top_tb/top_inst/hit
 add wave -position end sim:/top_tb/top_inst/hit_r
+
+add wave -position end sim:/top_tb/top_inst/cpu_cache_transfer_handler_inst/hwrite
+add wave -position end sim:/top_tb/top_inst/cpu_cache_transfer_handler_inst/hready
+add wave -position end sim:/top_tb/top_inst/cpu_cache_transfer_handler_inst/local_addr
+add wave -position end sim:/top_tb/top_inst/cpu_cache_transfer_handler_inst/next_addr
+
 run -all
 quit
