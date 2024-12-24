@@ -14,5 +14,8 @@ add wave -position end sim:/top_tb/top_inst/upstream_intf.hrdata
 
 add wave -position end sim:/top_tb/top_inst/local_addr
 add wave -position end sim:/top_tb/top_inst/local_data
+
+add wave -position end sim:/top_tb/top_inst/hit
+add wave -position end sim:/top_tb/top_inst/hit_r
 run -all
 quit
