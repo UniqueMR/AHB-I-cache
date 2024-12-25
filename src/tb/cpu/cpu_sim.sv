@@ -5,15 +5,38 @@ class cpuDriver #(
 );
     bit [31:0] addr;
     bit read_en;
+    bit first_req;
+    int unsigned addr_hist[];
 
     function new();
         this.read_en = 0;
+        this.first_req = 0;
     endfunction
 
     function void drive_request_start();
-        $display("cpu drive request start");
-        this.addr = $urandom_range(32'h0000_0a00, 32'h0000_0aFF);
-        this.read_en = 1;
+        bit hit;
+        int unsigned addr;
+        int unsigned idx;
+        if(this.first_req == 0) begin
+            $display("cpu drive request start");
+            this.addr = $urandom_range(32'h0000_0a00, 32'h0000_0aFF);
+            this.read_en = 1;
+            this.first_req = 1;
+        end
+        else begin
+            hit = $urandom_range(0, 1);
+            if(hit) begin
+                idx = $urandom_range(0, this.addr_hist.size()-1);
+                this.addr = addr_hist[idx];
+                this.read_en = 1;
+            end
+            else begin
+                do begin
+                    this.addr = $urandom_range(32'h0000_0a00, 32'h0000_0aFF);
+                    this.read_en = 1;
+                end while (this.addr_hist.find(this.addr) == -1)
+            end
+        end
     endfunction
 
     function void drive_request_end();
