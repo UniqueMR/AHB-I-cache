@@ -34,7 +34,7 @@ class cpuDriver #(
                 do begin
                     this.addr = $urandom_range(32'h0000_0a00, 32'h0000_0aFF);
                     this.read_en = 1;
-                end while ((this.addr_hist.find(x) with (x == this.addr)).size() == 0);
+                end while ((this.addr_hist.find(x) with (x == this.addr)) == {});
                 this.addr_hist.push_back(this.addr);
             end
         end
