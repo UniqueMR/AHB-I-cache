@@ -60,7 +60,7 @@ module mem_sim #(
 logic [31:0] mem_local_addr;
 logic [31:0] mem_local_data;
 
-transfer_handler cpu_cache_transfer_handler_inst(
+transfer_handler cache_mem_transfer_handler_inst(
     .clk(mem_intf.hclk),
     .rstn(mem_intf.hrstn),
 
