@@ -62,7 +62,7 @@ function void drive_request_start();
     // Generate a "miss" by creating a new random address
     do begin
       new_addr = $urandom_range(32'h0000_0a00, 32'h0000_0aff);
-    end while (addr_history.find(new_addr) != -1); // Ensure it’s not in the history
+    end while (addr_history.find(x) with (x == new_addr) != -1); // Ensure it’s not in the history
     addr_history.push_back(new_addr);            // Add to history
   end
 
