@@ -6,7 +6,7 @@ class cpuDriver #(
     bit [31:0] addr;
     bit read_en;
     bit first_req;
-    int unsigned addr_hist[];
+    int unsigned addr_hist[$];
 
     function new();
         this.read_en = 0;
