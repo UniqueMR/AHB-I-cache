@@ -6,7 +6,7 @@ class cpuDriver #(
     bit [31:0] addr;
     bit read_en;
     bit first_req;
-    int unsigned addr_hist[$];
+    int unsigned addr_hist[];
 
     function new();
         this.read_en = 0;
@@ -34,7 +34,7 @@ class cpuDriver #(
                 do begin
                     this.addr = $urandom_range(32'h0000_0a00, 32'h0000_0aFF);
                     this.read_en = 1;
-                end while (this.addr_hist.find(this.addr) == -1);
+                end while ((this.addr_hist.find(x) with (x == this.addr)).size() == 0);
                 this.addr_hist.push_back(this.addr);
             end
         end
