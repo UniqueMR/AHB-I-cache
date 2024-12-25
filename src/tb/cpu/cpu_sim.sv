@@ -18,34 +18,35 @@ class cpuDriver #(
 
     function void drive_request_start();
         bit hit;
-        int unsigned addr;
+        int unsigned addr_gen;
         int unsigned idx;
         if(this.first_req == 0) begin
-            $display("cpu drive request start");
-            addr = $urandom_range(32'h0000_0a00, 32'h0000_0aFF);
-            this.read_en = 1;
+            hit = 0;
+            addr_gen = $urandom_range(32'h0000_0a00, 32'h0000_0aFF);
             this.first_req = 1;
             this.addr_hist.push_back(addr);
             this.addr_hist_assoc[addr] = this.assoc_ptr;
             this.assoc_ptr = this.assoc_ptr + 1;
+            
         end
         else begin
             hit = $urandom_range(0, 1);
             if(hit) begin
                 idx = $urandom_range(0, this.addr_hist.size()-1);
-                addr = addr_hist[idx];
-                this.read_en = 1;
+                addr_gen = addr_hist[idx];
             end
             else begin
                 do begin
-                    addr = $urandom_range(32'h0000_0a00, 32'h0000_0aFF);
-                    this.read_en = 1;
+                    addr_gen = $urandom_range(32'h0000_0a00, 32'h0000_0aFF);
                 end while (!this.addr_hist_assoc.exists(addr));
                 this.addr_hist.push_back(addr);
                 this.addr_hist_assoc[addr] = this.assoc_ptr;
                 this.assoc_ptr = this.assoc_ptr + 1;
             end
         end
+        this.addr = addr_gen;
+        this.read_en = 1;
+        $display("cpu drive request start: addr = %h, mode = %s", addr_gen, hit ? "hit" : "miss");
     endfunction
 
     function void drive_request_end();
