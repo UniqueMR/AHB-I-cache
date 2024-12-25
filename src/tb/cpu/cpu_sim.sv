@@ -26,7 +26,7 @@ class cpuDriver #(
             this.read_en = 1;
             this.first_req = 1;
             this.addr_hist.push_back(addr);
-            this.addr_hist_assoc[addr] = this.idx;
+            this.addr_hist_assoc[addr] = this.assoc_ptr;
             this.assoc_ptr = this.assoc_ptr + 1;
         end
         else begin
