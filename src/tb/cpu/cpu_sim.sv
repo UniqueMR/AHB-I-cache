@@ -38,7 +38,7 @@ class cpuDriver #(
             else begin
                 do begin
                     addr_gen = $urandom_range(32'h0000_0a00, 32'h0000_0aFF);
-                end while (!this.addr_hist_assoc.exists(addr_gen));
+                end while (this.addr_hist_assoc.exists(addr_gen));
                 this.addr_hist.push_back(addr_gen);
                 this.addr_hist_assoc[addr_gen] = this.assoc_ptr;
                 this.assoc_ptr = this.assoc_ptr + 1;
