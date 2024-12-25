@@ -68,6 +68,9 @@ logic [31:0] cache_local_data;
 line_segment_selector line_segment_selector_cache_inst(cache_entries[index].cache_line, offset, cache_local_data);
 
 assign upstream_intf.hready = hit_r ? 1'b1 : downstream_intf.hready;
+assign downstream_intf.hwrite = hit_r ? 1'b1 : 1'b0;
+assign downstream_intf.haddr = local_addr;
+
 assign local_data = hit_r ? cache_local_data : downstream_intf.hrdata; 
 
 // update cache entries in the case of hit 
