@@ -73,7 +73,7 @@ assign local_data = hit_r ? cache_local_data : downstream_intf.hrdata;
 // update cache entries in the case of hit 
 always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin
     if(~upstream_intf.hrstn);
-    else if(downstream_intf.hready) begin
+    else if(~hit && downstream_intf.hready) begin
         cache_entries[index].cache_line <= 128'hffff_ffff_ffff_ffff_ffff_ffff_ffff_ffff;
         cache_entries[index].valid <= 1'b1;
         cache_entries[index].tag <= tag;  
