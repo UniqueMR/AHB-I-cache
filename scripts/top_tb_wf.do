@@ -23,10 +23,10 @@ add wave -position end sim:/top_tb/top_inst/cpu_cache_transfer_handler_inst/hrea
 add wave -position end sim:/top_tb/top_inst/cpu_cache_transfer_handler_inst/local_addr
 add wave -position end sim:/top_tb/top_inst/cpu_cache_transfer_handler_inst/next_addr
 
-add wave -position end sim:/top_tb/mem_sim_inst/cach_mem_transfer_handler_inst/hwrite
-add wave -position end sim:/top_tb/mem_sim_inst/cach_mem_transfer_handler_inst/hready
-add wave -position end sim:/top_tb/mem_sim_inst/cach_mem_transfer_handler_inst/local_addr
-add wave -position end sim:/top_tb/mem_sim_inst/cach_mem_transfer_handler_inst/next_addr
+add wave -position end sim:/top_tb/mem_sim_inst/cache_mem_transfer_handler_inst/hwrite
+add wave -position end sim:/top_tb/mem_sim_inst/cache_mem_transfer_handler_inst/hready
+add wave -position end sim:/top_tb/mem_sim_inst/cache_mem_transfer_handler_inst/local_addr
+add wave -position end sim:/top_tb/mem_sim_inst/cache_mem_transfer_handler_inst/next_addr
 
 run -all
 quit
