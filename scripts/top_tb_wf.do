@@ -7,7 +7,7 @@ $VSIM -voptargs=+acc -lib $TOP_WS $TOP_TB_EXEC -wlf $WAVEFORM
 add wave -position end sim:/top_tb/top_inst/upstream_intf.hclk
 add wave -position end sim:/top_tb/top_inst/upstream_intf.hrstn
 
-add wave -position end sim:/top_tb/top_inst/upstream_intf.hraddr
+add wave -position end sim:/top_tb/top_inst/upstream_intf.haddr
 add wave -position end sim:/top_tb/top_inst/upstream_intf.hwrite
 
 add wave -position end sim:/top_tb/top_inst/local_addr
