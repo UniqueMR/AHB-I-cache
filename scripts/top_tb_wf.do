@@ -28,6 +28,7 @@ add wave -position end sim:/top_tb/mem_sim_inst/cache_mem_transfer_handler_inst/
 add wave -position end sim:/top_tb/mem_sim_inst/cache_mem_transfer_handler_inst/local_addr
 add wave -position end sim:/top_tb/mem_sim_inst/cache_mem_transfer_handler_inst/next_addr
 
+add wave -position end sim:/top_tb/mem_sim_inst/mem_local_addr
 add wave -position end sim:/top_tb/mem_sim_inst/mem_local_data
 add wave -position end sim:/top_tb/mem_sim_inst/mem_intf.hready
 
