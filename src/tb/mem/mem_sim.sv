@@ -86,7 +86,7 @@ always_ff @(posedge mem_intf.hclk or negedge mem_intf.hrstn) begin
 end
 
 always begin
-    mem_local_data = driver_obj.mem_read_val[0];
+    mem_local_data = driver_obj.mem_read_val[31:0];
     mem_intf.hready = driver_obj.mem_ready;
     #1;
 end
