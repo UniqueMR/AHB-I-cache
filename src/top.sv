@@ -55,23 +55,17 @@ addr_parser #(.CACHE_LINE(CACHE_LINE), .CACHE_SIZE(CACHE_SIZE)) addr_parser_inst
 
 // hit or miss
 wire hit;
-reg hit_r;
 assign hit = cache_entries[index].valid == 1'b0 ? 0 : (cache_entries[index].tag == tag ? 1'b1 : 1'b0);
-
-always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin
-    if(~upstream_intf.hrstn) hit_r <= 0;
-    else hit_r <= upstream_intf.hready ? hit : hit_r;
-end
 
 // cache entries access
 logic [31:0] cache_local_data;
 line_segment_selector line_segment_selector_cache_inst(cache_entries[index].cache_line, offset, cache_local_data);
 
-assign upstream_intf.hready = hit_r ? 1'b1 : downstream_intf.hready;
+assign upstream_intf.hready = hit ? 1'b1 : downstream_intf.hready;
 assign downstream_intf.hwrite = hit ? 1'b1 : 1'b0;
 assign downstream_intf.haddr = local_addr;
 
-assign local_data = hit_r ? cache_local_data : downstream_intf.hrdata; 
+assign local_data = hit ? cache_local_data : downstream_intf.hrdata; 
 
 // update cache entries in the case of hit 
 always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin
