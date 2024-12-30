@@ -17,7 +17,7 @@ reg [31:0] next_addr;
 
 always_ff @(posedge clk or negedge rstn) begin
     if(~rstn) begin
-        local_addr <= 0;
+        local_addr <= addr;
     end
     else begin
         local_addr <= next_addr;
@@ -27,7 +27,7 @@ end
 always_comb begin
     if(hwrite);
     else begin
-        next_addr = addr;
+        next_addr = hready ? addr : local_addr;
     end
 end
 
