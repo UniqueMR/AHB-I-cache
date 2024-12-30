@@ -25,10 +25,7 @@ always_ff @(posedge clk or negedge rstn) begin
 end
 
 always_comb begin
-    if(hwrite);
-    else begin
-        next_addr = hready ? addr : local_addr;
-    end
+    next_addr = hready ? addr : local_addr;
 end
 
 assign read_data = hrdata;
