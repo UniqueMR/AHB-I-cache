@@ -64,7 +64,7 @@ interface ahb_lite;
 
 endinterface //
 
-package interface_pkg
+package interface_pkg;
     typedef enum logic [2:0] { 
         SINGLE = 3'b000,
         INCR = 3'b001,
