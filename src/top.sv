@@ -1,3 +1,5 @@
+import interface_pkg::*;
+
 module top #(
     parameter CACHE_SIZE = 8192
 )(
@@ -7,6 +9,8 @@ module top #(
 
 // entries 
 parameter CACHE_LINE = 128;
+
+BURST_TYPES burst_type;
 
 typedef struct packed{
     reg [CACHE_LINE-1:0] cache_line;
@@ -75,6 +79,11 @@ always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin
         cache_entries[index].valid <= 1'b1;
         cache_entries[index].tag <= tag;  
     end
+end
+
+assign downstream_intf.hburst = burst_type;
+always_comb begin
+    burst_type = WRAP4;
 end
 
 endmodule
