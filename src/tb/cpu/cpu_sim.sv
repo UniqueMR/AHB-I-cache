@@ -1,5 +1,7 @@
 `timescale 1ns/1ps
 
+import interface_pkg::*;
+
 class cpuDriver #(
     parameter HOLD=15
 );
