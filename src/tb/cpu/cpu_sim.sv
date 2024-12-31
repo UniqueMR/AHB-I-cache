@@ -5,10 +5,13 @@ class cpuDriver #(
 );
     bit [31:0] addr;
     bit read_en;
+
     bit first_req;
     int unsigned addr_hist[$];
     int addr_hist_assoc[int unsigned];
     int assoc_ptr;
+
+    BURST_TYPES burst_type;
 
     function new();
         this.read_en = 0;
@@ -46,6 +49,7 @@ class cpuDriver #(
         end
         this.addr = addr_gen;
         this.read_en = 1;
+        this.burst_type = SINGLE;
         $display("cpu drive request start: addr = %h, mode = %s", addr_gen, hit ? "hit" : "miss");
     endfunction
 
@@ -90,6 +94,7 @@ end
 always begin
     cpu_intf.haddr = driver_obj.addr;
     cpu_intf.hwrite = ~driver_obj.read_en;
+    cpu_intf.hburst = driver_obj.burst_type;
     #1;
 end
 
