@@ -10,7 +10,6 @@ module top #(
 // entries 
 parameter CACHE_LINE = 128;
 
-import interface_pkg::*;
 BURST_TYPES burst_type;
 
 typedef struct packed{
