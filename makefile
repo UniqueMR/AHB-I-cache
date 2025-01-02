@@ -8,7 +8,7 @@ CPU_WS=$(MODEL_SIM_WS)cpu
 MEM_WS=$(MODEL_SIM_WS)mem
 INTERFACE_WS=$(MODEL_SIM_WS)interface
 
-HEADER = ./src/include/interface_pkg.svh
+HEADER = ./src/include/
 
 UTILS_SRC = ./src/utils/addr_parser.sv ./src/utils/line_segment_selector.sv ./src/utils/cache_state_handler.sv
 INTERFACE_SRC=./src/interface/ahb_lite.sv ./src/interface/transfer_handler.sv 
@@ -65,7 +65,7 @@ endif
 compile:
 	rm -rf $(WS)
 	$(VLIB) $(WS)
-	$(VLOG) -work $(WS) $(HEADER) $(TB_SRC) 
+	$(VLOG) -work $(WS) $(HEADER) $(TB_SRC) +incdir+$(HEADER)
 	mkdir -p $(WS)/waveform
 
 sim: compile
