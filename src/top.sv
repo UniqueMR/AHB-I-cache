@@ -11,6 +11,7 @@ module top #(
 parameter CACHE_LINE = 128;
 
 BURST_TYPES burst_type;
+TRANS_TYPES trans_type;
 
 typedef struct packed{
     reg [CACHE_LINE-1:0] cache_line;
@@ -82,8 +83,11 @@ always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin
 end
 
 assign downstream_intf.hburst = burst_type;
+assign downstream_intf.htrans = trans_type;
+
 always_comb begin
     burst_type = WRAP4;
+    trans_type = NONSEQUENTIAL;
 end
 
 endmodule

@@ -8,3 +8,10 @@ typedef enum logic [2:0] {
     WRAP16 = 3'b110,
     INCR16 = 3'b111
 } BURST_TYPES;
+
+typedef enum logic [1:0] { 
+    IDLE = 2'b00,
+    BUSY = 2'b01,
+    NONSEQUENTIAL = 2'b10,
+    SEQUENTIAL = 2'b11
+ } TRANS_TYPES;
