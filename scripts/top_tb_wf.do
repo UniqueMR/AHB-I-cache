@@ -19,6 +19,7 @@ add wave -position end sim:/top_tb/top_inst/downstream_intf.hrdata
 add wave -position end sim:/top_tb/top_inst/upstream_intf.hready
 add wave -position end sim:/top_tb/top_inst/downstream_intf.hready
 add wave -position end sim:/top_tb/top_inst/downstream_intf.hburst
+add wave -position end sim:/top_tb/top_inst/downstream_intf.htrans
 
 run -all
 quit
