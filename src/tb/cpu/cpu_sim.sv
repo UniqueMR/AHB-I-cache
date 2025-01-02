@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-`include "./include/interface_pkg.svh"
+`include "./src/include/interface_pkg.svh"
 
 class cpuDriver #(
     parameter HOLD=15

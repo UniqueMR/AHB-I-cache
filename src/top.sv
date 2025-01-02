@@ -1,4 +1,4 @@
-`include "./include/interface_pkg.svh"
+`include "./src/include/interface_pkg.svh"
 
 module top #(
     parameter CACHE_SIZE = 8192
