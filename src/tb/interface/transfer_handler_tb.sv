@@ -35,6 +35,7 @@ initial begin
     ready = 0;
     burst = 3'b010;
     #10 rstn = 1;
+    #1000 $finish;
 end
 
 always begin
