@@ -12,6 +12,7 @@ add wave -position end sim:/$TB_EXEC/addr
 add wave -position end sim:/$TB_EXEC/$DUT/base_addr
 add wave -position end sim:/$TB_EXEC/$DUT/offset_addr
 add wave -position end sim:/$TB_EXEC/$DUT/next_offset_addr
+add wave -position end sim:/$TB_EXEC/$DUT/cnt_burst
 add wave -position end sim:/$TB_EXEC/read_addr
 add wave -position end sim:/$TB_EXEC/ready
 add wave -position end sim:/$TB_EXEC/rdata
