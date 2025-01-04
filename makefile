@@ -23,7 +23,7 @@ TOP_TB_SRC=$(TOP_SRC) $(INTERFACE_SRC) $(MEM_SIM_SRC) $(CPU_SIM_SRC) ./src/tb/to
 CPU_TB_SRC=$(CPU_SIM_SRC) ./src/tb/cpu/cpu_tb.sv
 MEM_TB_SRC=$(MEM_SIM_SRC) ./src/tb/mem/mem_tb.sv
 INTERFACE_TB_SRC=$(INTERFACE_SRC) ./src/tb/interface/interface_tb_master.sv ./src/tb/interface/interface_tb_slave.sv ./src/tb/interface/interface_tb.sv
-TRANSFER_HANDLER_TB_SRC=$(INTERFACE_SRC) ./src/tb/interface/transfer_handler.sv
+TRANSFER_HANDLER_TB_SRC=$(INTERFACE_SRC) ./src/tb/interface/transfer_handler_tb.sv
 
 DO_CPU=./scripts/cpu_tb_wf.do
 DO_MEM=./scripts/mem_tb_wf.do
