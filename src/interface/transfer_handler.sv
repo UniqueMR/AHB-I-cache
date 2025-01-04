@@ -25,8 +25,6 @@ reg [31:0] next_offset_addr;
 
 BURST_TYPES burst_type;
 
-assign burst_type = hburst;
-
 reg [1:0] cnt_wrap4;
 
 always_ff @(posedge clk or negedge rstn) begin
@@ -44,6 +42,7 @@ end
 
 always_comb begin
     next_offset_addr = hready ? ((offset_addr + 4) == 32'h10 ? 0 : offset_addr + 4) : offset_addr;
+    burst_type = hburst;
     case(hburst)
         SINGLE: next_addr = hready ? addr : local_addr;
         WRAP4: begin
