@@ -12,6 +12,8 @@ reg [1:0] trans;
 reg [31:0] read_addr;
 reg [31:0] read_data;
 
+reg [1:0] trans_out;
+
 transfer_handler transfer_handler_inst(
     .clk(clk),
     .rstn(rstn),
@@ -22,10 +24,11 @@ transfer_handler transfer_handler_inst(
     .hready(ready),
     .hwdata(wdata),
     .hburst(burst),
-
     .htrans(trans),
+
     .read_addr(read_addr),
-    .read_data(read_data)
+    .read_data(read_data),
+    .trans_out(trans_out)
 );
 
 initial begin
@@ -46,7 +49,10 @@ always begin
     #20;
     forever begin
         addr = $urandom_range(0, 32'hffff_ffff);
-        #100;
+        trans = TRANS_TYPES'(NONSEQ);
+        #10 addr = 0;
+        trans = TRANS_TYPES'(IDLE);
+        #90;
     end
 end
 

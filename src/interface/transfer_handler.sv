@@ -9,10 +9,11 @@ module transfer_handler(
     input hready,
     input [31:0] hwdata,
     input [2:0] hburst,
+    input [1:0] htrans,
     
-    output [1:0] htrans,
     output [31:0] read_addr,
-    output [31:0] read_data
+    output [31:0] read_data,
+    output [1:0] trans_out
 );
 
 parameter WRAP4_BOUNDARY_MASK = 32'hFFFF_FFF0;
@@ -26,32 +27,46 @@ reg [31:0] next_offset_addr;
 BURST_TYPES burst_type;
 assign burst_type = BURST_TYPES'(hburst);
 
-reg [1:0] cnt_wrap4;
+TRANS_TYPES trans_type_in;
+TRANS_TYPES trans_type_out;
+
+assign trans_type_in = TRANS_TYPES'(htrans);
+
+reg [1:0] cnt_burst;
+reg [1:0] next_cnt_burst;
 
 always_ff @(posedge clk or negedge rstn) begin
     if(~rstn) begin
         local_addr <= addr;
-        cnt_wrap4 <= 0;
+        cnt_burst <= 2'b11;
         offset_addr <= 0;
     end
     else begin
         local_addr <= next_addr;
-        cnt_wrap4 <= hready ? (cnt_wrap4 == 2'b11 ? 0 : cnt_wrap4 + 1) : cnt_wrap4;
+        cnt_burst <= next_cnt_burst;
         offset_addr <= next_offset_addr;
     end
 end
 
 always_comb begin
-    next_offset_addr = hready ? ((offset_addr + 4) == 32'h10 ? 0 : offset_addr + 4) : offset_addr;
+    if(burst_type == WRAP4)
+        if(trans_type_in == NONSEQ) next_cnt_burst = 0;
+        else next_cnt_burst = hready ? (cnt_burst == 2'b11 ? 0 : cnt_burst + 1) : cnt_burst;
+end
+
+always_comb begin
     case(burst_type)
         SINGLE: next_addr = hready ? addr : local_addr;
         WRAP4: begin
-            if(cnt_wrap4 == 2'b11)  next_addr = hready ? addr : local_addr;
-            else if(cnt_wrap4 == 2'b00) begin
-                base_addr = addr & WRAP4_BOUNDARY_MASK;
+            if(cnt_burst == 2'b11) begin
                 next_addr = hready ? addr : local_addr;
+                base_addr = next_addr & WRAP4_BOUNDARY_MASK;
+                next_offset_addr = next_addr - base_addr;
             end
-            else next_addr = hready ? base_addr + offset_addr : local_addr;
+            else begin
+                next_addr = hready ? base_addr + offset_addr : local_addr;
+                next_offset_addr = hready ? ((offset_addr + 4) == 32'h10 ? 0 : offset_addr + 4) : offset_addr;
+            end
         end
     endcase
 end
