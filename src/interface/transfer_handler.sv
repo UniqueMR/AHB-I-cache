@@ -64,7 +64,7 @@ always_comb begin
             if(trans_type_in == NONSEQ) begin
                 next_addr = hready ? addr : local_addr;
                 next_base_addr = next_addr & WRAP4_BOUNDARY_MASK;
-                next_offset_addr = next_addr - base_addr;
+                next_offset_addr = next_addr - next_base_addr;
             end
             else begin
                 next_addr = hready ? base_addr + offset_addr : local_addr;
