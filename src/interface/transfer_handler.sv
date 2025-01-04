@@ -8,7 +8,7 @@ module transfer_handler(
     input [31:0] hrdata,
     input hready,
     input [31:0] hwdata,
-    input logic [3:0] hburst,
+    input [3:0] hburst,
     
     output [1:0] htrans,
     output [31:0] read_addr,
@@ -24,6 +24,7 @@ reg [31:0] offset_addr;
 reg [31:0] next_offset_addr;
 
 BURST_TYPES burst_type;
+assign burst_type = BURST_TYPES'(hburst);
 
 reg [1:0] cnt_wrap4;
 
@@ -42,8 +43,7 @@ end
 
 always_comb begin
     next_offset_addr = hready ? ((offset_addr + 4) == 32'h10 ? 0 : offset_addr + 4) : offset_addr;
-    burst_type = hburst;
-    case(hburst)
+    case(burst_type)
         SINGLE: next_addr = hready ? addr : local_addr;
         WRAP4: begin
             if(cnt_wrap4 == 2'b11)  next_addr = hready ? addr : local_addr;
