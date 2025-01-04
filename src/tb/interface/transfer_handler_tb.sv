@@ -59,7 +59,7 @@ always begin
 end
 
 always begin
-    #130 ready = ~ready;
+    #35 ready = ~ready;
 end
 
 endmodule
