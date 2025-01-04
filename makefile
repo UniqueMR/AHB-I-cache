@@ -35,6 +35,7 @@ CPU_WF=$(CPU_WS)/waveform/cpu_tb_wf.wlf
 MEM_WF=$(MEM_WS)/waveform/mem_tb_wf.wlf
 TOP_WF=$(TOP_WS)/waveform/top_tb_wf.wlf
 INTERFACE_WF=$(INTERFACE_WS)/waveform/interface_tb_wf.wlf
+TRANSFER_HANDLER_WF=$(TRANSFER_HANDLER_WS)/waveform/transfer_handler_tb_wf.wlf
 
 CLEAN_FILES=./src/*.swp ./src/tb/*.swp
 
@@ -64,6 +65,7 @@ else ifeq ($(TGT), transfer_handler)
 	WS = $(TRANSFER_HANDLER_WS)
 	TB_SRC = $(TRANSFER_HANDLER_TB_SRC)
 	DO = $(DO_TRANSFER_HANDLER)
+	WF = $(TRANSFER_HANDLER_WF)
 else
 	@echo "Error: Unknown target. Please use 'make compile top', 'make compile cpu', 'make compile mem', or 'make compile interface'."
 	exit 1
