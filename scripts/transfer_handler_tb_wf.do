@@ -9,6 +9,7 @@ add wave -position end sim:/$TB_EXEC/clk
 add wave -position end sim:/$TB_EXEC/rstn
 add wave -position end sim:/$TB_EXEC/hwrite
 add wave -position end sim:/$TB_EXEC/addr
+add wave -position end sim:/$TB_EXEC/$DUT/base_addr
 add wave -position end sim:/$TB_EXEC/$DUT/offset_addr
 add wave -position end sim:/$TB_EXEC/$DUT/next_offset_addr
 add wave -position end sim:/$TB_EXEC/read_addr
