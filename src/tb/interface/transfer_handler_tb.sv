@@ -51,7 +51,7 @@ always begin
     forever begin
         do begin
             addr = $urandom_range(0, 32'hffff_ffff);
-        end while(addr % 4 == 0);
+        end while(addr % 4 != 0);
         trans = TRANS_TYPES'(NONSEQ);
         #10 addr = 0;
         trans = TRANS_TYPES'(IDLE);
