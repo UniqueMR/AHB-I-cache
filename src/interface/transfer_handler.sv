@@ -15,7 +15,7 @@ module transfer_handler(
     output [31:0] read_data
 );
 
-parameter WRAP4_BOUNDARY_MASK = 0xFFFF_FFF0;
+parameter WRAP4_BOUNDARY_MASK = 32'hFFFF_FFF0;
 
 reg [31:0] local_addr;
 reg [31:0] next_addr;
