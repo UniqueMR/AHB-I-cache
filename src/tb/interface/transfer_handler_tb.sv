@@ -2,7 +2,7 @@
 
 module transfer_handler_tb;
 
-reg clk, rstn, hwrite;
+reg clk, rstn, hwrite, ready;
 reg [31:0] addr;
 reg [31:0] rdata;
 reg [31:0] wdata;
