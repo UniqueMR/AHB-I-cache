@@ -33,7 +33,7 @@ initial begin
     rstn = 0;
     hwrite = 0;
     ready = 0;
-    burst_type = 3'b010;
+    burst = 3'b010;
     #10 rstn = 1;
 end
 

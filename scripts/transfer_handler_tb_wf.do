@@ -12,6 +12,6 @@ add wave -position end sim:/$TB_EXEC/rdata
 add wave -position end sim:/$TB_EXEC/trans
 add wave -position end sim:/$TB_EXEC/read_addr
 add wave -position end sim:/$TB_EXEC/read_data
-add wave -position end sim:/$TB_EXEC/burst_type
+add wave -position end sim:/$TB_EXEC/burst
 run -all
 quit
