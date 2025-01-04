@@ -7,6 +7,7 @@ TOP_WS=$(MODEL_SIM_WS)top
 CPU_WS=$(MODEL_SIM_WS)cpu
 MEM_WS=$(MODEL_SIM_WS)mem
 INTERFACE_WS=$(MODEL_SIM_WS)interface
+TRANSFER_HANDLER_WS=$(MODEL_SIM_WS)transfer_handler
 
 HEADER_DIR = ./src/include/
 HEADER = ./src/include/interface_pkg.svh
@@ -22,11 +23,13 @@ TOP_TB_SRC=$(TOP_SRC) $(INTERFACE_SRC) $(MEM_SIM_SRC) $(CPU_SIM_SRC) ./src/tb/to
 CPU_TB_SRC=$(CPU_SIM_SRC) ./src/tb/cpu/cpu_tb.sv
 MEM_TB_SRC=$(MEM_SIM_SRC) ./src/tb/mem/mem_tb.sv
 INTERFACE_TB_SRC=$(INTERFACE_SRC) ./src/tb/interface/interface_tb_master.sv ./src/tb/interface/interface_tb_slave.sv ./src/tb/interface/interface_tb.sv
+TRANSFER_HANDLER_TB_SRC=$(INTERFACE_SRC) ./src/tb/interface/transfer_handler.sv
 
 DO_CPU=./scripts/cpu_tb_wf.do
 DO_MEM=./scripts/mem_tb_wf.do
 DO_TOP=./scripts/top_tb_wf.do
 DO_INTERFACE=./scripts/interface_tb_wf.do
+DO_TRANSFER_HANDLER=./scripts/transfer_handler_tb_wf.do
 
 CPU_WF=$(CPU_WS)/waveform/cpu_tb_wf.wlf
 MEM_WF=$(MEM_WS)/waveform/mem_tb_wf.wlf
@@ -57,6 +60,10 @@ else ifeq ($(TGT), interface)
 	TB_SRC = $(INTERFACE_TB_SRC)
 	DO = $(DO_INTERFACE)
 	WF = $(INTERFACE_WF)
+else ifeq ($(TGT), transfer_handler)
+	WS = $(TRANSFER_HANDLER_WS)
+	TB_SRC = $(TRANSFER_HANDLER_TB_SRC)
+	DO = $(DO_TRANSFER_HANDLER)
 else
 	@echo "Error: Unknown target. Please use 'make compile top', 'make compile cpu', 'make compile mem', or 'make compile interface'."
 	exit 1
