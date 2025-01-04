@@ -8,7 +8,7 @@ module transfer_handler(
     input [31:0] hrdata,
     input hready,
     input [31:0] hwdata,
-    input [3:0] hburst,
+    input [2:0] hburst,
     
     output [1:0] htrans,
     output [31:0] read_addr,

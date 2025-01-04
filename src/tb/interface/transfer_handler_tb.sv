@@ -6,11 +6,11 @@ reg clk, rstn, hwrite;
 reg [31:0] addr;
 reg [31:0] rdata;
 reg [31:0] wdata;
+reg [2:0] burst;
+
 reg [1:0] trans;
 reg [31:0] read_addr;
 reg [31:0] read_data;
-
-BURST_TYPES burst_type;
 
 transfer_handler transfer_handler_inst(
     .clk(clk),
@@ -21,7 +21,7 @@ transfer_handler transfer_handler_inst(
     .hrdata(rdata),
     .hready(ready),
     .hwdata(wdata),
-    .hburst(burst_type),
+    .hburst(burst),
 
     .htrans(trans),
     .read_addr(read_addr),
@@ -30,11 +30,11 @@ transfer_handler transfer_handler_inst(
 
 initial begin
     clk = 0;
-    rst = 0;
+    rstn = 0;
     hwrite = 0;
     ready = 0;
-    burst_type = WRAP4;
-    #10 rst = 1;
+    burst_type = 3'b010;
+    #10 rstn = 1;
 end
 
 always begin
