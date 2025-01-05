@@ -36,7 +36,7 @@ initial begin
     clk = 0;
     rstn = 0;
     hwrite = 0;
-    ready = 0;
+    ready = 1;
     burst = 3'b010;
     #10 rstn = 1;
     #1000 $finish;
@@ -69,6 +69,7 @@ end
 
 always begin
     #15 ready = ~ready;
+    #5 ready = ~ready;
 end
 
 endmodule
