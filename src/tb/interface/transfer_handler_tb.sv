@@ -47,6 +47,8 @@ always begin
 end
 
 always begin
+    addr = 0;
+    trans = TRANS_TYPES'(IDLE);
     #20;
     forever begin
         do begin
@@ -60,6 +62,7 @@ always begin
 end
 
 always begin
+    rdata = 0;
     #15;
     forever begin
         rdata = $urandom_range(0, 32'hffff_ffff);
