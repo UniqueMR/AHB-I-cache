@@ -66,7 +66,6 @@ always_comb begin
                 next_offset_addr = next_addr - next_base_addr;
                 next_trans_out = NONSEQ;
             end
-            else if(next_trans_out == IDLE) next_addr = 0;
             else begin
                 next_trans_out = cnt_burst < 2'b11 ? SEQ : IDLE;
                 next_offset_addr = (next_trans_out == TRANS_TYPES'(SEQ) && hready) ? ((offset_addr + 4) == 32'h10 ? 0 : offset_addr + 4) : offset_addr;
@@ -78,6 +77,6 @@ always_comb begin
 end
 
 assign read_data = hrdata;
-assign read_addr = local_addr;
+assign read_addr = trans_out == TRANS_TYPES'(IDLE) ? 0 : local_addr;
 
 endmodule
