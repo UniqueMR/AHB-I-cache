@@ -74,6 +74,7 @@ endif
 
 compile:
 	rm -rf $(WS)
+	mkdir $(MODEL_SIM_WS)
 	$(VLIB) $(WS)
 	$(VLOG) -work $(WS) $(HEADER) $(TB_SRC) 
 	mkdir -p $(WS)/waveform
