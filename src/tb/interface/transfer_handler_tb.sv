@@ -68,8 +68,11 @@ always begin
 end
 
 always begin
-    #15 ready = ~ready;
-    #5 ready = ~ready;
+    #2;
+    forever begin
+        #15 ready = ~ready;
+        #5 ready = ~ready;
+    end
 end
 
 endmodule
