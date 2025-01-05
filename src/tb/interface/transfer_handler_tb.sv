@@ -67,12 +67,9 @@ always begin
     end
 end
 
-// always begin
-//     #2;
-//     forever begin
-//         #15 ready = ~ready;
-//         #5 ready = ~ready;
-//     end
-// end
+always begin
+    #15 ready = ~ready;
+    #5 ready = ~ready;
+end
 
 endmodule
