@@ -13,7 +13,7 @@ module transfer_handler(
     
     output [31:0] read_addr,
     output [31:0] read_data,
-    output [1:0] trans_out
+    output reg [1:0] trans_out
 );
 
 parameter WRAP4_BOUNDARY_MASK = 32'hFFFF_FFF0;
@@ -26,7 +26,7 @@ BURST_TYPES burst_type;
 assign burst_type = BURST_TYPES'(hburst);
 
 TRANS_TYPES trans_type_in;
-TRANS_TYPES trans_type_out;
+TRANS_TYPES next_trans_out;
 
 assign trans_type_in = TRANS_TYPES'(htrans);
 
@@ -39,12 +39,14 @@ always_ff @(posedge clk or negedge rstn) begin
         cnt_burst <= 2'b11;
         base_addr <= 0;
         offset_addr <= 0;
+        trans_out <= 0;
     end
     else begin
         local_addr <= next_addr;
         cnt_burst <= next_cnt_burst;
         base_addr <= next_base_addr;
         offset_addr <= next_offset_addr;
+        trans_out <= TRANS_TYPES'(next_trans_out);
     end
 end
 
@@ -62,10 +64,12 @@ always_comb begin
                 next_addr = addr;
                 next_base_addr = next_addr & WRAP4_BOUNDARY_MASK;
                 next_offset_addr = next_addr - next_base_addr;
+                next_trans_out = NONSEQ;
             end
             else begin
-                next_addr = hready ? base_addr + offset_addr : local_addr;
-                next_offset_addr = hready ? ((offset_addr + 4) == 32'h10 ? 0 : offset_addr + 4) : offset_addr;
+                next_trans_out = cnt_burst < 2'b11 ? SEQ : IDLE;
+                next_addr = (trans_out == TRANS_TYPES'(SEQ) && hready) ? base_addr + offset_addr : local_addr;
+                next_offset_addr = (trans_out == TRANS_TYPES'(SEQ) && hready) ? ((offset_addr + 4) == 32'h10 ? 0 : offset_addr + 4) : offset_addr;
                 next_base_addr = base_addr;
             end
         end
