@@ -18,12 +18,9 @@ module transfer_handler(
 
 parameter WRAP4_BOUNDARY_MASK = 32'hFFFF_FFF0;
 
-reg [31:0] local_addr;
-reg [31:0] next_addr;
-reg [31:0] base_addr;
-reg [31:0] next_base_addr;
-reg [31:0] offset_addr;
-reg [31:0] next_offset_addr;
+reg [31:0] local_addr, next_addr;
+reg [31:0] base_addr, next_base_addr;
+reg [31:0] offset_addr, next_offset_addr;
 
 BURST_TYPES burst_type;
 assign burst_type = BURST_TYPES'(hburst);
