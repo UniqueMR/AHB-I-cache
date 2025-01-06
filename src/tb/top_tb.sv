@@ -26,7 +26,7 @@ module top_tb #(
         .cpu_intf(upstream_intf_inst.master)
     );
 
-    mem_sim #(.MEM_READY_HOLD(0)) mem_sim_inst(
+    mem_sim mem_sim_inst(
         .mem_intf(downstream_intf_inst.slave)
     );
 

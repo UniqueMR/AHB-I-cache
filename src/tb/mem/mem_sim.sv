@@ -80,7 +80,7 @@ transfer_handler cache_mem_transfer_handler_inst(
     .trans_out(trans_out)
 );
 
-memDrive driver_obj;
+memDrive #(.MEM_READ_DELAY(0)) driver_obj;
 
 initial begin
     driver_obj = new();
