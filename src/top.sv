@@ -92,7 +92,7 @@ assign downstream_intf.htrans = trans_type;
 
 always_comb begin
     burst_type = WRAP4;
-    trans_type = hit ? NONSEQ : IDLE;
+    trans_type = hit ? IDLE : NONSEQ;
 end
 
 endmodule
