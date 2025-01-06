@@ -11,7 +11,7 @@ module transfer_handler(
     input [2:0] hburst,
     input [1:0] htrans,
     
-    output [31:0] read_addr,
+    output reg [31:0] read_addr,
     output [31:0] read_data,
     output reg [1:0] trans_out
 );
@@ -59,10 +59,12 @@ end
 always_comb begin
     case(burst_type)
         SINGLE: begin 
+            read_addr = local_addr;
             next_addr = trans_type_in == NONSEQ ? addr : local_addr;
             next_trans_out = IDLE;
         end
         WRAP4: begin
+            read_addr = trans_out == TRANS_TYPES'(IDLE) ? 0 : local_addr;
             if(trans_type_in == NONSEQ) begin
                 next_addr = addr;
                 next_base_addr = next_addr & WRAP4_BOUNDARY_MASK;
@@ -80,6 +82,5 @@ always_comb begin
 end
 
 assign read_data = hrdata;
-assign read_addr = trans_out == TRANS_TYPES'(IDLE) ? 0 : local_addr;
 
 endmodule
