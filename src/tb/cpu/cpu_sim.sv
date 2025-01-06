@@ -27,7 +27,9 @@ class cpuDriver #(
         int unsigned idx;
         if(this.first_req == 0) begin
             hit = 0;
-            addr_gen = $urandom_range(32'h0000_0a00, 32'h0000_0aFF);
+            do begin
+                addr_gen = $urandom_range(32'h0000_0a00, 32'h0000_0aFF);
+            end while (addr_gen % 4 != 0);
             this.first_req = 1;
             this.addr_hist.push_back(addr_gen);
             this.addr_hist_assoc[addr_gen] = this.assoc_ptr;
@@ -43,7 +45,7 @@ class cpuDriver #(
             else begin
                 do begin
                     addr_gen = $urandom_range(32'h0000_0a00, 32'h0000_0aFF);
-                end while (this.addr_hist_assoc.exists(addr_gen));
+                end while (this.addr_hist_assoc.exists(addr_gen) || addr_gen % 4 != 0);
                 this.addr_hist.push_back(addr_gen);
                 this.addr_hist_assoc[addr_gen] = this.assoc_ptr;
                 this.assoc_ptr = this.assoc_ptr + 1;
