@@ -58,7 +58,10 @@ end
 
 always_comb begin
     case(burst_type)
-        SINGLE: next_addr = trans_type_in == NONSEQ ? addr : local_addr;
+        SINGLE: begin 
+            next_addr = trans_type_in == NONSEQ ? addr : local_addr;
+            next_trans_out = IDLE;
+        end
         WRAP4: begin
             if(trans_type_in == NONSEQ) begin
                 next_addr = addr;
