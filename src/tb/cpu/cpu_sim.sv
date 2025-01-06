@@ -13,6 +13,7 @@ class cpuDriver #(
     int assoc_ptr;
 
     BURST_TYPES burst_type;
+    TRANS_TYPES trans_type;
 
     function new();
         this.read_en = 0;
@@ -51,12 +52,14 @@ class cpuDriver #(
         this.addr = addr_gen;
         this.read_en = 1;
         this.burst_type = SINGLE;
+        this.trans_type = NONSEQ;
         $display("cpu drive request start: addr = %h, mode = %s", addr_gen, hit ? "hit" : "miss");
     endfunction
 
     function void drive_request_end();
         this.addr = 32'd0;
         this.read_en = 0;
+        this.trans_type = IDLE;
         $display("cpu drive request end");
     endfunction
 
@@ -95,7 +98,8 @@ end
 always begin
     cpu_intf.haddr = driver_obj.addr;
     cpu_intf.hwrite = ~driver_obj.read_en;
-    cpu_intf.hburst = driver_obj.burst_type;
+    cpu_intf.hburst = BURST_TYPES'(driver_obj.burst_type);
+    cpu_intf.htrans = TRANS_TYPES'(driver_obj.trans_type);
     #1;
 end
 

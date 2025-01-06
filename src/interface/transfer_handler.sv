@@ -58,7 +58,7 @@ end
 
 always_comb begin
     case(burst_type)
-        SINGLE: next_addr = hready ? addr : local_addr;
+        SINGLE: next_addr = trans_type_in == NONSEQ ? addr : local_addr;
         WRAP4: begin
             if(trans_type_in == NONSEQ) begin
                 next_addr = addr;
