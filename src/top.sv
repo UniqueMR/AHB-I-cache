@@ -35,6 +35,8 @@ end
 logic [31:0] local_addr;
 logic [31:0] local_data;
 
+logic [1:0] trans_out;
+
 transfer_handler cpu_cache_transfer_handler_inst(
     .clk(upstream_intf.hclk),
     .rstn(upstream_intf.hrstn),
@@ -44,9 +46,12 @@ transfer_handler cpu_cache_transfer_handler_inst(
     .hrdata(local_data),
     .hready(upstream_intf.hready),
     .hwdata(upstream_intf.hwdata),
+    .hburst(upstream_intf.hburst),
+    .htrans(upstream_intf.htrans),
 
     .read_addr(local_addr),
-    .read_data(upstream_intf.hrdata)
+    .read_data(upstream_intf.hrdata),
+    .trans_out(trans_out)
 );
 
 // cache entries access

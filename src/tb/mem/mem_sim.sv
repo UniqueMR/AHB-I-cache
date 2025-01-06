@@ -60,6 +60,8 @@ module mem_sim #(
 logic [31:0] mem_local_addr;
 logic [31:0] mem_local_data;
 
+logic [1:0] trans_out;
+
 transfer_handler cache_mem_transfer_handler_inst(
     .clk(mem_intf.hclk),
     .rstn(mem_intf.hrstn),
@@ -69,9 +71,12 @@ transfer_handler cache_mem_transfer_handler_inst(
     .hrdata(mem_local_data),
     .hready(mem_intf.hready),
     .hwdata(mem_intf.hwdata),
+    .hburst(mem_intf.hburst),
+    .htrans(mem_intf.htrans),
 
     .read_addr(mem_local_addr),
-    .read_data(mem_intf.hrdata)
+    .read_data(mem_intf.hrdata),
+    .trans_out(trans_out)
 );
 
 memDrive driver_obj;
