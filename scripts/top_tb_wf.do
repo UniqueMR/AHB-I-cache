@@ -25,5 +25,7 @@ add wave -position end sim:/$TB_EXEC/$DUT/downstream_intf.hburst
 add wave -position end sim:/$TB_EXEC/$DUT/downstream_intf.htrans
 add wave -position end sim:/$TB_EXEC/$DUT/downstream_intf.hrdata
 
+add wave -position end sim:/$TB_EXEC/$DUT/local_addr
+
 run -all
 quit
