@@ -37,7 +37,7 @@ task automatic mem_read(logic [31:0] mem_addr);
        mem_read_val_tmp[idx] = this.mem_entries[base_addr + idx];
     this.mem_read_val = {mem_read_val_tmp[3], mem_read_val_tmp[2], mem_read_val_tmp[1], mem_read_val_tmp[0]}; 
     this.mem_ready = 1;
-    #MEM_READY_HOLD this.mem_ready = 0;
+    // #MEM_READY_HOLD this.mem_ready = 0;
     this.mem_read_val = 0;
     $display("finished generating read data");
 endtask
