@@ -1,4 +1,5 @@
 `timescale 1ns/1ps
+`include "./src/include/interface_pkg.svh"
 
 class memDrive #(
     parameter MAIN_MEM_SIZE=32768,
