@@ -87,7 +87,7 @@ end
 
 always_ff @(posedge mem_intf.hclk or negedge mem_intf.hrstn) begin
     if(~mem_intf.hrstn);
-    else if(~mem_intf.hwrite) driver_obj.mem_read(mem_local_addr);
+    else if(~mem_intf.hwrite && (trans_out == TRANS_TYPES'(NONSEQ) || trans_out == TRANS_TYPES'(SEQ))) driver_obj.mem_read(mem_local_addr);
 end
 
 always begin
