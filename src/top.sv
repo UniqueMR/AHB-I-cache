@@ -37,6 +37,9 @@ logic [3:0] local_addr_offset;
 logic [31:0] local_data;
 logic [1:0] trans_out;
 
+logic mem_burst_ready;
+logic [127:0] cache_mem_buf;
+
 transfer_handler cpu_cache_transfer_handler_inst(
     .clk(upstream_intf.hclk),
     .rstn(upstream_intf.hrstn),
@@ -90,7 +93,6 @@ end
 logic [31:0] mem_addr;
 logic [3:0] mem_addr_offset;
 logic [1:0] mem_trans_out;
-logic [127:0] cache_mem_buf;
 
 transfer_handler cache_mem_transfer_handler_inst(
     .clk(downstream_intf.hclk),
@@ -116,7 +118,6 @@ always_comb begin
     trans_type = hit ? IDLE : NONSEQ;
 end
 
-logic mem_burst_ready;
 logic [1:0] last_mem_trans_out;
 
 always_ff @(posedge downstream_intf.hclk or negedge downstream_intf.hrstn) begin
