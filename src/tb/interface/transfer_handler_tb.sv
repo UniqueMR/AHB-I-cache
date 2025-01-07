@@ -11,7 +11,7 @@ reg [2:0] burst;
 
 reg [1:0] trans;
 reg [31:0] read_addr;
-reg [1:0] read_addr_offset;
+reg [3:0] read_addr_offset;
 reg [1:0] trans_out;
 
 transfer_handler transfer_handler_inst(

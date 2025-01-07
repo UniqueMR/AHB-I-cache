@@ -33,7 +33,7 @@ end
 
 // upstream transfer handler
 logic [31:0] local_addr;
-logic [1:0] local_addr_offset;
+logic [3:0] local_addr_offset;
 logic [31:0] local_data;
 
 transfer_handler cpu_cache_transfer_handler_inst(
@@ -87,7 +87,7 @@ end
 
 // downstream transfer handler
 logic [31:0] mem_addr;
-logic [1:0] mem_addr_offset;
+logic [3:0] mem_addr_offset;
 logic [1:0] trans_out;
 logic [127:0] cache_mem_buf;
 
