@@ -20,7 +20,6 @@ transfer_handler transfer_handler_inst(
 
     .addr(addr),
     .hwrite(hwrite),
-    .hrdata(rdata),
     .hready(ready),
     .hwdata(wdata),
     .hburst(burst),

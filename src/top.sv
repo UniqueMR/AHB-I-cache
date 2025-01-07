@@ -43,7 +43,6 @@ transfer_handler cpu_cache_transfer_handler_inst(
 
     .addr(upstream_intf.haddr),
     .hwrite(upstream_intf.hwrite),
-    .hrdata(local_data),
     .hready(upstream_intf.hready),
     .hwdata(upstream_intf.hwdata),
     .hburst(upstream_intf.hburst),

@@ -69,7 +69,6 @@ transfer_handler cache_mem_transfer_handler_inst(
 
     .addr(mem_intf.haddr),
     .hwrite(mem_intf.hwrite),
-    .hrdata(mem_local_data),
     .hready(mem_intf.hready),
     .hwdata(mem_intf.hwdata),
     .hburst(mem_intf.hburst),
