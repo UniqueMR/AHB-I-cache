@@ -12,7 +12,6 @@ module transfer_handler(
     input [1:0] htrans,
     
     output reg [31:0] read_addr,
-    output [31:0] read_data,
     output reg [1:0] trans_out
 );
 
@@ -80,7 +79,5 @@ always_comb begin
         end
     endcase
 end
-
-assign read_data = hrdata;
 
 endmodule

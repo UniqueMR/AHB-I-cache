@@ -11,7 +11,6 @@ reg [2:0] burst;
 
 reg [1:0] trans;
 reg [31:0] read_addr;
-reg [31:0] read_data;
 
 reg [1:0] trans_out;
 
@@ -28,7 +27,6 @@ transfer_handler transfer_handler_inst(
     .htrans(trans),
 
     .read_addr(read_addr),
-    .read_data(read_data),
     .trans_out(trans_out)
 );
 

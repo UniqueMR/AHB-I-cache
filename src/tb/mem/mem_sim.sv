@@ -76,7 +76,6 @@ transfer_handler cache_mem_transfer_handler_inst(
     .htrans(mem_intf.htrans),
 
     .read_addr(mem_local_addr),
-    .read_data(mem_intf.hrdata),
     .trans_out(trans_out)
 );
 
