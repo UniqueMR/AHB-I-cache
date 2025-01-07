@@ -12,7 +12,7 @@ TRANSFER_HANDLER_WS=$(MODEL_SIM_WS)transfer_handler
 HEADER_DIR = ./src/include/
 HEADER = ./src/include/interface_pkg.svh
 
-UTILS_SRC = ./src/utils/addr_parser.sv ./src/utils/line_segment_selector.sv ./src/utils/cache_state_handler.sv
+UTILS_SRC = ./src/utils/utils.sv ./src/utils/cache_state_handler.sv
 INTERFACE_SRC=./src/interface/ahb_lite.sv ./src/interface/transfer_handler.sv 
 
 TOP_SRC=./src/top.sv $(UTILS_SRC) 
