@@ -11,7 +11,8 @@ module transfer_handler(
     input [1:0] htrans,
     
     output reg [31:0] read_addr,
-    output reg [1:0] trans_out
+    output reg [1:0] trans_out,
+    output [1:0] read_addr_offset
 );
 
 parameter WRAP4_BOUNDARY_MASK = 32'hFFFF_FFF0;
@@ -78,5 +79,7 @@ always_comb begin
         end
     endcase
 end
+
+assign read_addr_offset = offset_addr[1:0];
 
 endmodule

@@ -33,9 +33,8 @@ end
 
 // upstream transfer handler
 logic [31:0] local_addr;
+logic [1:0] local_addr_offset;
 logic [31:0] local_data;
-
-logic [1:0] trans_out;
 
 transfer_handler cpu_cache_transfer_handler_inst(
     .clk(upstream_intf.hclk),
@@ -49,6 +48,7 @@ transfer_handler cpu_cache_transfer_handler_inst(
     .htrans(upstream_intf.htrans),
 
     .read_addr(local_addr),
+    .read_addr_offset(local_addr_offset),
     .trans_out(trans_out)
 );
 
@@ -58,8 +58,6 @@ transfer_handler cpu_cache_transfer_handler_inst(
 wire [31 - $clog2(CACHE_SIZE * 8/CACHE_LINE) - $clog2(CACHE_LINE/32):0] tag;
 wire [$clog2(CACHE_SIZE * 8/CACHE_LINE)-1:0] index;
 wire [$clog2(CACHE_LINE/32)-1:0] offset;
-
-reg [127:0] cache_mem_buf;
 
 addr_parser #(.CACHE_LINE(CACHE_LINE), .CACHE_SIZE(CACHE_SIZE)) addr_parser_inst(.addr(local_addr), .tag(tag), .index(index), .offset(offset));
 
@@ -87,6 +85,28 @@ always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin
     end
 end
 
+// downstream transfer handler
+logic [31:0] mem_addr;
+logic [1:0] mem_addr_offset;
+logic [1:0] trans_out;
+logic [127:0] cache_mem_buf;
+
+transfer_handler cache_mem_transfer_handler_inst(
+    .clk(downstream_intf.hclk),
+    .rstn(downstream_intf.hrstn),
+
+    .addr(downstream_intf.haddr),
+    .hwrite(downstream_intf.hwrite),
+    .hready(downstream_intf.hready),
+    .hwdata(downstream_intf.hwdata),
+    .hburst(downstream_intf.hburst),
+    .htrans(downstream_intf.htrans),
+
+    .read_addr(mem_addr),
+    .read_addr_offset(mem_addr_offset),
+    .trans_out(trans_out)
+);
+
 assign downstream_intf.hburst = burst_type;
 assign downstream_intf.htrans = trans_type;
 
@@ -94,5 +114,6 @@ always_comb begin
     burst_type = WRAP4;
     trans_type = hit ? IDLE : NONSEQ;
 end
+
 
 endmodule
