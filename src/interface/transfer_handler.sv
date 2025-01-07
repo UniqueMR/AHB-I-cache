@@ -5,7 +5,6 @@ module transfer_handler(
     input rstn,
     input [31:0] addr,
     input hwrite,
-    input [31:0] hrdata,
     input hready,
     input [31:0] hwdata,
     input [2:0] hburst,
