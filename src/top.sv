@@ -70,7 +70,7 @@ assign hit = cache_entries[index].valid == 1'b0 ? 0 : (cache_entries[index].tag 
 logic [31:0] cache_local_data;
 line_segment_selector line_segment_selector_cache_inst(cache_entries[index].cache_line, offset, cache_local_data);
 
-assign upstream_intf.hready = hit ? 1'b1 : downstream_intf.hready;
+assign upstream_intf.hready = hit ? 1'b1 : mem_burst_ready;
 assign downstream_intf.hwrite = hit ? 1'b1 : 1'b0;
 assign downstream_intf.haddr = local_addr;
 
@@ -79,8 +79,8 @@ assign local_data = hit ? cache_local_data : downstream_intf.hrdata;
 // update cache entries in the case of hit 
 always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin
     if(~upstream_intf.hrstn);
-    else if(~hit && downstream_intf.hready) begin
-        cache_entries[index].cache_line <= {4{downstream_intf.hrdata}};
+    else if(~hit && mem_burst_ready) begin
+        cache_entries[index].cache_line <= cache_mem_buf;
         cache_entries[index].valid <= 1'b1;
         cache_entries[index].tag <= tag;  
     end
@@ -116,5 +116,28 @@ always_comb begin
     trans_type = hit ? IDLE : NONSEQ;
 end
 
+logic mem_burst_ready;
+logic [1:0] last_mem_trans_out;
+
+always_ff @(posedge downstream_intf.hclk or negedge downstream_intf.hrstn) begin
+    if(~downstream_intf.hrstn) begin
+        cache_mem_buf <= 0;
+        last_trans_out <= 0;
+    end
+
+    else if(downstream_intf.hready) begin
+        last_mem_trans_out <= mem_trans_out; 
+        if(mem_trans_out == TRANS_TYPES'(NONSEQ) || mem_trans_out == TRANS_TYPES'(SEQ))
+            case(mem_addr_offset)
+                4'h0: cache_mem_buf[31:0] <= downstream_intf.hrdata;
+                4'h4: cache_mem_buf[63:32] <= downstream_intf.hrdata;
+                4'h8: cache_mem_buf[95:64] <= downstream_intf.hrdata;
+                4'hc: cache_mem_buf[127:96] <= downstream_intf.hrdata;
+            endcase 
+    end
+end
+
+assign mem_burst_ready = last_mem_trans_out == TRANS_TYPES'(SEQ) && mem_trans_out == TRANS_TYPES'(IDLE);
 
 endmodule
+

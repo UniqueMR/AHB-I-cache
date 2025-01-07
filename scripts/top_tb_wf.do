@@ -31,5 +31,9 @@ add wave -position end sim:/$TB_EXEC/$DUT/mem_addr
 add wave -position end sim:/$TB_EXEC/$DUT/mem_addr_offset
 add wave -position end sim:/$TB_EXEC/$DUT/mem_trans_out
 
+add wave -position end sim:/$TB_EXEC/$DUT/hit
+add wave -position end sim:/$TB_EXEC/$DUT/mem_burst_ready
+add wave -position end sim:/$TB_EXEC/$DUT/cache_mem_buf
+
 run -all
 quit
