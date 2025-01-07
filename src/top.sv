@@ -35,6 +35,7 @@ end
 logic [31:0] local_addr;
 logic [3:0] local_addr_offset;
 logic [31:0] local_data;
+logic [1:0] trans_out;
 
 transfer_handler cpu_cache_transfer_handler_inst(
     .clk(upstream_intf.hclk),
@@ -88,7 +89,7 @@ end
 // downstream transfer handler
 logic [31:0] mem_addr;
 logic [3:0] mem_addr_offset;
-logic [1:0] trans_out;
+logic [1:0] mem_trans_out;
 logic [127:0] cache_mem_buf;
 
 transfer_handler cache_mem_transfer_handler_inst(
@@ -104,7 +105,7 @@ transfer_handler cache_mem_transfer_handler_inst(
 
     .read_addr(mem_addr),
     .read_addr_offset(mem_addr_offset),
-    .trans_out(trans_out)
+    .trans_out(mem_trans_out)
 );
 
 assign downstream_intf.hburst = burst_type;

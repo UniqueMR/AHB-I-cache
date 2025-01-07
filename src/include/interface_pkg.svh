@@ -1,6 +1,3 @@
-`ifndef INTERFACE_PKG_SVH
-`define INTERFACE_PKG_SVH
-
 typedef enum logic [2:0] { 
     SINGLE = 3'b000,
     INCR = 3'b001,
@@ -18,5 +15,3 @@ typedef enum logic [1:0] {
     NONSEQ = 2'b10,
     SEQ = 2'b11
  } TRANS_TYPES;
-
- `endif
