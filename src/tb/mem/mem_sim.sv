@@ -59,6 +59,7 @@ module mem_sim #(
 
 // downstream transfer handler 
 logic [31:0] mem_local_addr;
+logic [3:0] mem_local_addr_offset;
 logic [31:0] mem_local_data;
 
 logic [1:0] trans_out;
@@ -75,6 +76,7 @@ transfer_handler cache_mem_transfer_handler_inst(
     .htrans(mem_intf.htrans),
 
     .read_addr(mem_local_addr),
+    .read_addr_offset(mem_local_addr_offset),
     .trans_out(trans_out)
 );
 
