@@ -123,7 +123,7 @@ logic [1:0] last_mem_trans_out;
 always_ff @(posedge downstream_intf.hclk or negedge downstream_intf.hrstn) begin
     if(~downstream_intf.hrstn) begin
         cache_mem_buf <= 0;
-        last_trans_out <= 0;
+        last_mem_trans_out <= 0;
     end
 
     else if(downstream_intf.hready) begin
