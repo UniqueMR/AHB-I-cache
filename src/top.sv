@@ -112,7 +112,7 @@ logic [1:0] next_downstream_trans;
 always_comb begin
     downstream_intf.hburst = BURST_TYPES'(WRAP4);
     if(downstream_intf.htrans == TRANS_TYPES'(IDLE)) next_downstream_trans = hit ? TRANS_TYPES'(IDLE) : TRANS_TYPES'(NONSEQ);
-    else next_downstream_trans = TRANS_TYPES'(IDLE);
+    else next_downstream_trans = downstream_intf.hready ? TRANS_TYPES'(IDLE) : TRANS_TYPES'(NONSEQ);
 end
 
 logic [1:0] last_mem_trans_out;
@@ -121,12 +121,10 @@ always_ff @(posedge downstream_intf.hclk or negedge downstream_intf.hrstn) begin
     if(~downstream_intf.hrstn) begin
         cache_mem_buf <= 0;
         last_mem_trans_out <= 0;
-        downstream_intf.htrans <= 0;
     end
 
     else if(downstream_intf.hready) begin
         last_mem_trans_out <= mem_trans_out; 
-        downstream_intf.htrans <= next_downstream_trans;
         if(mem_trans_out == TRANS_TYPES'(NONSEQ) || mem_trans_out == TRANS_TYPES'(SEQ))
             case(mem_addr_offset)
                 4'h0: cache_mem_buf[31:0] <= downstream_intf.hrdata;
@@ -135,6 +133,11 @@ always_ff @(posedge downstream_intf.hclk or negedge downstream_intf.hrstn) begin
                 4'hc: cache_mem_buf[127:96] <= downstream_intf.hrdata;
             endcase 
     end
+end
+
+always_ff @(posedge downstream_intf.hclk or negedge downstream_intf.hrstn) begin
+    if(~downstream_intf.hrstn) downstream_intf.htrans <= 0;
+    else downstream_intf.htrans <= next_downstream_trans;
 end
 
 assign mem_burst_ready = last_mem_trans_out == TRANS_TYPES'(SEQ) && mem_trans_out == TRANS_TYPES'(IDLE);
