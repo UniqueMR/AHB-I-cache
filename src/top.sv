@@ -129,6 +129,7 @@ always_ff @(posedge downstream_intf.hclk or negedge downstream_intf.hrstn) begin
 end
 
 assign next_downstream_trans = hit ? TRANS_TYPES'(IDLE) : trans_out;
+assign downstream_intf.hburst = TRANS_TYPES'(WRAP4);
 
 always_ff @(posedge downstream_intf.hclk or negedge downstream_intf.hrstn) begin
     if(~downstream_intf.hrstn) downstream_intf.htrans <= 0;
