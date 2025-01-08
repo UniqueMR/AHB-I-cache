@@ -35,5 +35,16 @@ add wave -position end sim:/$TB_EXEC/$DUT/hit
 add wave -position end sim:/$TB_EXEC/$DUT/mem_burst_ready
 add wave -position end sim:/$TB_EXEC/$DUT/cache_mem_buf
 
+add wave -position end sim:/$TB_EXEC/$DOWNSTREAM/mem_intf.haddr
+add wave -position end sim:/$TB_EXEC/$DOWNSTREAM/mem_intf.hwrite
+add wave -position end sim:/$TB_EXEC/$DOWNSTREAM/mem_intf.hready
+add wave -position end sim:/$TB_EXEC/$DOWNSTREAM/mem_intf.hburst
+add wave -position end sim:/$TB_EXEC/$DOWNSTREAM/mem_intf.htrans
+
+add wave -position end sim:/$TB_EXEC/$DOWNSTREAM/mem_local_addr
+add wave -position end sim:/$TB_EXEC/$DOWNSTREAM/mem_local_addr_offset
+add wave -position end sim:/$TB_EXEC/$DOWNSTREAM/trans_out
+
+
 run -all
 quit
