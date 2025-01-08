@@ -10,9 +10,6 @@ module top #(
 // entries 
 parameter CACHE_LINE = 128;
 
-BURST_TYPES burst_type;
-TRANS_TYPES trans_type;
-
 typedef struct packed{
     reg [CACHE_LINE-1:0] cache_line;
     reg valid;
@@ -110,12 +107,12 @@ transfer_handler cache_mem_transfer_handler_inst(
     .trans_out(mem_trans_out)
 );
 
-assign downstream_intf.hburst = burst_type;
-assign downstream_intf.htrans = trans_type;
+logic [1:0] next_downstream_trans;
 
 always_comb begin
-    burst_type = WRAP4;
-    trans_type = hit ? IDLE : NONSEQ;
+    downstream_intf.hburst = BURST_TYPES'(WRAP4);
+    if(downstream_intf.trans == TRANS_TYPES'(IDLE)) next_downstream_trans = hit ? TRANS_TYPES'(IDLE) : TRANS_TYPES'(NONSEQ);
+    else next_downstream_trans = TRANS_TYPES'(IDLE);
 end
 
 logic [1:0] last_mem_trans_out;
@@ -124,10 +121,12 @@ always_ff @(posedge downstream_intf.hclk or negedge downstream_intf.hrstn) begin
     if(~downstream_intf.hrstn) begin
         cache_mem_buf <= 0;
         last_mem_trans_out <= 0;
+        downstream_intf.htrans <= 0;
     end
 
     else if(downstream_intf.hready) begin
         last_mem_trans_out <= mem_trans_out; 
+        downstream_intf.htrans <= next_downstream_trans;
         if(mem_trans_out == TRANS_TYPES'(NONSEQ) || mem_trans_out == TRANS_TYPES'(SEQ))
             case(mem_addr_offset)
                 4'h0: cache_mem_buf[31:0] <= downstream_intf.hrdata;
