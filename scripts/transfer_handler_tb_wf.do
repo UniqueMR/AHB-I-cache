@@ -23,5 +23,7 @@ add wave -position end sim:/$TB_EXEC/trans_out
 add wave -position end sim:/$TB_EXEC/$DUT/next_trans_out
 add wave -position end sim:/$TB_EXEC/$DUT/trans_out
 
+add wave -position end sim:/$TB_EXEC/$DUT/cache_mem_transfer_handler_inst/cnt_burst
+
 run -all
 quit
