@@ -108,13 +108,6 @@ transfer_handler cache_mem_transfer_handler_inst(
 );
 
 logic [1:0] next_downstream_trans;
-
-always_comb begin
-    downstream_intf.hburst = BURST_TYPES'(WRAP4);
-    if(downstream_intf.htrans == TRANS_TYPES'(IDLE)) next_downstream_trans = hit ? TRANS_TYPES'(IDLE) : TRANS_TYPES'(NONSEQ);
-    else next_downstream_trans = downstream_intf.hready ? TRANS_TYPES'(IDLE) : TRANS_TYPES'(NONSEQ);
-end
-
 logic [1:0] last_mem_trans_out;
 
 always_ff @(posedge downstream_intf.hclk or negedge downstream_intf.hrstn) begin
@@ -134,6 +127,8 @@ always_ff @(posedge downstream_intf.hclk or negedge downstream_intf.hrstn) begin
             endcase 
     end
 end
+
+assign next_downstream_trans = hit ? TRANS_TYPES'(IDLE) : upstream_intf.htrans;
 
 always_ff @(posedge downstream_intf.hclk or negedge downstream_intf.hrstn) begin
     if(~downstream_intf.hrstn) downstream_intf.htrans <= 0;
