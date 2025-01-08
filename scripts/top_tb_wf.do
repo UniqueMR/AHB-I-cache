@@ -45,6 +45,7 @@ add wave -position end sim:/$TB_EXEC/$DOWNSTREAM/mem_local_addr
 add wave -position end sim:/$TB_EXEC/$DOWNSTREAM/mem_local_addr_offset
 add wave -position end sim:/$TB_EXEC/$DOWNSTREAM/trans_out
 
+add wave -position end sim:/$TB_EXEC/$DUT/cache_mem_transfer_handler_inst/cnt_burst
 
 run -all
 quit
