@@ -111,7 +111,7 @@ logic [1:0] next_downstream_trans;
 
 always_comb begin
     downstream_intf.hburst = BURST_TYPES'(WRAP4);
-    if(downstream_intf.trans == TRANS_TYPES'(IDLE)) next_downstream_trans = hit ? TRANS_TYPES'(IDLE) : TRANS_TYPES'(NONSEQ);
+    if(downstream_intf.htrans == TRANS_TYPES'(IDLE)) next_downstream_trans = hit ? TRANS_TYPES'(IDLE) : TRANS_TYPES'(NONSEQ);
     else next_downstream_trans = TRANS_TYPES'(IDLE);
 end
 
