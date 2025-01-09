@@ -31,7 +31,6 @@ end
 // upstream transfer handler
 logic [31:0] local_addr;
 logic [3:0] local_addr_offset;
-logic [31:0] local_data;
 logic [1:0] trans_out;
 
 logic mem_burst_ready;
@@ -66,15 +65,15 @@ addr_parser #(.CACHE_LINE(CACHE_LINE), .CACHE_SIZE(CACHE_SIZE)) addr_parser_inst
 wire hit;
 assign hit = cache_entries[index].valid == 1'b0 ? 0 : (cache_entries[index].tag == tag ? 1'b1 : 1'b0);
 
-// cache entries access
-logic [31:0] cache_local_data;
+// cache entries access & mem access
+logic [31:0] cache_local_data, mem_local_data;
 line_segment_selector line_segment_selector_cache_inst(cache_entries[index].cache_line, offset, cache_local_data);
+line_segment_selector line_segment_selector_mem_inst(cache_mem_buf, offset, mem_local_data);
 
 assign upstream_intf.hready = hit ? 1'b1 : mem_burst_ready;
+assign upstream_intf.hrdata = hit ? cache_local_data : mem_local_data;
 assign downstream_intf.hwrite = hit ? 1'b1 : 1'b0;
 assign downstream_intf.haddr = local_addr;
-
-assign local_data = hit ? cache_local_data : downstream_intf.hrdata; 
 
 // update cache entries in the case of hit 
 always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin
@@ -131,6 +130,8 @@ assign downstream_intf.htrans = hit ? TRANS_TYPES'(IDLE) : trans_out;
 assign downstream_intf.hburst = TRANS_TYPES'(WRAP4);
 
 assign mem_burst_ready = last_mem_trans_out == TRANS_TYPES'(SEQ) && mem_trans_out == TRANS_TYPES'(IDLE);
+
+assign 
 
 endmodule
 
