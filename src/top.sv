@@ -129,9 +129,7 @@ end
 assign downstream_intf.htrans = hit ? TRANS_TYPES'(IDLE) : trans_out;
 assign downstream_intf.hburst = TRANS_TYPES'(WRAP4);
 
-assign mem_burst_ready = last_mem_trans_out == TRANS_TYPES'(SEQ) && mem_trans_out == TRANS_TYPES'(IDLE);
-
-assign 
+assign mem_burst_ready = last_mem_trans_out == TRANS_TYPES'(SEQ) && mem_trans_out == TRANS_TYPES'(IDLE); 
 
 endmodule
 
