@@ -60,7 +60,7 @@ always_comb begin
         SINGLE: begin 
             read_addr = local_addr;
             next_addr = trans_type_in == NONSEQ ? addr : local_addr;
-            next_trans_out = trans_type_in == NONSEQ ? IDLE : trans_type_in;
+            next_trans_out = trans_out == NONSEQ ? IDLE : trans_type_in;
         end
         WRAP4: begin
             read_addr = trans_out == TRANS_TYPES'(IDLE) ? 0 : local_addr;
