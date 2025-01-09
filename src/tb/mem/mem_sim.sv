@@ -9,7 +9,7 @@ class memDrive #(
 );
 
 bit [31:0] mem_entries [0:MAIN_MEM_SIZE * 8 / 32 - 1];
-bit [127:0] mem_read_val;
+bit [31:0] mem_read_val;
 bit mem_ready;
 
 function new();
@@ -21,23 +21,17 @@ function new();
     for(idx = 0; idx < 32'hFF; idx = idx + 1)
         this.mem_entries[init_addr + idx] = idx;
 
-    this.mem_read_val = 0;
     this.mem_ready = 0;
 endfunction
 
 task automatic mem_read(logic [31:0] mem_addr);
     integer idx = 0;
-    logic [$clog2(MAIN_MEM_SIZE * 8 / 32) - 1 : 0] base_addr;
-    logic [31:0] mem_read_val_tmp[4];
     $display("start processing read request");
     #MEM_READ_DELAY;
     $display("start generating read data");
-    base_addr = {mem_addr[$clog2(MAIN_MEM_SIZE * 8 / 32)-1:2], 2'b00};
-    for(idx = 0; idx < 4; idx = idx + 1)
-       mem_read_val_tmp[idx] = this.mem_entries[base_addr + idx];
-    this.mem_read_val = {mem_read_val_tmp[3], mem_read_val_tmp[2], mem_read_val_tmp[1], mem_read_val_tmp[0]}; 
+    this.mem_read_val = this.mem_entries[mem_addr / 4];
     this.mem_ready = 1;
-    // #MEM_READY_HOLD this.mem_ready = 0;
+    #MEM_READY_HOLD this.mem_ready = 0;
     this.mem_read_val = 0;
     $display("finished generating read data");
 endtask
@@ -60,7 +54,6 @@ module mem_sim #(
 // downstream transfer handler 
 logic [31:0] mem_local_addr;
 logic [3:0] mem_local_addr_offset;
-logic [31:0] mem_local_data;
 
 logic [1:0] trans_out;
 
@@ -92,7 +85,7 @@ always_ff @(posedge mem_intf.hclk or negedge mem_intf.hrstn) begin
 end
 
 always begin
-    mem_local_data = driver_obj.mem_read_val[31:0];
+    mem_intf.hrdata = driver_obj.mem_read_val;
     mem_intf.hready = driver_obj.mem_ready;
     #1;
 end
