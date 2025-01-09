@@ -19,6 +19,8 @@ class cpuDriver #(
         this.read_en = 0;
         this.first_req = 0;
         this.assoc_ptr = 0;
+        this.burst_type = SINGLE;
+        this.trans_type = IDLE;
     endfunction
 
     function void drive_request_start();
