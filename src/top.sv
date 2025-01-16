@@ -13,7 +13,7 @@ parameter CACHE_LINE = 128;
 typedef struct packed{
     reg [CACHE_LINE-1:0] cache_line;
     reg valid;
-    reg [31 - $clog2(CACHE_SIZE * 8/CACHE_LINE) - $clog2(CACHE_LINE/32):0] tag;
+    reg [31 - $clog2(CACHE_SIZE * 8/CACHE_LINE) - $clog2(CACHE_LINE/32) - 2:0] tag;
 } cache_entry_t;
 
 cache_entry_t cache_entries [0:CACHE_SIZE * 8 / 128 -1];
@@ -58,6 +58,7 @@ transfer_handler cpu_cache_transfer_handler_inst(
 wire [31 - $clog2(CACHE_SIZE * 8/CACHE_LINE) - $clog2(CACHE_LINE/32) - 2:0] tag;
 wire [$clog2(CACHE_SIZE * 8/CACHE_LINE)-1:0] index;
 wire [$clog2(CACHE_LINE/32)-1:0] offset;
+
 
 addr_parser #(.CACHE_LINE(CACHE_LINE), .CACHE_SIZE(CACHE_SIZE)) addr_parser_inst(.addr(local_addr), .tag(tag), .index(index), .offset(offset));
 
