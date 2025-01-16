@@ -47,8 +47,8 @@ always_comb begin
     else if(~hready) next_cnt_burst = cnt_burst;
     else begin
         case(burst_type)
-            SINGLE: next_cnt_burst = cnt_burst == 4'd1 ? 4'd0 : cnt_burst + 1;
-            WRAP4: next_cnt_burst = cnt_burst == 4'd4 ? 4'd0 : cnt_burst + 1;
+            SINGLE: next_cnt_burst = cnt_burst == 4'd0 ? cnt_burst : (cnt_burst == 4'd1 ? 4'd0 : cnt_burst + 1);
+            WRAP4: next_cnt_burst = cnt_burst == 4'd0 ? cnt_burst : (cnt_burst == 4'd4 ? 4'd0 : cnt_burst + 1);
         endcase
     end
 end
