@@ -65,6 +65,10 @@ always_comb begin
         next_base_addr = addr & WRAP4_BOUNDARY_MASK;;
         next_offset_addr = addr - next_base_addr;
     end
+    else if(~hready) begin
+        next_base_addr = base_addr;
+        next_offset_addr = offset_addr;
+    end
     else begin
         case(burst_type)
             SINGLE: begin
