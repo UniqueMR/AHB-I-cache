@@ -6,8 +6,8 @@ class memDrive #(
     parameter MEM_READ_DELAY=42,
     parameter MEM_WRITE_DELAY=42,
     parameter MEM_READY_HOLD=15,
-    parameter BASE_ADDR=32'h0000_00a0,
-    parameter END_ADDR=32'h0000_00af
+    parameter BASE_ADDR=32'h0000_0a00,
+    parameter END_ADDR=32'h0000_0aff
 );
 
 bit [31:0] mem_entries [0:MAIN_MEM_SIZE * 8 / 32 - 1];
