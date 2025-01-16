@@ -72,8 +72,6 @@ line_segment_selector line_segment_selector_mem_inst(cache_mem_buf, offset, mem_
 
 assign upstream_intf.hready = hit ? 1'b1 : mem_burst_ready;
 assign upstream_intf.hrdata = hit ? cache_local_data : mem_local_data;
-assign downstream_intf.hwrite = hit ? 1'b1 : 1'b0;
-assign downstream_intf.haddr = local_addr;
 
 // update cache entries in the case of hit 
 always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin
@@ -126,7 +124,18 @@ always_ff @(posedge downstream_intf.hclk or negedge downstream_intf.hrstn) begin
     end
 end
 
-assign downstream_intf.htrans = hit ? TRANS_TYPES'(IDLE) : trans_out;
+assign downstream_intf.hwrite = hit ? 1'b1 : 1'b0;
+assign downstream_intf.haddr = local_addr;
+
+reg [1:0] trans_out_r;
+always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin
+    if(~upstream_intf.hrstn) trans_out_r <= TRANS_TYPES'(IDLE);
+    else trans_out_r <= trans_out;
+end
+
+assign downstream_intf.htrans = hit ? TRANS_TYPES'(IDLE) : (trans_out == TRANS_TYPES'(NONSEQ) && trans_out_r == TRANS_TYPES'(IDLE));
+
+
 assign downstream_intf.hburst = TRANS_TYPES'(WRAP4);
 
 assign mem_burst_ready = last_mem_trans_out == TRANS_TYPES'(SEQ) && mem_trans_out == TRANS_TYPES'(IDLE); 
