@@ -73,8 +73,8 @@ always_comb begin
     else begin
         case(burst_type)
             SINGLE: begin
-                next_base_addr = 0;
-                next_offset_addr = 0;
+                next_base_addr = base_addr;
+                next_offset_addr = offset_addr;
             end
             WRAP4: begin
                 next_base_addr = base_addr;
