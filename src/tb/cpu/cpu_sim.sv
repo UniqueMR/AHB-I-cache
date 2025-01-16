@@ -96,7 +96,7 @@ property check_hrdata_valid;
     (cpu_intf.hready) |-> (mem_data_exp == cpu_intf.hrdata);
 endproperty
 
-assert (check_hrdata_valid) else $error("hrdata mismatched: expected=%0h, actual=%0h", mem_data_exp, cpu_intf.hrdata);
+assert property (check_hrdata_valid) else $error("hrdata mismatched: expected=%0h, actual=%0h", mem_data_exp, cpu_intf.hrdata);
 
 reg [3:0] request_delay_counter; 
 
