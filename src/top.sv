@@ -134,10 +134,7 @@ always_ff @(posedge upstream_intf.hclk or negedge upstream_intf.hrstn) begin
 end
 
 assign downstream_intf.htrans = hit ? TRANS_TYPES'(IDLE) : (trans_out == TRANS_TYPES'(NONSEQ) && trans_out_r == TRANS_TYPES'(IDLE));
-
-
 assign downstream_intf.hburst = TRANS_TYPES'(WRAP4);
-
 assign mem_burst_ready = last_mem_trans_out == TRANS_TYPES'(SEQ) && mem_trans_out == TRANS_TYPES'(IDLE); 
 
 endmodule
