@@ -36,6 +36,9 @@ add wave -position end sim:/$TB_EXEC/$DUT/mem_burst_ready
 add wave -position end sim:/$TB_EXEC/$DUT/cache_mem_buf
 add wave -position end sim:/$TB_EXEC/$DUT/cache_local_data
 add wave -position end sim:/$TB_EXEC/$DUT/mem_local_data
+add wave -position end sim:/$TB_EXEC/$DUT/tag
+add wave -position end sim:/$TB_EXEC/$DUT/index
+add wave -position end sim:/$TB_EXEC/$DUT/offset
 
 add wave -position end sim:/$TB_EXEC/$DOWNSTREAM/mem_intf.haddr
 add wave -position end sim:/$TB_EXEC/$DOWNSTREAM/mem_intf.hwrite
