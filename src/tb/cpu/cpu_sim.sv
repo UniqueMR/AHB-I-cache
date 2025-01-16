@@ -84,9 +84,30 @@ module cpu_sim #(
 
 cpuDriver #(HOLD) driver_obj;
 
+logic [31:0] local_addr;
+logic [3:0] local_addr_offset;
+logic [1:0] trans_out;
+
+transfer_handler cpu_cache_transfer_handler_inst(
+    .clk(cpu_intf.hclk),
+    .rstn(cpu_intf.hrstn),
+
+    .addr(cpu_intf.haddr),
+    .hwrite(cpu_intf.hwrite),
+    .hready(cpu_intf.hready),
+    .hwdata(cpu_intf.hwdata),
+    .hburst(cpu_intf.hburst),
+    .htrans(cpu_intf.htrans),
+
+    .read_addr(local_addr),
+    .read_addr_offset(local_addr_offset),
+    .trans_out(trans_out)
+);
+
+
 logic [31:0] mem_idx, mem_data_exp;
 sim_addr_data_mapping_gen #(.BASE_ADDR(BASE_ADDR)) sim_addr_data_mapping_gen_inst(
-    .addr(cpu_intf.haddr),
+    .addr(local_addr),
     .mem_idx(mem_idx),
     .sim_data_exp(mem_data_exp)
 );
