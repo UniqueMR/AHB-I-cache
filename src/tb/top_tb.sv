@@ -3,7 +3,7 @@
 module top_tb #(
     parameter CLK_FREQ_HALF=5,
     parameter RST_DELAY=30,
-    parameter SIM_TIME=1000
+    parameter SIM_TIME=10000
 );
 
     logic clk, rst;
@@ -22,7 +22,7 @@ module top_tb #(
         .downstream_intf(downstream_intf_inst.master)
     );
 
-    cpu_sim cpu_sim_inst(
+    cpu_sim #(.REQ_FREQ_CYCLES(50)) cpu_sim_inst(
         .cpu_intf(upstream_intf_inst.master)
     );
 
