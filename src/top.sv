@@ -55,7 +55,7 @@ transfer_handler cpu_cache_transfer_handler_inst(
 // cache entries access
 
 // addr parsing 
-wire [31 - $clog2(CACHE_SIZE * 8/CACHE_LINE) - $clog2(CACHE_LINE/32):0] tag;
+wire [31 - $clog2(CACHE_SIZE * 8/CACHE_LINE) - $clog2(CACHE_LINE/32) - 2:0] tag;
 wire [$clog2(CACHE_SIZE * 8/CACHE_LINE)-1:0] index;
 wire [$clog2(CACHE_LINE/32)-1:0] offset;
 

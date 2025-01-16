@@ -73,12 +73,12 @@ always_comb begin
     else begin
         case(burst_type)
             SINGLE: begin
-                next_base_addr = base_addr;
-                next_offset_addr = offset_addr;
+                next_base_addr = 0;
+                next_offset_addr = 0;
             end
             WRAP4: begin
-                next_base_addr = base_addr;
-                next_offset_addr = cnt_burst == 4'd4 ? offset_addr : (offset_addr + 4 == 32'h10 ? 0 : offset_addr + 4);
+                next_base_addr = cnt_burst == 4'd4 ? 0 : base_addr;
+                next_offset_addr = cnt_burst == 4'd4 ? 0 : (offset_addr + 4 == 32'h10 ? 0 : offset_addr + 4);
             end
         endcase
     end
