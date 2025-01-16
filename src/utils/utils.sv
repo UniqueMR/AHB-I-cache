@@ -30,7 +30,7 @@ end
 endmodule
 
 module sim_addr_data_mapping_gen #(
-    parameter BASE_ADDR = 32'h0000_0a00;
+    parameter BASE_ADDR = 32'h0000_0a00
 ) (
     input [31:0] addr,
     output [31:0] mem_idx,
