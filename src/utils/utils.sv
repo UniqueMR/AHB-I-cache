@@ -38,6 +38,6 @@ module sim_addr_data_mapping_gen #(
 );
 
     assign mem_idx = {2'b00, addr[31:2]};
-    assign sim_data_exp = mem_idx - (BASE_ADDR >> 2);
+    assign sim_data_exp = addr - BASE_ADDR;
 
 endmodule

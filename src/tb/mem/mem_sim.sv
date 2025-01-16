@@ -21,7 +21,7 @@ function new();
     logic [$clog2(MAIN_MEM_SIZE * 8 / 32) - 1 : 0] init_addr;
 
     for(init_addr = BASE_ADDR; init_addr < END_ADDR; init_addr = init_addr + 4)
-        this.mem_entries[init_addr >> 2] = (init_addr >> 2) - (BASE_ADDR >> 2);
+        this.mem_entries[init_addr >> 2] = init_addr >> 2 - BASE_ADDR >> 2;
 
     this.mem_ready = 0;
 endfunction
