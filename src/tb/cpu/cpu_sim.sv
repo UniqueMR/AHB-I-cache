@@ -76,12 +76,26 @@ endclass
 
 module cpu_sim #(
     parameter REQ_FREQ_CYCLES=10,
-    parameter HOLD=15
+    parameter HOLD=15,
+    parameter BASE_ADDR=32'h0000_0a00,
 ) (
     ahb_lite.master cpu_intf
 );
 
 cpuDriver #(HOLD) driver_obj;
+
+logic [31:0] mem_idx, mem_data_exp;
+sim_addr_data_mapping_gen #(.BASE_ADDR(BASE_ADDR)) sim_addr_data_mapping_gen_inst(
+    .addr(cpu_intf.haddr),
+    .mem_idx(mem_idx),
+    .sim_data_exp(mem_data_exp)
+);
+
+property check_hrdata_valid @(posedge cpu_intf.hclk);
+    (cpu_intf.hready) |-> (mem_data_exp == cpu_intf.hrdata);
+endproperty
+
+assert (check_hrdata_valid) else $error("hrdata mismatched: expected=%0h, actual=%0h", mem_data_exp, cpu_intf.hrdata);
 
 reg [3:0] request_delay_counter; 
 

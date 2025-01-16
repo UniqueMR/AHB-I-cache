@@ -5,18 +5,23 @@ class memDrive #(
     parameter MAIN_MEM_SIZE=32768,
     parameter MEM_READ_DELAY=42,
     parameter MEM_WRITE_DELAY=42,
-    parameter MEM_READY_HOLD=15
+    parameter MEM_READY_HOLD=15,
+    parameter BASE_ADDR=32'h0000_00a0,
+    parameter END_ADDR=32'h0000_00af
 );
 
 bit [31:0] mem_entries [0:MAIN_MEM_SIZE * 8 / 32 - 1];
 bit [31:0] mem_read_val;
+bit [31:0] mem_idx;
+bit [31:0] mem_data_exp;
+
 bit mem_ready;
 
 function new();
     logic [$clog2(MAIN_MEM_SIZE * 8 / 32) - 1 : 0] init_addr;
 
-    for(init_addr = 32'h0000_0280; init_addr < 32'h0000_02bf; init_addr = init_addr + 1)
-        this.mem_entries[init_addr] = init_addr - 32'h0000_0280;
+    for(init_addr = BASE_ADDR; init_addr < END_ADDR; init_addr = init_addr + 4)
+        this.mem_entries[init_addr >> 2] = (init_addr >> 2) - (BASE_ADDR >> 2);
 
     this.mem_ready = 0;
 endfunction
