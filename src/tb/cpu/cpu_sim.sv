@@ -77,7 +77,7 @@ endclass
 module cpu_sim #(
     parameter REQ_FREQ_CYCLES=10,
     parameter HOLD=15,
-    parameter BASE_ADDR=32'h0000_0a00,
+    parameter BASE_ADDR=32'h0000_0a00
 ) (
     ahb_lite.master cpu_intf
 );
