@@ -104,7 +104,6 @@ transfer_handler cpu_cache_transfer_handler_inst(
     .trans_out(trans_out)
 );
 
-
 logic [31:0] mem_idx, mem_data_exp;
 sim_addr_data_mapping_gen #(.BASE_ADDR(BASE_ADDR)) sim_addr_data_mapping_gen_inst(
     .addr(local_addr),

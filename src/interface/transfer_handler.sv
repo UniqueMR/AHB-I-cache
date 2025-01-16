@@ -71,7 +71,7 @@ always_comb begin
                 next_trans_out = NONSEQ;
             end
             else begin
-                next_trans_out = cnt_burst < 2'b11 ? SEQ : IDLE;
+                next_trans_out = hready ? (cnt_burst < 2'b11 ? SEQ : IDLE) : trans_out;
                 next_offset_addr = (next_trans_out == TRANS_TYPES'(SEQ) && hready) ? ((offset_addr + 4) == 32'h10 ? 0 : offset_addr + 4) : offset_addr;
                 next_base_addr = base_addr;
                 next_addr = (next_trans_out == TRANS_TYPES'(SEQ) && hready) ? next_base_addr + next_offset_addr : local_addr;
