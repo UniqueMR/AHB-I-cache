@@ -47,6 +47,10 @@ add wave -position end sim:/$TB_EXEC/$DOWNSTREAM/trans_out
 
 add wave -position end sim:/$TB_EXEC/$DUT/cache_mem_transfer_handler_inst/cnt_burst
 add wave -position end sim:/$TB_EXEC/$DUT/cache_mem_transfer_handler_inst/next_cnt_burst
+add wave -position end sim:/$TB_EXEC/$DUT/cache_mem_transfer_handler_inst/base_addr
+add wave -position end sim:/$TB_EXEC/$DUT/cache_mem_transfer_handler_inst/offset_addr
+add wave -position end sim:/$TB_EXEC/$DUT/cache_mem_transfer_handler_inst/next_base_addr
+add wave -position end sim:/$TB_EXEC/$DUT/cache_mem_transfer_handler_inst/next_offset_addr
 
 run -all
 quit
