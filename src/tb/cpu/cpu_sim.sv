@@ -118,7 +118,7 @@ endproperty
 
 assert property (check_hrdata_valid) else $error("hrdata mismatched: expected=%0h, actual=%0h", mem_data_exp, cpu_intf.hrdata);
 
-reg [3:0] request_delay_counter; 
+reg [7:0] request_delay_counter; 
 
     initial begin
         driver_obj = new();
