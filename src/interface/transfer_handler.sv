@@ -11,8 +11,9 @@ module transfer_handler(
     input [1:0] htrans,
     
     output [31:0] read_addr,
+    output [3:0] read_addr_offset,
     output reg [1:0] trans_out,
-    output [3:0] read_addr_offset
+    output reg ready_out
 );
 
 parameter WRAP4_BOUNDARY_MASK = 32'hFFFF_FFF0;
@@ -85,5 +86,15 @@ end
 
 assign read_addr = base_addr + offset_addr;
 assign read_addr_offset = offset_addr[3:0];
+
+always_ff @(posedge clk or negedge rstn) begin
+    if(~rstn) ready_out <= 0;
+    else begin
+        case(burst_type)
+            SINGLE: ready_out <= hready && cnt_burst == 4'd1;
+            WRAP4: ready_out <= hready && cnt_burst == 4'd4;
+        endcase
+    end 
+end
 
 endmodule

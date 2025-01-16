@@ -101,7 +101,8 @@ transfer_handler cache_mem_transfer_handler_inst(
 
     .read_addr(mem_addr),
     .read_addr_offset(mem_addr_offset),
-    .trans_out(mem_trans_out)
+    .trans_out(mem_trans_out),
+    .ready_out(mem_burst_ready)
 );
 
 logic [1:0] last_mem_trans_out;
@@ -135,6 +136,5 @@ end
 
 assign downstream_intf.htrans = hit ? TRANS_TYPES'(IDLE) : ((trans_out == TRANS_TYPES'(NONSEQ) && trans_out_r == TRANS_TYPES'(IDLE)) ? TRANS_TYPES'(NONSEQ) : TRANS_TYPES'(IDLE));
 assign downstream_intf.hburst = TRANS_TYPES'(WRAP4);
-assign mem_burst_ready = last_mem_trans_out == TRANS_TYPES'(SEQ) && mem_trans_out == TRANS_TYPES'(IDLE); 
 
 endmodule
