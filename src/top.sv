@@ -116,7 +116,7 @@ always_ff @(posedge downstream_intf.hclk or negedge downstream_intf.hrstn) begin
 
     else if(downstream_intf.hready) begin
         last_mem_trans_out <= mem_trans_out; 
-        if(last_mem_trans_out == TRANS_TYPES'(NONSEQ) || last_mem_trans_out == TRANS_TYPES'(SEQ))
+        if(mem_trans_out == TRANS_TYPES'(NONSEQ) || mem_trans_out == TRANS_TYPES'(SEQ))
             case(mem_addr_offset)
                 4'h0: cache_mem_buf[31:0] <= downstream_intf.hrdata;
                 4'h4: cache_mem_buf[63:32] <= downstream_intf.hrdata;
