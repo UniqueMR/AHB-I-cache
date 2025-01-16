@@ -91,7 +91,8 @@ sim_addr_data_mapping_gen #(.BASE_ADDR(BASE_ADDR)) sim_addr_data_mapping_gen_ins
     .sim_data_exp(mem_data_exp)
 );
 
-property check_hrdata_valid @(posedge cpu_intf.hclk);
+property check_hrdata_valid;
+ @(posedge cpu_intf.hclk)
     (cpu_intf.hready) |-> (mem_data_exp == cpu_intf.hrdata);
 endproperty
 
